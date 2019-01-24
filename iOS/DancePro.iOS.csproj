@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectGuid>{29DC79FC-DEBE-4DAB-B4E3-CACCC81A6254}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DancePro.iOS</RootNamespace>
+    <AssemblyName>DancePro.iOS</AssemblyName>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <IOSDebuggerPort>20711</IOSDebuggerPort>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>ARM64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <IOSDebuggerPort>48565</IOSDebuggerPort>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>ARM64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Share.Abstractions">
+      <HintPath>..\packages\Plugin.Share.7.0.1\lib\Xamarin.iOS10\Plugin.Share.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Share">
+      <HintPath>..\packages\Plugin.Share.7.0.1\lib\Xamarin.iOS10\Plugin.Share.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Connectivity.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.2\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Connectivity">
+      <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.2\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\First.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed.png" />
+    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed%402x.png" />
+    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about.png" />
+    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about%403x.png" />
+    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo.png" />
+    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%402x.png" />
+    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%403x.png" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Home.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Media.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Photo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Video.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Contact.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Contact.imageset\Mail.png" />
+    <ImageAsset Include="Assets.xcassets\Contact.imageset\Mail 2x.png" />
+    <ImageAsset Include="Assets.xcassets\Contact.imageset\Mail 3x.png" />
+    <ImageAsset Include="Assets.xcassets\Video.imageset\Video.png" />
+    <ImageAsset Include="Assets.xcassets\Video.imageset\Video 2x.png" />
+    <ImageAsset Include="Assets.xcassets\Video.imageset\Video 3x.png" />
+    <ImageAsset Include="Assets.xcassets\Photo.imageset\Photo.png" />
+    <ImageAsset Include="Assets.xcassets\Photo.imageset\Photo 2x.png" />
+    <ImageAsset Include="Assets.xcassets\Photo.imageset\Photo 3x.png" />
+    <ImageAsset Include="Assets.xcassets\Media.imageset\Media.png" />
+    <ImageAsset Include="Assets.xcassets\Media.imageset\Media 2x.png" />
+    <ImageAsset Include="Assets.xcassets\Media.imageset\Media 3x.png" />
+    <ImageAsset Include="Assets.xcassets\Home.imageset\Home.png" />
+    <ImageAsset Include="Assets.xcassets\Home.imageset\Home 2x.png" />
+    <ImageAsset Include="Assets.xcassets\Home.imageset\Home 3x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone and iPad Notification IOS 7-12 x2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Notification IOS 7-12 x3.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone x3.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Spotlight IOS 7-12 x2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone App IOS 7-12 x2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone App IOS 7-12 x3.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP App Store IOS.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Pro App IOS 9-12 x2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad App IOS 7-12 x2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Notifications IOS 7-12 x1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Spotlight x2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
+    <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.designer.cs">
+      <DependentUpon>BrowseItemDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\AboutViewController.cs" />
+    <Compile Include="ViewControllers\AboutViewController.designer.cs">
+      <DependentUpon>AboutViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\BrowseViewController.cs" />
+    <Compile Include="ViewControllers\BrowseViewController.designer.cs">
+      <DependentUpon>BrowseViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\ItemNewViewController.cs" />
+    <Compile Include="ViewControllers\ItemNewViewController.designer.cs">
+      <DependentUpon>ItemNewViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\TabBarController.cs" />
+    <Compile Include="ViewControllers\TabBarController.designer.cs">
+      <DependentUpon>TabBarController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="ViewControllers\MenuViewController.cs" />
+    <Compile Include="ViewControllers\MenuViewController.designer.cs">
+      <DependentUpon>MenuViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WKWebKit.cs" />
+    <Compile Include="WKWebKit.designer.cs">
+      <DependentUpon>WKWebKit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\ContactViewController.cs" />
+    <Compile Include="ViewControllers\ContactViewController.designer.cs">
+      <DependentUpon>ContactViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cont.cs" />
+    <Compile Include="cont.designer.cs">
+      <DependentUpon>cont.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\PhotosViewController.cs" />
+    <Compile Include="ViewControllers\PhotosViewController.designer.cs">
+      <DependentUpon>PhotosViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MyMediaViewController.cs" />
+    <Compile Include="ViewControllers\MyMediaViewController.designer.cs">
+      <DependentUpon>MyMediaViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaUICollectionViewCell.cs" />
+    <Compile Include="MediaUICollectionViewCell.designer.cs">
+      <DependentUpon>MediaUICollectionViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MyMediaUICollectionDataSource.cs" />
+    <Compile Include="ViewControllers\MyMediaUICollectionDataSource.designer.cs">
+      <DependentUpon>MyMediaUICollectionDataSource.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entitlements.plist" />
+    <None Include="Info.plist" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="MediaUICollectionViewCell.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\Home.imageset\" />
+    <Folder Include="Assets.xcassets\Home.imageset\" />
+    <Folder Include="Assets.xcassets\Media.imageset\" />
+    <Folder Include="Assets.xcassets\Photo.imageset\" />
+    <Folder Include="Assets.xcassets\Video.imageset\" />
+    <Folder Include="Assets.xcassets\Contact.imageset\" />
+    <Folder Include="Files\" />
+  </ItemGroup>
+  <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>
