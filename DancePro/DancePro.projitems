@@ -23,5 +23,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MediaItemViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileTransferService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\HttpServer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AsyncHttpServer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\HttpRequestHandler.cs" />
   </ItemGroup>
 </Project>

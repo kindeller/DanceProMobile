@@ -1,39 +1,39 @@
-﻿using System;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Threading.Tasks;
+using System.Web;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Collections.Generic;
+using System;
 
 namespace DancePro.Services
 {
     public class FileTransferService
     {
-        HttpListener listener = new HttpListener();
-
+        HttpRequestHandler handler;
+        List<string> prefixes = new List<string>();
+        public int Port { get; }
         public FileTransferService()
         {
-            listener.Prefixes.Add("http://localhost:3045/");
+            //GetRandomPort
+            //Port = new Random().Next(8081, 65535);
+            Port = 3045; //Temp testing value
+
+            handler = new HttpRequestHandler("./Root");
+            prefixes.Add($"http://localhost:{Port}/");
+
+
+
         }
 
-
-        public void CloseServer() {
-
-            listener.Stop();
+        public void Connect() {
+            handler.ListenAsynchronously(prefixes);
         }
 
-        //TODO: Convert to Async function
-        public void StartServer() {
+        public void Disconnect() {
 
-            listener.Start();
-            HttpListenerContext context = listener.GetContext();
-            HttpListenerRequest request = context.Request;
-            HttpListenerResponse response = context.Response;
-            string responseString = "<HTML><BODY><h1>DancePro</h1></BODY></HTML>";
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
-            response.ContentLength64 = buffer.Length;
-            System.IO.Stream output = response.OutputStream;
-            output.Write(buffer, 0, buffer.Length);
-            // You must close the output stream.
-            output.Close();
+            handler.StopListening();
+
         }
 
     }

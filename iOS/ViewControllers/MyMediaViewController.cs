@@ -11,7 +11,6 @@ namespace DancePro.iOS.ViewControllers
     public partial class MyMediaViewController : UICollectionViewController
     {
         FileTransferService service = new FileTransferService();
-        private bool connecting = false;
 
         public MyMediaViewController(IntPtr intPtr) : base("MyMediaViewController", null)
         {
@@ -22,31 +21,16 @@ namespace DancePro.iOS.ViewControllers
         {
             if (sender.On)
             {
-                Connect(sender);
+                List<UIAlertAction> actions = new List<UIAlertAction>();
+                var action = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, alert => { service.Disconnect(); sender.On = false; });
+                actions.Add(action);
+                service.Connect();
+                Alert("Connecting...", $"Enter: http://localhost:{service.Port}", actions);
             }
             else
             {
-                Disconnect(sender);
+                service.Disconnect();
             }
-        }
-
-        private void Disconnect(UISwitch sender)
-        {
-            service.CloseServer();
-        }
-
-        public void Connect(UISwitch sender)
-        {
-
-            List<UIAlertAction> actions = new List<UIAlertAction>();
-            var action = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,alert => { sender.On = false;
-                connecting = false; });
-            actions.Add(action);
-
-            Alert("Connecting...", "Port: 827", actions);
-            connecting = true;
-            service.StartServer();
-
         }
 
 
