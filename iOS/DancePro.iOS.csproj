@@ -207,6 +207,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <None Include="packages.config" />
+    <None Include="Root\upload\UploadHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -223,6 +224,7 @@
     <Folder Include="Root\" />
     <Folder Include="Root\css\" />
     <Folder Include="Root\Files\" />
+    <Folder Include="Root\upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

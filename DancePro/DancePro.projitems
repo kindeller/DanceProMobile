@@ -26,5 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\HttpServer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\AsyncHttpServer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\HttpRequestHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MultipartParser.cs" />
   </ItemGroup>
 </Project>

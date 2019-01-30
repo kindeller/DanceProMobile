@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 
@@ -149,7 +150,6 @@ namespace DancePro.Services
             {
                 HttpListenerCallbackState callbackState = (HttpListenerCallbackState)ar.AsyncState;
                 HttpListenerContext context = null;
-                string filename = "";
 
                 int requestNumber = Interlocked.Increment(ref requestCounter);
 
@@ -168,87 +168,124 @@ namespace DancePro.Services
 
                 if (context == null) return;
 
+            switch (context.Request.HttpMethod) {
 
-                HttpListenerRequest request = context.Request;
+                case "GET":
+                    GET(context);
+                    break;
+                case "POST":
+                    POST(context);
+                    break;
+            }
 
-                    using (System.IO.StreamReader sr = new System.IO.StreamReader(request.InputStream, request.ContentEncoding))
-                    {
-                        string requestData = sr.ReadToEnd();
+            }
 
-                        // get filename path
-                        filename = context.Request.Url.AbsolutePath;
-                        if (filename != null) filename = filename.Substring(1);
+        private void GET(HttpListenerContext context) {
+            HttpListenerRequest request = context.Request;
+            string filename = "";
+            using (StreamReader sr = new StreamReader(request.InputStream, request.ContentEncoding))
+            {
+                string requestData = sr.ReadToEnd();
 
-                        // get default index file if needed
-                        if (string.IsNullOrEmpty(filename))
-                        {
-                            foreach (string indexFile in indexFiles)
-                            {
-                                string fullPath = Path.Combine(path, indexFile);
-                                if (File.Exists(fullPath))
-                                {
-                                    filename = indexFile;
-                                    break;
-                                }
-                            }
+                // get filename path
+                filename = context.Request.Url.AbsolutePath;
+                if (filename != null) filename = filename.Substring(1);
 
-                        }
-                        filename = Path.Combine(path, filename);
-                    }
-
-
-                try
+                // get default index file if needed
+                if (string.IsNullOrEmpty(filename))
                 {
-                    using (HttpListenerResponse response = context.Response)
+                    foreach (string indexFile in indexFiles)
                     {
-                        // send file
-                        HttpStatusCode statusCode;
-
-                        if (File.Exists(filename))
+                        string fullPath = Path.Combine(path, indexFile);
+                        if (File.Exists(fullPath))
                         {
-                            try
-                            {
-                                using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
-                                {
-                                    // get mime type TODO: Change to inbuilt mime type
-                                    context.Response.ContentType = mimeTypes[Path.GetExtension(filename)];
-                                    context.Response.ContentLength64 = stream.Length;
-
-                                    // copy file stream to response
-                                    stream.CopyTo(context.Response.OutputStream);
-                                    stream.Flush();
-                                    context.Response.OutputStream.Flush();
-                                    context.Response.OutputStream.Close();
-                                }
-
-                                statusCode = HttpStatusCode.OK;
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine("ERROR: " + e.Message);
-                                statusCode = HttpStatusCode.InternalServerError;
-                            }
+                            filename = indexFile;
+                            break;
                         }
-                        else
-                        {
-                            Console.WriteLine("File not found: " + filename);
-                            statusCode = HttpStatusCode.NotFound;
-                        }
-                        // finish
-                        context.Response.StatusCode = (int)statusCode;
-                        if (statusCode == HttpStatusCode.OK)
-                        {
-                            context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
-                            context.Response.AddHeader("Last-Modified", File.GetLastWriteTime(filename).ToString("r"));
-                        }
-
-                        response.Close();
                     }
+
                 }
-                catch (Exception e)
+                filename = Path.Combine(path, filename);
+            }
+
+
+            try
+            {
+                using (HttpListenerResponse response = context.Response)
                 {
-                    throw e;
+                    // send file
+                    HttpStatusCode statusCode;
+
+                    if (File.Exists(filename))
+                    {
+                        try
+                        {
+                            using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+                            {
+                                // get mime type TODO: Change to inbuilt mime type
+                                context.Response.ContentType = mimeTypes[Path.GetExtension(filename)];
+                                context.Response.ContentLength64 = stream.Length;
+
+                                // copy file stream to response
+                                stream.CopyTo(context.Response.OutputStream);
+                                stream.Flush();
+                                context.Response.OutputStream.Flush();
+                                context.Response.OutputStream.Close();
+                            }
+
+                            statusCode = HttpStatusCode.OK;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("ERROR: " + e.Message);
+                            statusCode = HttpStatusCode.InternalServerError;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("File not found: " + filename);
+                        statusCode = HttpStatusCode.NotFound;
+                    }
+                    // finish
+                    context.Response.StatusCode = (int)statusCode;
+                    if (statusCode == HttpStatusCode.OK)
+                    {
+                        context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
+                        context.Response.AddHeader("Last-Modified", File.GetLastWriteTime(filename).ToString("r"));
+                    }
+
+                    response.Close();
                 }
             }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+
+        private void POST(HttpListenerContext context) {
+            MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
+            if (parser.Success)
+            {
+                string fullPath = Path.GetFullPath(path) + "/Files/";
+                try
+                {
+                    if (Directory.Exists(fullPath))
+                    {
+                        string fileName = fullPath + parser.Filename;
+                        File.WriteAllBytes(fileName, parser.FileContents);
+                    }
+                    else
+                    {
+                        throw new Exception("No Valid Directory!");
+                    }
+                }
+                catch
+                {
+                    throw;
+                }
+
+            }
+        }
+    }
 }
