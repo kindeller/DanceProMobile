@@ -99,6 +99,9 @@
       <HintPath>..\packages\Xam.Plugin.Connectivity.3.2.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
+    <Reference Include="Xamarin.iOS.iCarousel.Binding">
+      <HintPath>..\packages\Xamarin.iOS.iCarousel.1.8.4\lib\Xamarin.iOS10\Xamarin.iOS.iCarousel.Binding.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -146,6 +149,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad App IOS 7-12 x2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Notifications IOS 7-12 x1.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Spotlight x2.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\folder.jpg" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\microphone-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -186,33 +193,75 @@
     <Compile Include="cont.designer.cs">
       <DependentUpon>cont.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\PhotosViewController.cs" />
-    <Compile Include="ViewControllers\PhotosViewController.designer.cs">
-      <DependentUpon>PhotosViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\MyMediaViewController.cs" />
     <Compile Include="ViewControllers\MyMediaViewController.designer.cs">
       <DependentUpon>MyMediaViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaUICollectionViewCell.cs" />
     <Compile Include="MediaUICollectionViewCell.designer.cs">
       <DependentUpon>MediaUICollectionViewCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewControllers\MyMediaUICollectionDataSource.cs" />
+    <Compile Include="ViewControllers\MyMediaUICollectionSource.cs" />
     <Compile Include="ViewControllers\MyMediaUICollectionDataSource.designer.cs">
-      <DependentUpon>MyMediaUICollectionDataSource.cs</DependentUpon>
+      <DependentUpon>MyMediaUICollectionSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaUICollectionView.cs" />
+    <Compile Include="MediaUICollectionView.designer.cs">
+      <DependentUpon>MediaUICollectionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyMediaViewCell.cs" />
+    <Compile Include="MyMediaViewCell.designer.cs">
+      <DependentUpon>MyMediaViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MediaObjectViewController.cs" />
+    <Compile Include="ViewControllers\MediaObjectViewController.designer.cs">
+      <DependentUpon>MediaObjectViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaCarouselDataSource.cs" />
+    <Compile Include="MediaCarouselDelegate.cs" />
+    <Compile Include="ViewControllers\AudioObjectViewController.cs" />
+    <Compile Include="ViewControllers\AudioObjectViewController.designer.cs">
+      <DependentUpon>AudioObjectViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\IMediaObjectController.cs" />
+    <Compile Include="ViewControllers\VideoObjectViewController.cs" />
+    <Compile Include="ViewControllers\VideoObjectViewController.designer.cs">
+      <DependentUpon>VideoObjectViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\MediaObjectEditController.cs" />
+    <Compile Include="ViewControllers\MediaObjectEditController.designer.cs">
+      <DependentUpon>MediaObjectEditController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <None Include="packages.config" />
+    <None Include="Root\server\.DS_Store" />
+    <None Include="Root\server\gae-go\app.yaml" />
+    <None Include="Root\server\gae-go\main.go" />
+    <None Include="Root\server\gae-go\static\favicon.ico" />
+    <None Include="Root\server\gae-go\static\robots.txt" />
+    <None Include="Root\server\gae-python\app.yaml" />
+    <None Include="Root\server\gae-python\main.py" />
+    <None Include="Root\server\gae-python\static\favicon.ico" />
+    <None Include="Root\server\gae-python\static\robots.txt" />
+    <None Include="Root\server\php\.DS_Store" />
+    <None Include="Root\server\php\Dockerfile" />
+    <None Include="Root\server\php\docker-compose.yml" />
+    <None Include="Root\server\php\files\.gitignore" />
+    <None Include="Root\server\php\files\.htaccess" />
+    <None Include="Root\server\dotnet\UploadHandler.cs" />
+    <None Include="Root\server\dotnet\Default.aspx" />
+    <None Include="Root\server\dotnet\Default.aspx.cs" />
     <None Include="Root\upload\UploadHandler.cs" />
+    <None Include="MediaUICollectionViewCell.cs" />
+    <None Include="MediaUICollectionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="MediaUICollectionViewCell.xib" />
+    <InterfaceDefinition Include="ViewControllers\MediaItemViewController.xib" />
+    <InterfaceDefinition Include="ViewControllers\VideoObjectViewController1.xib" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\Home.imageset\" />
@@ -223,8 +272,11 @@
     <Folder Include="Assets.xcassets\Contact.imageset\" />
     <Folder Include="Root\" />
     <Folder Include="Root\css\" />
-    <Folder Include="Root\Files\" />
     <Folder Include="Root\upload\" />
+    <Folder Include="Root\server\dotnet\" />
+    <Folder Include="Media\" />
+    <Folder Include="Assets.xcassets\Folder.imageset\" />
+    <Folder Include="Assets.xcassets\Audio.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">
@@ -233,9 +285,37 @@
     <Content Include="Root\css\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Root\css\jquery.fileupload-noscript.css" />
+    <Content Include="Root\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="Root\css\jquery.fileupload-ui.css" />
+    <Content Include="Root\css\jquery.fileupload.css" />
+    <Content Include="Root\server\php\UploadHandler.php" />
+    <Content Include="Root\server\php\index.php" />
+    <Content Include="Root\js\.DS_Store" />
+    <Content Include="Root\js\app.js" />
+    <Content Include="Root\js\jquery.fileupload-angular.js" />
+    <Content Include="Root\js\jquery.fileupload-audio.js" />
+    <Content Include="Root\js\jquery.fileupload-image.js" />
+    <Content Include="Root\js\jquery.fileupload-jquery-ui.js" />
+    <Content Include="Root\js\jquery.fileupload-process.js" />
+    <Content Include="Root\js\jquery.fileupload-ui.js" />
+    <Content Include="Root\js\jquery.fileupload-validate.js" />
+    <Content Include="Root\js\jquery.fileupload-video.js" />
+    <Content Include="Root\js\jquery.fileupload.js" />
+    <Content Include="Root\js\jquery.iframe-transport.js" />
+    <Content Include="Root\js\main.js" />
+    <Content Include="Root\js\vendor\jquery.ui.widget.js" />
+    <Content Include="Root\js\cors\jquery.postmessage-transport.js" />
+    <Content Include="Root\js\cors\jquery.xdr-transport.js" />
+    <Content Include="Media\Clean Bandit - Baby.mp3" />
+    <Content Include="Media\PDC 818_03_25_03.mp4" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Root\Files\IMG_0003.JPG" />
+    <BundleResource Include="Media\IMG_0003.JPG" />
+    <BundleResource Include="Media\IMG_1536.JPG" />
+    <BundleResource Include="Media\IMG_0002.JPG" />
+    <BundleResource Include="Media\IMG_1535.JPG" />
+    <BundleResource Include="Media\red-square-png-14.png" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

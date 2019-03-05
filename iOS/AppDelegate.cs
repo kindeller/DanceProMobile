@@ -10,6 +10,8 @@ namespace DancePro.iOS
     {
         // class-level declarations
 
+            public Services.MediaService MediaService { get; private set; }
+
         public override UIWindow Window
         {
             get;
@@ -20,7 +22,7 @@ namespace DancePro.iOS
         {
             App.Initialize();
 
-
+            MediaService = new Services.MediaService(); 
 
             return true;
         }

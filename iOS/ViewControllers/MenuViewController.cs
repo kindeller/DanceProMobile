@@ -16,7 +16,6 @@ namespace DancePro.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
             Title = ViewModel.Title;
         }
 

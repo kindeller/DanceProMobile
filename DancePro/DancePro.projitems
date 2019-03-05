@@ -27,5 +27,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\AsyncHttpServer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\HttpRequestHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\MultipartParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MediaObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PhotoResizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Thumbnail.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ImageObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MediaService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AudioObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\VideoObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMediaObject.cs" />
   </ItemGroup>
 </Project>

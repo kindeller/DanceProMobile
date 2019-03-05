@@ -11,8 +11,8 @@ using UIKit;
 
 namespace DancePro.iOS.ViewControllers
 {
-    [Register ("MyMediaUICollectionDataSource")]
-    partial class MyMediaUICollectionDataSource
+    [Register ("MyMediaUICollectionSource")]
+    partial class MyMediaUICollectionSource
     {
         void ReleaseDesignerOutlets ()
         {

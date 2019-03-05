@@ -9,7 +9,7 @@ namespace DancePro.iOS
     {
 
         
-
+NSString
         MediaItemViewModel ViewModel = new MediaItemViewModel();
 
         public MediaUICollectionViewCell() : base()

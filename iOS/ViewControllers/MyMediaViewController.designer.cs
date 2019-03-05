@@ -20,7 +20,7 @@ namespace DancePro.iOS.ViewControllers
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UICollectionView MediaItemsCollectionView { get; set; }
+        UIKit.UICollectionView MediaCollectionView { get; set; }
 
         [Action ("OnConnectSwitchChanged:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -33,9 +33,9 @@ namespace DancePro.iOS.ViewControllers
                 ConnectSwitch = null;
             }
 
-            if (MediaItemsCollectionView != null) {
-                MediaItemsCollectionView.Dispose ();
-                MediaItemsCollectionView = null;
+            if (MediaCollectionView != null) {
+                MediaCollectionView.Dispose ();
+                MediaCollectionView = null;
             }
         }
     }

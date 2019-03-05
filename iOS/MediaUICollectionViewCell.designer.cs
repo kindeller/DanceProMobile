@@ -14,16 +14,8 @@ namespace DancePro.iOS
     [Register ("MediaUICollectionViewCell")]
     partial class MediaUICollectionViewCell
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel TitleLabel { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (TitleLabel != null) {
-                TitleLabel.Dispose ();
-                TitleLabel = null;
-            }
         }
     }
 }

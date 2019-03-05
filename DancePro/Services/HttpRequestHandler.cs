@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
+using DancePro.Services;
+using Newtonsoft.Json;
 
 namespace DancePro.Services
 {
@@ -267,25 +269,50 @@ namespace DancePro.Services
             MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
             if (parser.Success)
             {
-                string fullPath = Path.GetFullPath(path) + "/Files/";
+                string fullPath = Path.GetFullPath("./Media/");
                 try
                 {
                     if (Directory.Exists(fullPath))
                     {
                         string fileName = fullPath + parser.Filename;
                         File.WriteAllBytes(fileName, parser.FileContents);
+                        context.Response.StatusCode = 204;
+                        context.Response.Close();
                     }
                     else
                     {
-                        throw new Exception("No Valid Directory!");
+                        Directory.CreateDirectory(fullPath);
+                        string fileName = fullPath + parser.Filename;
+                        File.WriteAllBytes(fileName, parser.FileContents);
+                        context.Response.StatusCode = 204;
+                        context.Response.Close();
                     }
                 }
                 catch
                 {
+                    context.Response.StatusCode = 500;
+                    context.Response.Close();
                     throw;
                 }
 
             }
         }
+    }
+
+    //TODO: Update File info handling and response to request
+    public class UploadFileInfo
+    {
+        public string name { get; set; }
+        public long size { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        public string type { get; set; }
+        public string dir { get; set; }
+        public string url { get; set; }
+        public string thumbnail_url { get; set; }
+        public string error { get; set; }
+        public string delete_type { get; set; }
+        public string delete_url { get; set; }
+        public Dictionary<string, UploadFileInfo> image_versions { get; set; }
     }
 }
