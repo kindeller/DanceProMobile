@@ -8,6 +8,9 @@ namespace DancePro.Services
 {
     public class MediaService
     {
+        private const string MediaPath = "./Library/Media/";
+        private const int FileWarningThreshhold = 25;
+
         public static IDictionary<string, MediaTypes> FileToMediaTypes = new Dictionary<string, MediaTypes>(StringComparer.InvariantCultureIgnoreCase)
         {
             {".jpg",MediaTypes.Image},
@@ -26,6 +29,14 @@ namespace DancePro.Services
             return type;
         }
 
+        public string GetMediaPath() {
+            return Path.GetFullPath(MediaPath);
+        }
+
+        public DirectoryInfo GetMediaPathDirectory() {
+            return new DirectoryInfo(MediaPath);
+        }
+
 
         public static NSString GetSegueString(MediaObject obj) {
 
@@ -41,6 +52,14 @@ namespace DancePro.Services
             }
         }
 
+        public List<MediaObject> GetMediaFromFolder() {
+
+            return GetMediaFromFolder(MediaPath);
+        }
+
+        public List<MediaObject> GetMediaFromFolder(DirectoryInfo dir) {
+            return GetMediaFromFolder(dir.FullName);
+        }
 
         public List<MediaObject> GetMediaFromFolder(string folderPath)
         {
@@ -54,6 +73,11 @@ namespace DancePro.Services
                 mediaObjects.Add(GetMediaObject(file));
             }
 
+           var directories = Directory.GetDirectories(folderPath);
+
+            foreach(var directory in directories) {
+                mediaObjects.Add(new MediaObject(directory));
+            }
 
             return mediaObjects;
         }
@@ -131,18 +155,27 @@ namespace DancePro.Services
         {
             try 
             {
-                if (File.Exists(obj.FilePath))
+                if (File.Exists(obj.FilePath) && obj.MediaType != MediaTypes.Other)
                 {
                     var filename = Path.GetFileNameWithoutExtension(obj.FilePath);
                     filename = string.Concat(filename, "Copy", Path.GetExtension(obj.FilePath));
                     var dest = Path.GetDirectoryName(obj.FilePath);
-                    dest = string.Concat(dest, filename);
+                    dest = Path.Combine(dest, filename);
                     File.Copy(obj.FilePath, dest);
                     return true;
                 }
                 else
                 {
-                    return false;
+                    if(obj.MediaType == MediaTypes.Other) {
+
+                        //if (isUnderMaxFileThreadshold(obj.FilePath)) {
+                        throw new NotImplementedException("The Duplication of Folders is not yet Supported.");
+                        //}
+
+                    }
+                    else {
+                        return false;
+                    }
                 }
 
             }
@@ -153,13 +186,82 @@ namespace DancePro.Services
             }
         }
 
+
+
         public bool DeleteMediaObject(MediaObject obj) 
         {
+            try
+            {
+                File.Delete(obj.FilePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
 
-
-
+        public bool CreateFolder(string folderName, string path)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(path)) {
+                    path = Path.GetFullPath(MediaPath);
+                }
+                string newFolder = Path.Combine(path, folderName);
+                if (!Directory.Exists(newFolder)) {
+                    Directory.CreateDirectory(newFolder);
+                }
+                else {
+                    throw new IOException("Cannot create Directory as it already exists.");
+                }
+            }
+            catch(Exception e) {
+                Console.WriteLine(e.Message);
+                return false;
+            }
 
             return true;
+        }
+
+        public bool isValidFolderName(string folder) {
+
+            var invalid = Path.GetInvalidPathChars();
+            foreach(var c in invalid) {
+
+                if (folder.Contains(c)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool isValidFileName(string filename) {
+
+            var invalid = Path.GetInvalidFileNameChars();
+            foreach (var c in invalid)
+            {
+
+                if (filename.Contains(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool isUnderMaxFileThreadshold(string _directory) {
+            DirectoryInfo directory = new DirectoryInfo(_directory);
+            var fileTotal = directory.GetFiles().Length;
+
+            foreach (var dir in directory.GetDirectories())
+            {
+                fileTotal += dir.GetFiles().Length;
+            }
+
+            return (fileTotal < FileWarningThreshhold) ? true : false;
         }
 
     }

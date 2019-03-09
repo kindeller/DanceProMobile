@@ -21,9 +21,6 @@ namespace DancePro.Services
 
             handler = new HttpRequestHandler("./Root");
             prefixes.Add($"http://localhost:{Port}/");
-
-
-
         }
 
         public void Connect() {

@@ -1,4 +1,5 @@
 ﻿using System;
+using DancePro.Services;
 
 namespace DancePro
 {
@@ -6,6 +7,8 @@ namespace DancePro
     {
         public static bool UseMockDataStore = true;
         public static string BackendUrl = "http://localhost:5000";
+        public static FileTransferService FileTransferService;
+        public static MediaService MediaService;
 
         public static void Initialize()
         {
@@ -13,6 +16,11 @@ namespace DancePro
                 ServiceLocator.Instance.Register<IDataStore<Item>, MockDataStore>();
             else
                 ServiceLocator.Instance.Register<IDataStore<Item>, CloudDataStore>();
+
+            FileTransferService = new FileTransferService();
+            MediaService = new MediaService();
         }
+
+
     }
 }

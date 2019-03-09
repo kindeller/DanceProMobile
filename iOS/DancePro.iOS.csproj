@@ -274,9 +274,10 @@
     <Folder Include="Root\css\" />
     <Folder Include="Root\upload\" />
     <Folder Include="Root\server\dotnet\" />
-    <Folder Include="Media\" />
     <Folder Include="Assets.xcassets\Folder.imageset\" />
     <Folder Include="Assets.xcassets\Audio.imageset\" />
+    <Folder Include="Library\" />
+    <Folder Include="Library\Media\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">
@@ -307,15 +308,15 @@
     <Content Include="Root\js\vendor\jquery.ui.widget.js" />
     <Content Include="Root\js\cors\jquery.postmessage-transport.js" />
     <Content Include="Root\js\cors\jquery.xdr-transport.js" />
-    <Content Include="Media\Clean Bandit - Baby.mp3" />
-    <Content Include="Media\PDC 818_03_25_03.mp4" />
+    <Content Include="Library\Media\Clean Bandit - Baby.mp3" />
+    <Content Include="Library\Media\PDC 818_03_25_03.mp4" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Media\IMG_0003.JPG" />
-    <BundleResource Include="Media\IMG_1536.JPG" />
-    <BundleResource Include="Media\IMG_0002.JPG" />
-    <BundleResource Include="Media\IMG_1535.JPG" />
-    <BundleResource Include="Media\red-square-png-14.png" />
+    <BundleResource Include="Library\Media\IMG_0002.JPG" />
+    <BundleResource Include="Library\Media\IMG_0003.JPG" />
+    <BundleResource Include="Library\Media\IMG_1535.JPG" />
+    <BundleResource Include="Library\Media\IMG_1536.JPG" />
+    <BundleResource Include="Library\Media\red-square-png-14.png" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

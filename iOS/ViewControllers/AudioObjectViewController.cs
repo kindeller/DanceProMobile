@@ -78,7 +78,6 @@ namespace DancePro.iOS.ViewControllers
         {
             if (sender.Value < Asset.Duration.Seconds)
             {
-                //TODO: Fix the slider to equal the full duration for the song so the value matches
                 Player.CurrentTime = sender.Value;
             }
         }

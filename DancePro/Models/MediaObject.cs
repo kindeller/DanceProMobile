@@ -40,6 +40,7 @@ namespace DancePro.Models
             DateCreated = File.GetCreationTime(filePath);
             Thumb = UIImage.FromBundle("Folder");
             SegueString = new NSString("Folder");
+            MediaType = MediaTypes.Other;
         }
 
         public virtual UIView GetDetailView(UIViewController mainController)

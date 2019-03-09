@@ -269,6 +269,7 @@ namespace DancePro.Services
             MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
             if (parser.Success)
             {
+                //TODO: Update for handling incoming file path info and creation in correct location.
                 string fullPath = Path.GetFullPath("./Media/");
                 try
                 {

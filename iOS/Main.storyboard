@@ -341,6 +341,7 @@
                         <segue id="42438" destination="26556" kind="show" identifier="ImageSegue"/>
                         <segue id="42516" destination="42441" kind="show" identifier="VideoSegue"/>
                         <segue id="63725" destination="63442" kind="presentation" identifier="ShowMenu" modalPresentationStyle="overFullScreen"/>
+                        <outlet property="ConnectLabel" destination="8358" id="name-outlet-8358"/>
                     </connections>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>

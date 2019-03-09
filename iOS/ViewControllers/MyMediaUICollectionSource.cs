@@ -9,7 +9,7 @@ namespace DancePro.iOS.ViewControllers
 {
     public partial class MyMediaUICollectionSource : UICollectionViewSource
     {
-        List<MediaObject> MediaObjects { get; set; }
+        public List<MediaObject> MediaObjects { get; set; }
 
         private MyMediaViewController ViewController { get; set; }
 
@@ -55,10 +55,8 @@ namespace DancePro.iOS.ViewControllers
             }
             else
             {
-                ViewController.UpdateMediaPath(cell.MediaObject.FilePath);
+                ViewController.ChangeDirectory(cell.MediaObject.FilePath);
             }
-
-
         }
 
     }

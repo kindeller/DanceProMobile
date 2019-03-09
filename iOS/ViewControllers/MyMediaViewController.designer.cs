@@ -16,6 +16,10 @@ namespace DancePro.iOS.ViewControllers
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel ConnectLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UISwitch ConnectSwitch { get; set; }
 
         [Outlet]
@@ -28,6 +32,11 @@ namespace DancePro.iOS.ViewControllers
 
         void ReleaseDesignerOutlets ()
         {
+            if (ConnectLabel != null) {
+                ConnectLabel.Dispose ();
+                ConnectLabel = null;
+            }
+
             if (ConnectSwitch != null) {
                 ConnectSwitch.Dispose ();
                 ConnectSwitch = null;
