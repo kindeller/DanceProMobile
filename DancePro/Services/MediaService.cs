@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using DancePro.Models;
 using Foundation;
+using UIKit;
 
 namespace DancePro.Services
 {
     public class MediaService
     {
-        private const string MediaPath = "./Library/Media/";
+        private string MediaPath = string.Empty;
         private const int FileWarningThreshhold = 25;
 
         public static IDictionary<string, MediaTypes> FileToMediaTypes = new Dictionary<string, MediaTypes>(StringComparer.InvariantCultureIgnoreCase)
@@ -21,6 +22,17 @@ namespace DancePro.Services
             {".wav",MediaTypes.Audio}
 
         };
+
+        public MediaService()
+        {
+            MediaPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            var LibraryPath = Path.Combine(MediaPath + "/Library/");
+            if (!Directory.Exists(LibraryPath)) {
+                Directory.CreateDirectory(LibraryPath);
+            }
+            MediaPath = LibraryPath;
+
+        }
 
         public static MediaTypes GetMediaType(string filePath)
         {
@@ -111,7 +123,7 @@ namespace DancePro.Services
                 if (File.Exists(obj.FilePath))
                 {
                     var directory = Path.GetDirectoryName(obj.FilePath);
-                    var dest = Path.Combine(directory, obj.FileName);
+                    var dest = Path.Combine(destPath, obj.FileName);
                     File.Move(obj.FilePath, dest);
                 }
                 else
@@ -200,6 +212,47 @@ namespace DancePro.Services
                 return false;
             }
             return true;
+        }
+
+        public bool RenameFolder(MediaObject obj, string newName) {
+            try {
+
+                var newPath = Path.Combine(Path.GetDirectoryName(obj.FilePath), newName);
+                Directory.Move(obj.FilePath, newPath);
+                return true;
+
+            }catch(IOException e) {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public bool MoveFolder(MediaObject folderToMove, MediaObject destFolder) {
+
+            try {
+                var newDir = Path.Combine(destFolder.FilePath + "/" + folderToMove.FileName);
+                Directory.Move(folderToMove.FilePath, newDir);
+                return true;
+            }catch(IOException e) {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public bool DeleteFolder(MediaObject obj)
+        {
+
+            try
+            {
+                Directory.Delete(obj.FilePath, true);
+                return true;
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
         }
 
         public bool CreateFolder(string folderName, string path)

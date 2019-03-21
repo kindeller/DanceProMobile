@@ -18,7 +18,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Aaron Clifford (B6R53726FU)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
@@ -64,7 +64,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Aaron Clifford (B6R53726FU)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -76,6 +76,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>Aarons iPhone Test Profile</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -150,9 +151,11 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Notifications IOS 7-12 x1.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Spotlight x2.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Folder.imageset\folder.jpg" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\microphone-icon.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 30.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 60.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 90.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -276,8 +279,6 @@
     <Folder Include="Root\server\dotnet\" />
     <Folder Include="Assets.xcassets\Folder.imageset\" />
     <Folder Include="Assets.xcassets\Audio.imageset\" />
-    <Folder Include="Library\" />
-    <Folder Include="Library\Media\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">
@@ -308,15 +309,6 @@
     <Content Include="Root\js\vendor\jquery.ui.widget.js" />
     <Content Include="Root\js\cors\jquery.postmessage-transport.js" />
     <Content Include="Root\js\cors\jquery.xdr-transport.js" />
-    <Content Include="Library\Media\Clean Bandit - Baby.mp3" />
-    <Content Include="Library\Media\PDC 818_03_25_03.mp4" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Library\Media\IMG_0002.JPG" />
-    <BundleResource Include="Library\Media\IMG_0003.JPG" />
-    <BundleResource Include="Library\Media\IMG_1535.JPG" />
-    <BundleResource Include="Library\Media\IMG_1536.JPG" />
-    <BundleResource Include="Library\Media\red-square-png-14.png" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

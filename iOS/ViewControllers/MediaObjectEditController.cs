@@ -75,7 +75,7 @@ namespace DancePro.iOS.ViewControllers
             alert.AddTextField((obj) => obj.Text = System.IO.Path.GetFileNameWithoutExtension(MediaObject.FileName));
             var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
-                App.MediaService.RenameMediaObject(MediaObject, alert.TextFields[0].Text);
+                var isSuccess = (MediaObject.MediaType == MediaTypes.Other) ? App.MediaService.RenameFolder(MediaObject, alert.TextFields[0].Text) : App.MediaService.RenameMediaObject(MediaObject, alert.TextFields[0].Text);
                 controller.GetMedia();
             });
             alert.AddAction(actionCancel);
@@ -88,11 +88,13 @@ namespace DancePro.iOS.ViewControllers
             var isSuccess = false;
             var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,null);
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
-                isSuccess = App.MediaService.DeleteMediaObject(MediaObject);
+                isSuccess = MediaObject.MediaType == MediaTypes.Other ? App.MediaService.DeleteFolder(MediaObject) : App.MediaService.DeleteMediaObject(MediaObject);
                 controller.GetMedia();
                 DismissViewController(true, null);
             });
-            var alert = UIAlertController.Create("Confirm", "Are you sure you want to delete " + MediaObject.FileName, UIAlertControllerStyle.Alert);
+
+            var Message = (MediaObject.MediaType == MediaTypes.Other) ? "Are you sure you want to delete the folder \"" + MediaObject.FileName + "\" and all it's contents?" : "Are you sure you want to delete the file " + MediaObject.FileName;
+            var alert = UIAlertController.Create("Confirm",Message, UIAlertControllerStyle.Alert);
             alert.AddAction(actionCancel);
             alert.AddAction(actionOk);
             PresentViewController(alert, true,null);

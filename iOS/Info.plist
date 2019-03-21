@@ -6,8 +6,6 @@
 	<string>Dance Pro</string>
 	<key>CFBundleName</key>
 	<string>Dance Pro</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.DancePro.Dance-Pro</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -48,5 +46,7 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleIdentifier</key>
+	<string>com.dancepro.danceproapp.ios</string>
 </dict>
 </plist>

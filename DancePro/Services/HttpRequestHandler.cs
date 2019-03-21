@@ -270,7 +270,7 @@ namespace DancePro.Services
             if (parser.Success)
             {
                 //TODO: Update for handling incoming file path info and creation in correct location.
-                string fullPath = Path.GetFullPath("./Media/");
+                string fullPath = App.MediaService.GetMediaPath();
                 try
                 {
                     if (Directory.Exists(fullPath))

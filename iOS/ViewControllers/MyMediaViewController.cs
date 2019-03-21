@@ -31,7 +31,7 @@ namespace DancePro.iOS.ViewControllers
                  });
                 actions.Add(action);
                 App.FileTransferService.Connect();
-                Alert("Connecting...", $"Enter: http://localhost:{App.FileTransferService.Port}", actions);
+                Alert("Connecting...", $"Enter: {App.FileTransferService.GetMainAddress()}", actions);
             }
             else
             {
@@ -132,9 +132,10 @@ namespace DancePro.iOS.ViewControllers
         /// </summary>
         public void GetMedia()
         {
+            MediaObjects.Clear();
             if (CurrentDirectory != null && CurrentDirectory.Exists)
             {
-                MediaObjects.Clear();
+
                 MediaObjects = App.MediaService.GetMediaFromFolder(CurrentDirectory.FullName);
                 ReloadMediaList();
             }
@@ -224,24 +225,96 @@ namespace DancePro.iOS.ViewControllers
         public UIDragItem[] GetItemsForBeginningDragSession(UICollectionView collectionView, IUIDragSession session, NSIndexPath indexPath)
         {
             var cell = collectionView.CellForItem(indexPath);
-            var provider = FromObject(cell);
-            var item = (UIDragItem)FromObject(provider);
-
+            NSItemProvider provider = new NSItemProvider(cell, "object");
+            UIDragItem item = new UIDragItem(provider);
+            item.LocalObject = cell;
             return new UIDragItem[] { item };
         }
 
         public void PerformDrop(UICollectionView collectionView, IUICollectionViewDropCoordinator coordinator)
         {
-            foreach( var item in coordinator.Items)
+            switch (coordinator.Proposal.Operation)
             {
-                MyMediaViewCell mediaViewCell = (MyMediaViewCell)item;
-                if(mediaViewCell != null)
-                {
+                case UIDropOperation.Move:
+                    //if destination index is a folder, Call media service and move file.
 
+                    var cell = collectionView.CellForItem(coordinator.DestinationIndexPath) as MyMediaViewCell;
+
+                    if(cell != null && cell.MediaObject.MediaType == MediaTypes.Other)
+                    {
+                        //its a folder, so move it
+
+
+                        foreach(var item in coordinator.Items)
+                        {
+                            MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
+                            if(mediaViewCell != null)
+                            {
+                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Other)
+                                {
+                                    if(App.MediaService.MoveFolder(mediaViewCell.MediaObject, cell.MediaObject))
+                                    {
+                                        ChangeDirectory(cell.MediaObject.FilePath);
+                                    }
+                                }
+                                else
+                                {
+                                    if (App.MediaService.MoveMediaObject(mediaViewCell.MediaObject, cell.MediaObject.FilePath))
+                                    {
+                                        ChangeDirectory(cell.MediaObject.FilePath);
+                                    }
+                                }
+
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //if not, reorder the object
+                        foreach (var item in coordinator.Items)
+                        {
+                            MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
+                            if (mediaViewCell != null)
+                            {
+                                var oldIndex = collectionView.IndexPathForCell(mediaViewCell);
+
+                                collectionView.MoveItem(oldIndex, coordinator.DestinationIndexPath);
+                            }
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
+
+            }
+
+
+
+        }
+
+
+        [Export("collectionView:dropSessionDidUpdate:withDestinationIndexPath:")]
+        public UICollectionViewDropProposal DropSessionDidUpdate(UICollectionView collectionView, IUIDropSession session, NSIndexPath destinationIndexPath)
+        {
+            if(session.LocalDragSession != null)
+            {
+                if (collectionView.HasActiveDrag)
+                {
+                    return new UICollectionViewDropProposal(UIDropOperation.Move);
+                }
+                else
+                {
+                    return new UICollectionViewDropProposal(UIDropOperation.Copy);
                 }
             }
+            else
+            {
+                return new UICollectionViewDropProposal(UIDropOperation.Forbidden);
+            }
         }
-        
+
     }
 }
 
