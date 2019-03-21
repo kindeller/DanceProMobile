@@ -293,7 +293,6 @@
     <Content Include="Root\css\jquery.fileupload.css" />
     <Content Include="Root\server\php\UploadHandler.php" />
     <Content Include="Root\server\php\index.php" />
-    <Content Include="Root\js\.DS_Store" />
     <Content Include="Root\js\app.js" />
     <Content Include="Root\js\jquery.fileupload-angular.js" />
     <Content Include="Root\js\jquery.fileupload-audio.js" />
