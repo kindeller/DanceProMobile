@@ -103,6 +103,10 @@
     <Reference Include="Xamarin.iOS.iCarousel.Binding">
       <HintPath>..\packages\Xamarin.iOS.iCarousel.1.8.4\lib\Xamarin.iOS10\Xamarin.iOS.iCarousel.Binding.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Essentials">
+      <HintPath>..\packages\Xamarin.Essentials.1.1.0\lib\xamarinios10\Xamarin.Essentials.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK-1.0" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />

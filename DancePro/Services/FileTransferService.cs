@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System;
+using Xamarin.Essentials;
+using System.Net.NetworkInformation;
 
 namespace DancePro.Services
 {
@@ -20,15 +22,29 @@ namespace DancePro.Services
             Port = 3045; //Temp testing value
 
             handler = new HttpRequestHandler("./Root");
+
+            //Request Local Wifi IP Address
             var local = GetIP();
-            prefixes.Add($"http://{local}:{Port}/");
+
+            if (local == null)
+            {
+                //If fails to get Wifi - Assign Loopback Address of Localhost
+                prefixes.Add($"http://localhost:{Port}/");
+            }
+            else
+            {
+                prefixes.Add($"http://{local}:{Port}/");
+            }
+
         }
 
-        public void Connect() {
+        public void Connect()
+        {
             handler.ListenAsynchronously(prefixes);
         }
 
-        public void Disconnect() {
+        public void Disconnect()
+        {
 
             handler.StopListening();
 
@@ -36,12 +52,25 @@ namespace DancePro.Services
 
         private IPAddress GetIP()
         {
-            var addresses = Dns.GetHostAddresses(Dns.GetHostName());
-            if( addresses.Length > 0 && addresses[1] != null)
+            if (isOnWifi())
             {
-                return addresses[1];
+                //Active WiFi
+                foreach (var netInterface in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (netInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || netInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    {
+                        foreach (var addrInfo in netInterface.GetIPProperties().UnicastAddresses)
+                        {
+                            if (addrInfo.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                return addrInfo.Address;
+                            }
+                        }
+                    }
+                }
             }
 
+            //backup 
             return null;
         }
 
@@ -50,5 +79,21 @@ namespace DancePro.Services
             return prefixes[0];
         }
 
+        public bool isOnWifi()
+        {
+
+            var profiles = Connectivity.ConnectionProfiles;
+
+            foreach (var profile in profiles)
+            {
+                if (profile == ConnectionProfile.WiFi)
+                {
+
+                    return true;
+                }
+
+            }
+            return false;
+        }
     }
 }
