@@ -474,11 +474,10 @@
                         <color key="tintColor" colorSpace="calibratedWhite" white="0" alpha="0"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="63446" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                <rect key="frame" x="13" y="464" width="349" height="203"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="15" y="464" width="346" height="203"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="63466" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                    <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="63466" translatesAutoresizingMaskIntoConstraints="NO" opaque="NO" fixedFrame="YES">
                                         <rect key="frame" x="28" y="36" width="81" height="62"/>
                                         <state key="normal" title="Share">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -536,16 +535,17 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="63483" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                                        <rect key="frame" x="8" y="176" width="333" height="30"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <rect key="frame" x="0.0" y="176" width="346" height="30"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Cancel_TouchUpInside:" destination="63442" id="63484" eventType="touchUpInside"/>
                                         </connections>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </button>
                                 </subviews>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </view>
                         </subviews>
                     </view>

@@ -7,6 +7,7 @@ using DancePro.Models;
 
 using UIKit;
 using System.IO;
+using System.Net.NetworkInformation;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -15,9 +16,24 @@ namespace DancePro.iOS.ViewControllers
         List<MediaObject> MediaObjects = new List<MediaObject>();
         DirectoryInfo CurrentDirectory;
 
+        UIAlertController CurrentNetworkAlert;
+
         public MyMediaViewController(IntPtr intPtr) : base(intPtr)
         {
+            NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
         }
+
+        void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
+        {
+            if (CurrentNetworkAlert != null)
+            {
+                CurrentNetworkAlert.DismissViewController(true, null);
+                CurrentNetworkAlert = null;
+                ConnectSwitch.On = false;
+                GetMedia();
+            }
+        }
+
 
         partial void OnConnectSwitchChanged(UISwitch sender)
         {
@@ -31,7 +47,7 @@ namespace DancePro.iOS.ViewControllers
                  });
                 actions.Add(action);
                 App.FileTransferService.Connect();
-                Alert("Connecting...", $"Enter: {App.FileTransferService.GetMainAddress()}", actions);
+                CurrentNetworkAlert = Alert(App.FileTransferService.Address, $"{App.FileTransferService.Port}", actions);
             }
             else
             {
@@ -41,7 +57,7 @@ namespace DancePro.iOS.ViewControllers
         }
 
 
-        private void Alert(string title, string message, List<UIAlertAction> actions)
+        private UIAlertController Alert(string title, string message, List<UIAlertAction> actions)
         {
                 var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
                 foreach (var action in actions)
@@ -55,7 +71,7 @@ namespace DancePro.iOS.ViewControllers
                     vc = vc.PresentedViewController;
                 }
                 vc.PresentViewController(alert, true, null);
-
+            return alert;
         }
 
         public override void ViewDidLoad()

@@ -17,7 +17,6 @@ namespace DancePro.iOS.ViewControllers
 
         public MediaObjectEditController(IntPtr intPtr) : base(intPtr)
         {
-
         }
 
         public override void ViewDidLoad()
@@ -36,8 +35,14 @@ namespace DancePro.iOS.ViewControllers
                     DuplicateButton.Enabled = false;
                     SaveButton.Enabled = false;
                     break;
-            };
+            }
 
+            MoveButton.ImageView.Image = UIImage.FromBundle("Icon_Move");
+            DeleteButton.ImageView.Image = UIImage.FromBundle("Icon_Delete");
+            SaveButton.ImageView.Image = UIImage.FromBundle("Icon_Save");
+            ShareButton.ImageView.Image = UIImage.FromBundle("Icon_Share");
+            RenameButton.ImageView.Image = UIImage.FromBundle("Icon_Rename");
+            DuplicateButton.ImageView.Image = UIImage.FromBundle("Icon_Duplicate");
         }
 
         public override void DidReceiveMemoryWarning()

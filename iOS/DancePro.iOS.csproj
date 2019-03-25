@@ -160,6 +160,30 @@
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 30.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 60.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Move.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Move.imageset\Move Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Move.imageset\Move Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Move.imageset\Move Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Rename Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Rename Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Rename Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 90.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -283,6 +307,12 @@
     <Folder Include="Root\server\dotnet\" />
     <Folder Include="Assets.xcassets\Folder.imageset\" />
     <Folder Include="Assets.xcassets\Audio.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Move.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Rename.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Duplicate.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Delete.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Share.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Save.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">
