@@ -9,7 +9,7 @@ namespace DancePro.Models
     public class AudioObject : MediaObject
     {
 
-        NSUrl AudioFileURL;
+        //NSUrl AudioFileURL;
 
 
         public AudioObject(string filePath) : base(filePath)

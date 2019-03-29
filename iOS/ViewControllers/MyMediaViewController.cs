@@ -41,7 +41,7 @@ namespace DancePro.iOS.ViewControllers
         {
             if (sender.On)
             {
-                //CheckWifi();
+                App.NetworkService.ConnectToWifi();
                 List<UIAlertAction> actions = new List<UIAlertAction>();
                 var action = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, alert => { 
                     App.NetworkService.Disconnect(); 
@@ -90,7 +90,7 @@ namespace DancePro.iOS.ViewControllers
             MediaCollectionView.DragInteractionEnabled = true;
 
             NavigationController.NavigationBar.TopItem.RightBarButtonItem = new UIBarButtonItem(ConnectSwitch);
-            var newFolderButton = new UIBarButtonItem("+", UIBarButtonItemStyle.Plain, (sender, e) =>
+            var newFolderButton = new UIBarButtonItem("+", UIBarButtonItemStyle.Done, (sender, e) =>
             {
                 var alert = UIAlertController.Create("New Folder", "New folder name...", UIAlertControllerStyle.Alert);
                 var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
@@ -169,6 +169,7 @@ namespace DancePro.iOS.ViewControllers
         /// </summary>
         private void ReloadMediaList()
         {
+
             var currPath = Path.GetFullPath(CurrentDirectory.FullName);
             var root = Path.GetFullPath(App.MediaService.GetMediaPath());
             var result = string.Compare(currPath, root);
@@ -188,10 +189,16 @@ namespace DancePro.iOS.ViewControllers
 
         }
 
+        /// <summary>
+        /// Prepares for segue: Passing information necessary to the correct controller.
+        /// </summary>
+        /// <param name="segue">Segue.</param>
+        /// <param name="sender">Sender.</param>
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue(segue, sender);
 
+            //Open Media Object 
                 IMediaObjectController controller = segue.DestinationViewController as IMediaObjectController;
                 if (controller != null)
                 {
@@ -217,30 +224,42 @@ namespace DancePro.iOS.ViewControllers
 
                     }
                 }
+                //End Open Media Object
 
-            MediaObjectEditController c = segue.DestinationViewController as MediaObjectEditController;
 
-            if (c != null)
-            {
-                var cell = (MyMediaViewCell)sender;
-                if(cell != null)
+                //Edit Options Menu
+                MediaObjectEditController c = segue.DestinationViewController as MediaObjectEditController;
+
+                if (c != null)
                 {
-                    c.MediaObject = cell.MediaObject;
-                    c.controller = this;
+                    var cell = (MyMediaViewCell)sender;
+                    if(cell != null)
+                    {
+                        c.MediaObject = cell.MediaObject;
+                        c.controller = this;
+                    }
                 }
-
-
-            }
-
-
+                //End Edit Options Menu
         }
 
+        /// <summary>
+        /// If the view appears: Reloads the Media to view.
+        /// </summary>
+        /// <param name="animated">If set to <c>true</c> animated.</param>
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
             GetMedia();
         }
 
+
+        /// <summary>
+        /// Gets the items for beginning drag session: Handles converting the dragged item and setting the local object.
+        /// </summary>
+        /// <returns>The items for beginning drag session.</returns>
+        /// <param name="collectionView">Collection view.</param>
+        /// <param name="session">Session.</param>
+        /// <param name="indexPath">Index path.</param>
         public UIDragItem[] GetItemsForBeginningDragSession(UICollectionView collectionView, IUIDragSession session, NSIndexPath indexPath)
         {
             var cell = collectionView.CellForItem(indexPath);
@@ -250,6 +269,12 @@ namespace DancePro.iOS.ViewControllers
             return new UIDragItem[] { item };
         }
 
+
+        /// <summary>
+        /// Performs the drop: 
+        /// </summary>
+        /// <param name="collectionView">Collection view.</param>
+        /// <param name="coordinator">Coordinator.</param>
         public void PerformDrop(UICollectionView collectionView, IUICollectionViewDropCoordinator coordinator)
         {
             switch (coordinator.Proposal.Operation)
@@ -261,25 +286,26 @@ namespace DancePro.iOS.ViewControllers
 
                     if(cell != null && cell.MediaObject.MediaType == MediaTypes.Other)
                     {
-                        //its a folder, so move it
-
-
                         foreach(var item in coordinator.Items)
                         {
                             MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
                             if(mediaViewCell != null)
                             {
-                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Other)
+                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Other) //Item is a folder
                                 {
+                                    //Attempt move Folder
                                     if(App.MediaService.MoveFolder(mediaViewCell.MediaObject, cell.MediaObject))
                                     {
+                                        //If successful change directory to new directory.
                                         ChangeDirectory(cell.MediaObject.FilePath);
                                     }
                                 }
                                 else
                                 {
+                                    //Attempt move Media Object
                                     if (App.MediaService.MoveMediaObject(mediaViewCell.MediaObject, cell.MediaObject.FilePath))
                                     {
+                                        //If successful change directory to new directory.
                                         ChangeDirectory(cell.MediaObject.FilePath);
                                     }
                                 }

@@ -12,9 +12,6 @@ namespace DancePro.iOS.ViewControllers
         public List<MediaObject> MediaList { get; set; }
         public MediaObject MediaObject { get; set; }
 
-        
-
-
         public VideoObjectViewController(IntPtr intPtr) : base(intPtr)
         {
             MediaList = new List<MediaObject>();

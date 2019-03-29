@@ -99,7 +99,6 @@
     <Reference Include="Plugin.Connectivity">
       <HintPath>..\packages\Xam.Plugin.Connectivity.3.2.0\lib\Xamarin.iOS10\Plugin.Connectivity.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Android" />
     <Reference Include="Xamarin.iOS.iCarousel.Binding">
       <HintPath>..\packages\Xamarin.iOS.iCarousel.1.8.4\lib\Xamarin.iOS10\Xamarin.iOS.iCarousel.Binding.dll</HintPath>
     </Reference>
@@ -285,10 +284,6 @@
     <Compile Include="ViewControllers\PhotosViewController.cs" />
     <Compile Include="ViewControllers\PhotosViewController.designer.cs">
       <DependentUpon>PhotosViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ViewControllers\VideosViewController.cs" />
-    <Compile Include="ViewControllers\VideosViewController.designer.cs">
-      <DependentUpon>VideosViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewControllers\VideoLinkViewController.cs" />
     <Compile Include="ViewControllers\VideoLinkViewController.Designer.cs">

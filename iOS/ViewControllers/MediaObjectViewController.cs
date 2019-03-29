@@ -12,8 +12,8 @@ namespace DancePro.iOS.ViewControllers
     {
         public List<MediaObject> MediaList { get; set; }
         public MediaObject MediaObject { get; set; }
-        UIScrollView ScrollView;
-        UIImageView ImageView;
+        //UIScrollView ScrollView;
+        //UIImageView ImageView;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,15 +66,15 @@ namespace DancePro.iOS.ViewControllers
         }
 
 
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-            if(ImageView != null && ScrollView != null)
-            {
-                ImageView.Center = ScrollView.Center;
-            }
+        //public override void ViewDidLayoutSubviews()
+        //{
+        //    base.ViewDidLayoutSubviews();
+        //    if(ImageView != null && ScrollView != null)
+        //    {
+        //        ImageView.Center = ScrollView.Center;
+        //    }
 
-        }
+        //}
 
         private void RemoveSubviews()
         {

@@ -10,7 +10,7 @@ namespace DancePro.iOS
 
         public VideoLinkViewController(IntPtr handle) : base(handle)
         {
-            OpenVideoCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://videos.dancepro.com.au"));
+            OpenVideoCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://www.dancepro.com.au/Video"));
         }
 
         public override void ViewDidLoad()
