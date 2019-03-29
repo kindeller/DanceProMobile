@@ -11,8 +11,8 @@ using UIKit;
 
 namespace DancePro.iOS
 {
-    [Register ("ContactViewController")]
-    partial class ContactViewController
+    [Register ("VideoLinkViewController")]
+    partial class VideoLinkViewController
     {
         void ReleaseDesignerOutlets ()
         {

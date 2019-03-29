@@ -184,6 +184,18 @@
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 30.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 60.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-1.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-2.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-3.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-4.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-5.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-6.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-1.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -262,6 +274,26 @@
     <Compile Include="ViewControllers\MediaObjectEditController.designer.cs">
       <DependentUpon>MediaObjectEditController.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideosViewController.cs" />
+    <Compile Include="VideosViewController.designer.cs">
+      <DependentUpon>VideosViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideosViewCon.cs" />
+    <Compile Include="VideosViewCon.designer.cs">
+      <DependentUpon>VideosViewCon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\PhotosViewController.cs" />
+    <Compile Include="ViewControllers\PhotosViewController.designer.cs">
+      <DependentUpon>PhotosViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\VideosViewController.cs" />
+    <Compile Include="ViewControllers\VideosViewController.designer.cs">
+      <DependentUpon>VideosViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\VideoLinkViewController.cs" />
+    <Compile Include="ViewControllers\VideoLinkViewController.Designer.cs">
+      <DependentUpon>VideoLinkViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -313,6 +345,8 @@
     <Folder Include="Assets.xcassets\Icon_Delete.imageset\" />
     <Folder Include="Assets.xcassets\Icon_Share.imageset\" />
     <Folder Include="Assets.xcassets\Icon_Save.imageset\" />
+    <Folder Include="Assets.xcassets\DanceProLogo.imageset\" />
+    <Folder Include="Assets.xcassets\DanceProLogoIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

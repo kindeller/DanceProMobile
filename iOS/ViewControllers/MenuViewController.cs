@@ -22,5 +22,10 @@ namespace DancePro.iOS
         partial void UIButton3099_TouchUpInside(UIButton sender) => ViewModel.OpenPhotosCommand.Execute(null);
 
         partial void UIButton3100_TouchUpInside(UIButton sender) => ViewModel.OpenVideosCommand.Execute(null);
+
+        partial void MediaButton_TouchUpInside(UIButton sender)
+        {
+            TabBarController.SelectedIndex = 1;
+        }
     }
 }

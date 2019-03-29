@@ -7,7 +7,7 @@ namespace DancePro
     {
         public static bool UseMockDataStore = true;
         public static string BackendUrl = "http://localhost:5000";
-        public static FileTransferService FileTransferService;
+        public static NetworkService NetworkService;
         public static MediaService MediaService;
 
         public static void Initialize()
@@ -17,7 +17,7 @@ namespace DancePro
             else
                 ServiceLocator.Instance.Register<IDataStore<Item>, CloudDataStore>();
 
-            FileTransferService = new FileTransferService();
+            NetworkService = new NetworkService();
             MediaService = new MediaService();
         }
 

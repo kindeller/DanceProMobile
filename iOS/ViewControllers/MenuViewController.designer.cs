@@ -26,6 +26,10 @@ namespace DancePro.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton VideosButton { get; set; }
 
+        [Action ("MediaButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void MediaButton_TouchUpInside (UIKit.UIButton sender);
+
         [Action ("UIButton3099_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void UIButton3099_TouchUpInside (UIKit.UIButton sender);

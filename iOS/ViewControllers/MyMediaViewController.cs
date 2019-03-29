@@ -15,7 +15,6 @@ namespace DancePro.iOS.ViewControllers
     {
         List<MediaObject> MediaObjects = new List<MediaObject>();
         DirectoryInfo CurrentDirectory;
-
         UIAlertController CurrentNetworkAlert;
 
         public MyMediaViewController(IntPtr intPtr) : base(intPtr)
@@ -27,11 +26,14 @@ namespace DancePro.iOS.ViewControllers
         {
             if (CurrentNetworkAlert != null)
             {
-                CurrentNetworkAlert.DismissViewController(true, null);
-                CurrentNetworkAlert = null;
-                ConnectSwitch.On = false;
-                GetMedia();
+                if (App.NetworkService.isListening)
+                {
+                    CurrentNetworkAlert.Title = App.NetworkService.Address + ":" + App.NetworkService.Port;
+                    CurrentNetworkAlert.Message = "For Dance Pro kiosk use only.";
+                }
+
             }
+
         }
 
 
@@ -39,19 +41,20 @@ namespace DancePro.iOS.ViewControllers
         {
             if (sender.On)
             {
+                //CheckWifi();
                 List<UIAlertAction> actions = new List<UIAlertAction>();
                 var action = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, alert => { 
-                App.FileTransferService.Disconnect(); 
-                sender.On = false;
+                    App.NetworkService.Disconnect(); 
+                    sender.On = false;
                     GetMedia();
-                 });
+                });
                 actions.Add(action);
-                App.FileTransferService.Connect();
-                CurrentNetworkAlert = Alert(App.FileTransferService.Address, $"{App.FileTransferService.Port}", actions);
+                App.NetworkService.Connect();
+                CurrentNetworkAlert = Alert(App.NetworkService.Address + ":" + App.NetworkService.Port, "(For Dance Pro kiosk use only)", actions);
             }
             else
             {
-                App.FileTransferService.Disconnect();
+                App.NetworkService.Disconnect();
                 GetMedia();
             }
         }
@@ -59,18 +62,18 @@ namespace DancePro.iOS.ViewControllers
 
         private UIAlertController Alert(string title, string message, List<UIAlertAction> actions)
         {
-                var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-                foreach (var action in actions)
-                {
-                    alert.AddAction(action);
-                }
-                var window = UIApplication.SharedApplication.KeyWindow;
-                var vc = window.RootViewController;
-                while (vc.PresentedViewController != null)
-                {
-                    vc = vc.PresentedViewController;
-                }
-                vc.PresentViewController(alert, true, null);
+            var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+            foreach (var action in actions)
+            {
+                alert.AddAction(action);
+            }
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+            {
+                vc = vc.PresentedViewController;
+            }
+            vc.PresentViewController(alert, true, null);
             return alert;
         }
 

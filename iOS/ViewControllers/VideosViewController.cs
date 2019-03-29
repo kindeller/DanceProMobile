@@ -1,0 +1,6 @@
+﻿using System; using System.Windows.Input;
+using UIKit;  namespace DancePro.iOS.ViewControllers {     public partial class VideosViewController : UIViewController     {         ICommand OpenVideosCommand;         public VideosViewController() : base("VideosViewController", null)         {          }          public VideosViewController(IntPtr intPtr) : base(intPtr)         {             OpenVideosCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://videos.dancepro.com.au/"));          }          public override void ViewDidLoad()         {             base.ViewDidLoad();
+            // Perform any additional setup after loading the view, typically from a nib.
+        }          public override void DidReceiveMemoryWarning()         {             base.DidReceiveMemoryWarning();
+            // Release any cached data, images, etc that aren't in use.
+        }          public override void ViewDidAppear(bool animated)         {             base.ViewDidAppear(animated);             OpenVideosCommand.Execute(null);             UITabBarController controller = UIApplication.SharedApplication.KeyWindow.RootViewController as UITabBarController;             if (controller != null)             {                 controller.SelectedIndex = 0;             }         }     } }   

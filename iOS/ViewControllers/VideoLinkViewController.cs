@@ -4,13 +4,13 @@ using UIKit;
 
 namespace DancePro.iOS
 {
-    public partial class ContactViewController : UIViewController
+    public partial class VideoLinkViewController : UIViewController
     {
-        ICommand OpenContactCommand;
+        ICommand OpenVideoCommand;
 
-        public ContactViewController(IntPtr handle) : base(handle)
+        public VideoLinkViewController(IntPtr handle) : base(handle)
         {
-            OpenContactCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://www.dancepro.com.au/Contact"));
+            OpenVideoCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://videos.dancepro.com.au"));
         }
 
         public override void ViewDidLoad()
@@ -22,7 +22,7 @@ namespace DancePro.iOS
         {
             base.ViewDidAppear(animated);
             //Open Browser
-            OpenContactCommand.Execute(null);
+            OpenVideoCommand.Execute(null);
             //Get Tab Controller
             UITabBarController controller = UIApplication.SharedApplication.KeyWindow.RootViewController as UITabBarController;
             if (controller != null)

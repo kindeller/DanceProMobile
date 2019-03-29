@@ -1,30 +1,44 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Net.Http;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System;
 using Xamarin.Essentials;
 using System.Net.NetworkInformation;
+using NetworkExtension;
+using System.Threading.Tasks;
 
 namespace DancePro.Services
 {
-    public class FileTransferService
+    public class NetworkService
     {
+        NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
+        List<NEHotspotConfiguration> WifiConfigs = new List<NEHotspotConfiguration>();
+
         HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
-        public int Port { get; }
+        public int Port { get; private set; }
         public string Address { get; private set; }
-        public bool isConnected;
-        public FileTransferService()
+        public bool isListening;
+
+
+        public NetworkService()
         {
+            NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
+            NEHotspotConfiguration config;
+
+            config = new NEHotspotConfiguration("DPPV1", "dppv3778", false);
+            config.JoinOnce = true;
+            WifiConfigs.Add(config);
+            config = new NEHotspotConfiguration("DPPV2", "dppv3778", false);
+            config.JoinOnce = true;
+            WifiConfigs.Add(config);
+            config = new NEHotspotConfiguration("VM8205514", "6nhmdhyHxvjr", false);
+            config.JoinOnce = true;
+            WifiConfigs.Add(config);
+
             //GetRandomPort
             //Port = new Random().Next(8081, 65535);
             Port = 3045; //Temp testing value
-            
-
-            NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
 
             handler = new HttpRequestHandler("./Root");
             Initialise();
@@ -52,27 +66,21 @@ namespace DancePro.Services
 
         void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
         {
-            if (isConnected)
-            {
-                Disconnect();
-            }
-
             Initialise();
-
-
         }
 
 
         public void Connect()
         {
-            isConnected = true;
+            isListening = true;
             handler.ListenAsynchronously(prefixes);
         }
 
         public void Disconnect()
         {
-            isConnected = false;
+            isListening = false;
             handler.StopListening();
+            //TODO: attempt to disconnect from wifi here?
 
         }
 
@@ -99,7 +107,7 @@ namespace DancePro.Services
             //backup 
             return null;
         }
-
+        
 
         public bool isOnWifi()
         {
@@ -117,5 +125,30 @@ namespace DancePro.Services
             }
             return false;
         }
+
+        public void ConnectToWifi() {
+
+            foreach(var config in WifiConfigs) {
+
+                ConnectToWifi(config);
+            }
+        }
+
+        public void ConnectToWifi(NEHotspotConfiguration config){ 
+
+
+        }
+
+        //public async Task ConnectToWifiAsync() {
+
+        //    if (isOnWifi()) return;
+
+        //    foreach(var config in WifiConfigs)
+        //    {
+        //      await WifiManager.ApplyConfigurationAsync(config);
+        //    }
+        //}
+
+
     }
 }

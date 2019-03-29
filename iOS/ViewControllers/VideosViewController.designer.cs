@@ -9,10 +9,10 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace DancePro.iOS
+namespace DancePro.iOS.ViewControllers
 {
-    [Register ("ContactViewController")]
-    partial class ContactViewController
+    [Register ("VideosViewController")]
+    partial class VideosViewController
     {
         void ReleaseDesignerOutlets ()
         {
