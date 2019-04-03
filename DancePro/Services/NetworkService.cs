@@ -14,7 +14,6 @@ namespace DancePro.Services
     {
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
         NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "dppv3778", false);
-        //NEHotspotConfiguration config = new NEHotspotConfiguration("VM8205514", "6nhmdhyHxvjr", false);
 
         HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
