@@ -41,12 +41,18 @@ namespace DancePro.iOS.ViewControllers
         {
             if (sender.On)
             {
-                App.NetworkService.ConnectToWifi();
+                if (!App.NetworkService.ValidateNetwork())
+                {
+                    sender.SetState(false, true);
+                    return;
+                }
                 List<UIAlertAction> actions = new List<UIAlertAction>();
-                var action = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, alert => { 
-                    App.NetworkService.Disconnect(); 
-                    sender.On = false;
+                var action = UIAlertAction.Create("Finish", UIAlertActionStyle.Cancel, alert => { 
+                    App.NetworkService.Disconnect();
+                    sender.SetState(false, true);
                     GetMedia();
+                var disconnectOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => { });
+                    Alert("Disconnect!", "Please Remember to disconnect your device from our network.", new List<UIAlertAction>() { disconnectOk });
                 });
                 actions.Add(action);
                 App.NetworkService.Connect();

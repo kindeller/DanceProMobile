@@ -6,13 +6,15 @@ using Xamarin.Essentials;
 using System.Net.NetworkInformation;
 using NetworkExtension;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace DancePro.Services
 {
     public class NetworkService
     {
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
-        List<NEHotspotConfiguration> WifiConfigs = new List<NEHotspotConfiguration>();
+        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "dppv3778", false);
+        //NEHotspotConfiguration config = new NEHotspotConfiguration("VM8205514", "6nhmdhyHxvjr", false);
 
         HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
@@ -24,18 +26,6 @@ namespace DancePro.Services
         public NetworkService()
         {
             NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
-            NEHotspotConfiguration config;
-
-            config = new NEHotspotConfiguration("DPPV1", "dppv3778", false);
-            config.JoinOnce = true;
-            WifiConfigs.Add(config);
-            config = new NEHotspotConfiguration("DPPV2", "dppv3778", false);
-            config.JoinOnce = true;
-            WifiConfigs.Add(config);
-            config = new NEHotspotConfiguration("VM8205514", "6nhmdhyHxvjr", false);
-            config.JoinOnce = true;
-            WifiConfigs.Add(config);
-
             //GetRandomPort
             //Port = new Random().Next(8081, 65535);
             Port = 3045; //Temp testing value
@@ -81,7 +71,10 @@ namespace DancePro.Services
             isListening = false;
             handler.StopListening();
             //TODO: attempt to disconnect from wifi here?
-
+            if (isOnWifi())
+            {
+                WifiManager.RemoveConfiguration(config.Ssid);
+            }
         }
 
         private IPAddress GetIP()
@@ -140,27 +133,7 @@ namespace DancePro.Services
 
         public void ConnectToWifi() {
 
-            foreach(var config in WifiConfigs) {
-
-                ConnectToWifi(config);
-            }
+            WifiManager.ApplyConfiguration(config, (obj) => { });
         }
-
-        public void ConnectToWifi(NEHotspotConfiguration config){ 
-
-
-        }
-
-        //public async Task ConnectToWifiAsync() {
-
-        //    if (isOnWifi()) return;
-
-        //    foreach(var config in WifiConfigs)
-        //    {
-        //      await WifiManager.ApplyConfigurationAsync(config);
-        //    }
-        //}
-
-
     }
 }
