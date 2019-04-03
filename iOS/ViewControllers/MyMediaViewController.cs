@@ -176,8 +176,9 @@ namespace DancePro.iOS.ViewControllers
             if (result > 0)
             {
                 MediaObject up = new MediaObject(CurrentDirectory.Parent.FullName);
-                up.Thumb = UIImage.FromBundle("Second");
-                MediaObjects.Add(up);
+                up.Thumb = UIImage.FromBundle("Back");
+                MediaObjects.Insert(0, up);
+                //MediaObjects.Add(up);
             }
 
             if (MediaObjects.Count > 0)
@@ -262,11 +263,19 @@ namespace DancePro.iOS.ViewControllers
         /// <param name="indexPath">Index path.</param>
         public UIDragItem[] GetItemsForBeginningDragSession(UICollectionView collectionView, IUIDragSession session, NSIndexPath indexPath)
         {
-            var cell = collectionView.CellForItem(indexPath);
-            NSItemProvider provider = new NSItemProvider(cell, "object");
-            UIDragItem item = new UIDragItem(provider);
-            item.LocalObject = cell;
-            return new UIDragItem[] { item };
+            MyMediaViewCell cell = collectionView.CellForItem(indexPath) as MyMediaViewCell;
+            if(cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
+            {
+                NSItemProvider provider = new NSItemProvider(cell, "object");
+                UIDragItem item = new UIDragItem(provider);
+                item.LocalObject = cell;
+                return new UIDragItem[] { item };
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
 

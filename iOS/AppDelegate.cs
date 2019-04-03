@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using ObjCRuntime;
 using UIKit;
 
 namespace DancePro.iOS
@@ -9,6 +10,7 @@ namespace DancePro.iOS
     public class AppDelegate : UIApplicationDelegate
     {
         // class-level declarations
+        public static bool CanRotate { get; set; }
 
         public override UIWindow Window
         {
@@ -53,6 +55,11 @@ namespace DancePro.iOS
         {
             // Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
         }
-        
+
+        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, [Transient] UIWindow forWindow)
+        {
+            return CanRotate ? UIInterfaceOrientationMask.All : UIInterfaceOrientationMask.Portrait;
+        }
+
     }
 }

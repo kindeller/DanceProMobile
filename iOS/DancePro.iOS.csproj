@@ -27,6 +27,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>Aarons iPhone Test Profile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -192,6 +193,10 @@
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-4.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-5.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-6.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow-1.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow-2.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-1.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-2.png" />
@@ -273,14 +278,6 @@
     <Compile Include="ViewControllers\MediaObjectEditController.designer.cs">
       <DependentUpon>MediaObjectEditController.cs</DependentUpon>
     </Compile>
-    <Compile Include="VideosViewController.cs" />
-    <Compile Include="VideosViewController.designer.cs">
-      <DependentUpon>VideosViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="VideosViewCon.cs" />
-    <Compile Include="VideosViewCon.designer.cs">
-      <DependentUpon>VideosViewCon.cs</DependentUpon>
-    </Compile>
     <Compile Include="ViewControllers\PhotosViewController.cs" />
     <Compile Include="ViewControllers\PhotosViewController.designer.cs">
       <DependentUpon>PhotosViewController.cs</DependentUpon>
@@ -342,6 +339,7 @@
     <Folder Include="Assets.xcassets\Icon_Save.imageset\" />
     <Folder Include="Assets.xcassets\DanceProLogo.imageset\" />
     <Folder Include="Assets.xcassets\DanceProLogoIcon.imageset\" />
+    <Folder Include="Assets.xcassets\Back.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

@@ -28,21 +28,61 @@ namespace DancePro.iOS.ViewControllers
             switch (MediaObject.MediaType) {
 
                 case MediaTypes.Audio:
-                    SaveButton.Enabled = false;
+                    //SaveButton.Enabled = false;
                     break;
                 case MediaTypes.Other:
                     ShareButton.Enabled = false;
                     DuplicateButton.Enabled = false;
-                    SaveButton.Enabled = false;
+                    //SaveButton.Enabled = false;
                     break;
             }
 
-            MoveButton.ImageView.Image = UIImage.FromBundle("Icon_Move");
-            DeleteButton.ImageView.Image = UIImage.FromBundle("Icon_Delete");
-            SaveButton.ImageView.Image = UIImage.FromBundle("Icon_Save");
-            ShareButton.ImageView.Image = UIImage.FromBundle("Icon_Share");
-            RenameButton.ImageView.Image = UIImage.FromBundle("Icon_Rename");
-            DuplicateButton.ImageView.Image = UIImage.FromBundle("Icon_Duplicate");
+            SetUpButtons();
+
+            //MoveButton.ImageView.Image = UIImage.FromBundle("Icon_Move");
+            //DeleteButton.ImageView.Image = UIImage.FromBundle("Icon_Delete");
+            //SaveButton.ImageView.Image = UIImage.FromBundle("Icon_Save");
+            //ShareButton.ImageView.Image = UIImage.FromBundle("Icon_Share");
+            //RenameButton.ImageView.Image = UIImage.FromBundle("Icon_Rename");
+            //DuplicateButton.ImageView.Image = UIImage.FromBundle("Icon_Duplicate");
+        }
+
+        public void SetUpButtons()
+        {
+            var inset = 5;
+            var buttonWidth = ShareButton.Frame.Width - (inset*2);
+            var buttonHeight = ShareButton.Frame.Height - (inset*5);
+
+            //Save Button
+            UIImageView view = new UIImageView(UIImage.FromBundle("Icon_Save"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            SaveButton.AddSubview(view);
+            //Move Button Set Up
+            view = new UIImageView(UIImage.FromBundle("Icon_Move"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            MoveButton.AddSubview(view);
+            //Share Button Set Up
+            view = new UIImageView(UIImage.FromBundle("Icon_Share"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            ShareButton.AddSubview(view);
+            //Delete Button Set Up
+            view = new UIImageView(UIImage.FromBundle("Icon_Delete"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            DeleteButton.AddSubview(view);
+            //Duplicate Button Set Up
+            view = new UIImageView(UIImage.FromBundle("Icon_Duplicate"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            DuplicateButton.AddSubview(view);
+            //Rename Button Set Up
+            view = new UIImageView(UIImage.FromBundle("Icon_Rename"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            RenameButton.AddSubview(view);
         }
 
         public override void DidReceiveMemoryWarning()

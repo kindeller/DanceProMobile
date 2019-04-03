@@ -91,6 +91,11 @@ namespace DancePro.iOS.ViewControllers
             View.Add(MediaObject.GetDetailView(this));
         }
 
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+        }
+
 
 
 

@@ -22,7 +22,7 @@ namespace DancePro.iOS.ViewControllers
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
 
-
+            AppDelegate.CanRotate = true;
             InitialisePlayer();
 
        }
@@ -31,12 +31,35 @@ namespace DancePro.iOS.ViewControllers
         {
             var video = (VideoObject)MediaObject;
             Player = new AVPlayer(video.PlayerItem);
+            TabBarController.TabBar.Hidden = true;
         }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
+        }
+
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+        }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            TabBarController.TabBar.Hidden = false;
+        }
+
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+            Player.Pause();
+            Player.Dispose();
+            Player = null;
+            AppDelegate.CanRotate = false;
         }
     }
 }

@@ -108,14 +108,17 @@ namespace DancePro.Services
             return null;
         }
         
-        public void PrepareNetwork()
+        public bool ValidateNetwork()
         {
             if (isOnWifi())
             {
-                return;
+                return true;
             }
 
             ConnectToWifi();
+
+
+            return false;
         }
 
         public bool isOnWifi()
