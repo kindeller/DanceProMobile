@@ -23,6 +23,7 @@ namespace DancePro.Models
             SegueString = new NSString("ImageSegue");
         }
 
+
         public override UIView GetDetailView(UIViewController mainController)
         {
             CGRect rect = new CGRect(0, 0, mainController.View.Frame.Width, mainController.View.Frame.Height);
@@ -50,6 +51,7 @@ namespace DancePro.Models
             }));
             return ScrollView;
         }
+        
 #endif
 
 

@@ -48,5 +48,9 @@
 	<false/>
 	<key>CFBundleIdentifier</key>
 	<string>com.dancepro.danceproapp.ios</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library access is required to save your images and videos to the camera roll.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Library access is required to save your images and videos to the camera roll.</string>
 </dict>
 </plist>

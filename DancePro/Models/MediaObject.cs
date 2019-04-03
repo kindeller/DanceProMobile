@@ -48,6 +48,10 @@ namespace DancePro.Models
             throw new NotImplementedException();
         }
 
+        public virtual bool SaveToCameraRoll() {
+            return false;
+        }
+
 
 #endif
 

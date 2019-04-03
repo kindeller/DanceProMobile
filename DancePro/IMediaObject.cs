@@ -15,5 +15,7 @@ namespace DancePro
 
 
         UIView GetDetailView(UIViewController mainController);
+
+        bool SaveToCameraRoll();
     }
 }

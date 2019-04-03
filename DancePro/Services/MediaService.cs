@@ -144,7 +144,6 @@ namespace DancePro.Services
         {
             try 
             {
-
                 if (File.Exists(obj.FilePath)) {
                     var directory = Path.GetDirectoryName(obj.FilePath);
                     var destinationPath = Path.Combine(directory, newName);
@@ -167,7 +166,12 @@ namespace DancePro.Services
         {
             try 
             {
-                if (File.Exists(obj.FilePath) && obj.MediaType != MediaTypes.Other)
+                if (!File.Exists(obj.FilePath))
+                {
+                    throw new IOException("File Does not Exist");
+                }
+
+                if (obj.MediaType != MediaTypes.Other)
                 {
                     var filename = Path.GetFileNameWithoutExtension(obj.FilePath);
                     filename = string.Concat(filename, "Copy", Path.GetExtension(obj.FilePath));
@@ -197,7 +201,6 @@ namespace DancePro.Services
                 return false;
             }
         }
-
 
 
         public bool DeleteMediaObject(MediaObject obj) 
@@ -241,7 +244,6 @@ namespace DancePro.Services
 
         public bool DeleteFolder(MediaObject obj)
         {
-
             try
             {
                 Directory.Delete(obj.FilePath, true);
@@ -252,7 +254,6 @@ namespace DancePro.Services
                 Console.WriteLine(e.Message);
                 return false;
             }
-
         }
 
         public bool CreateFolder(string folderName, string path)

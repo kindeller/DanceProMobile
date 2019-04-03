@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DancePro.Models;
+using Foundation;
 using UIKit;
 
 namespace DancePro.iOS.ViewControllers
@@ -25,26 +26,11 @@ namespace DancePro.iOS.ViewControllers
             // Perform any additional setup after loading the view, typically from a nib.
             View.BackgroundColor = UIColor.FromRGBA(0, 0, 0, 0.5f);
 
-            switch (MediaObject.MediaType) {
-
-                case MediaTypes.Audio:
-                    //SaveButton.Enabled = false;
-                    break;
-                case MediaTypes.Other:
-                    ShareButton.Enabled = false;
-                    DuplicateButton.Enabled = false;
-                    //SaveButton.Enabled = false;
-                    break;
-            }
+            View.AddGestureRecognizer(new UITapGestureRecognizer((e) => {
+                DismissViewController(true, null);
+            }));
 
             SetUpButtons();
-
-            //MoveButton.ImageView.Image = UIImage.FromBundle("Icon_Move");
-            //DeleteButton.ImageView.Image = UIImage.FromBundle("Icon_Delete");
-            //SaveButton.ImageView.Image = UIImage.FromBundle("Icon_Save");
-            //ShareButton.ImageView.Image = UIImage.FromBundle("Icon_Share");
-            //RenameButton.ImageView.Image = UIImage.FromBundle("Icon_Rename");
-            //DuplicateButton.ImageView.Image = UIImage.FromBundle("Icon_Duplicate");
         }
 
         public void SetUpButtons()
@@ -63,6 +49,7 @@ namespace DancePro.iOS.ViewControllers
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
             view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
             MoveButton.AddSubview(view);
+            MoveButton.Enabled = false;
             //Share Button Set Up
             view = new UIImageView(UIImage.FromBundle("Icon_Share"));
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
@@ -139,7 +126,7 @@ namespace DancePro.iOS.ViewControllers
             });
 
             var Message = (MediaObject.MediaType == MediaTypes.Other) ? "Are you sure you want to delete the folder \"" + MediaObject.FileName + "\" and all it's contents?" : "Are you sure you want to delete the file " + MediaObject.FileName;
-            var alert = UIAlertController.Create("Confirm",Message, UIAlertControllerStyle.Alert);
+            var alert = UIAlertController.Create("WARNING!",Message, UIAlertControllerStyle.Alert);
             alert.AddAction(actionCancel);
             alert.AddAction(actionOk);
             PresentViewController(alert, true,null);
@@ -153,12 +140,76 @@ namespace DancePro.iOS.ViewControllers
 
         partial void Save_TouchUpInside(UIButton sender)
         {
-            throw new NotImplementedException();
+            switch (MediaObject.MediaType)
+            {
+                case MediaTypes.Image:
+                    try
+                    {
+                        ImageObject Image = MediaObject as ImageObject;
+                        if (Image != null)
+                        {
+                            new AssetsLibrary.ALAssetsLibrary().WriteImageToSavedPhotosAlbum(Image.Image.CGImage, AssetsLibrary.ALAssetOrientation.Up, (arg1, arg2) => { });
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+                        Console.WriteLine(e.Message);
+                    }
+
+                    break;
+                case MediaTypes.Video:
+                    try
+                    {
+                        VideoObject Video = MediaObject as VideoObject;
+                        if (Video != null)
+                        {
+                            NSUrl url = NSUrl.FromFilename(Video.FilePath);
+                            new AssetsLibrary.ALAssetsLibrary().WriteVideoToSavedPhotosAlbum(
+                                url, (arg1, arg2) => {
+
+                                }
+                                );
+                        }
+                    }catch(Exception e)
+                    {
+                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+                        Console.WriteLine(e.Message);
+                    }
+
+                    break;
+                default:
+                    Alert("Save Failed!", "Cannot save this item to device.", new List<UIAlertAction>() { UIAlertAction.Create("Ok",UIAlertActionStyle.Cancel,null) });
+                    Console.WriteLine("Cannot Save this type of media.");
+                    break;
+            }
         }
 
         partial void Move_TouchUpInside(UIButton sender)
         {
             throw new NotImplementedException();
+        }
+
+        private UIAlertController Alert(string title, string message, List<UIAlertAction> actions)
+        {
+            var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+            if(actions != null)
+            {
+                foreach (var action in actions)
+                {
+                    alert.AddAction(action);
+                }
+            }
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+            {
+                vc = vc.PresentedViewController;
+            }
+            vc.PresentViewController(alert, true, null);
+            return alert;
         }
     }
 }
