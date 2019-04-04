@@ -266,28 +266,24 @@ namespace DancePro.Services
         }
 
         private void POST(HttpListenerContext context) {
+
             MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
+            
             if (parser.Success)
             {
+
                 //TODO: Update for handling incoming file path info and creation in correct location.
-                string fullPath = App.MediaService.GetMediaPath();
+                string fullPath = App.MediaService.GetMediaPath() + parser.FilePath;
                 try
                 {
-                    if (Directory.Exists(fullPath))
-                    {
-                        string fileName = fullPath + parser.Filename;
-                        File.WriteAllBytes(fileName, parser.FileContents);
-                        context.Response.StatusCode = 204;
-                        context.Response.Close();
-                    }
-                    else
-                    {
+                    if (!Directory.Exists(fullPath)) {
                         Directory.CreateDirectory(fullPath);
-                        string fileName = fullPath + parser.Filename;
-                        File.WriteAllBytes(fileName, parser.FileContents);
-                        context.Response.StatusCode = 204;
-                        context.Response.Close();
                     }
+
+                    string fileName = fullPath + parser.Filename;
+                    File.WriteAllBytes(fileName, parser.FileContents);
+                    context.Response.StatusCode = 204;
+                    context.Response.Close();
                 }
                 catch
                 {

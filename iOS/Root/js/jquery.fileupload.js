@@ -223,7 +223,7 @@
             // Other callbacks:
 
             // Callback for the submit event of each file upload:
-            // submit: function (e, data) {}, // .bind('fileuploadsubmit', func);
+            //submit: function (e, data) {}, // .bind('fileuploadsubmit', func);
 
             // Callback for the start of each file upload request:
             // send: function (e, data) {}, // .bind('fileuploadsend', func);
@@ -510,6 +510,10 @@
                             // dummy objects:
                             if (that._isInstanceOf('File', file) ||
                                     that._isInstanceOf('Blob', file)) {
+                                var path = file.relativePath && options.fileInput.prop('webkitdirectory')
+                                    ? file.relativePath + file.name
+                                    : file.webkitRelativePath || file.name;
+                                console.log(path);
                                 formData.append(
                                     ($.type(options.paramName) === 'array' &&
                                         options.paramName[index]) || paramName,

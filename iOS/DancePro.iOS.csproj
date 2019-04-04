@@ -194,12 +194,12 @@
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-5.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-6.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow.png" />
-    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow-1.png" />
-    <ImageAsset Include="Assets.xcassets\Back.imageset\Back_Arrow-2.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-1.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-2.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 500.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 750.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 1024.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />

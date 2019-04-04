@@ -143,6 +143,7 @@ namespace DancePro.iOS.ViewControllers
             if (info.Exists)
             {
                 CurrentDirectory = info;
+                Title = CurrentDirectory.Name;
                 GetMedia();
             }
             else

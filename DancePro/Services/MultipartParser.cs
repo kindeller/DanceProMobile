@@ -46,6 +46,13 @@ namespace DancePro.Services
                 // Look for filename
                 re = new Regex(@"(?<=filename\=\"")(.*?)(?=\"")");
                 Match filenameMatch = re.Match(content);
+                //Example Text Found
+                //Filename=\"asjdhgajfbadaf\"
+
+                // Look for filename
+                re = new Regex(@"(?<=path\""\r\n\r\n)(.*?)(?=\r\n)");
+
+                Match pathMatch = re.Match(content);
 
                 // Did we find the required values?
                 if (contentTypeMatch.Success && filenameMatch.Success)
@@ -68,6 +75,7 @@ namespace DancePro.Services
                     Buffer.BlockCopy(data, startIndex, fileData, 0, contentLength);
 
                     this.FileContents = fileData;
+                    this.FilePath = "/" + pathMatch;
                     this.Success = true;
                 }
             }
@@ -139,6 +147,12 @@ namespace DancePro.Services
         }
 
         public byte[] FileContents
+        {
+            get;
+            private set;
+        }
+
+        public string FilePath 
         {
             get;
             private set;
