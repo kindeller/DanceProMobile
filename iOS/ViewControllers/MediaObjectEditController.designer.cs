@@ -66,6 +66,10 @@ namespace DancePro.iOS.ViewControllers
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Save_TouchUpInside (UIKit.UIButton sender);
 
+        [Action ("Share_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void Share_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
             if (CancelButton != null) {

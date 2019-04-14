@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using CoreGraphics;
-using Foundation;
+
 
 #if __IOS__
 using UIKit;
 using AVFoundation;
+using CoreGraphics;
+using Foundation;
 #endif
 
 namespace DancePro.Models
@@ -15,6 +16,7 @@ namespace DancePro.Models
         Image,
         Video,
         Audio,
+        Folder,
         Other
 
     };
@@ -27,10 +29,10 @@ namespace DancePro.Models
         public string FilePath { get; set; }
         public DateTime DateCreated { get; set; }
         public MediaTypes MediaType { get; set; }
-        public UIImage Thumb { get; set; }
+
 
 #if __IOS__
-
+        public UIImage Thumb { get; set; }
         public NSString SegueString { get; protected set; }
 
         public MediaObject(string filePath)
@@ -40,7 +42,7 @@ namespace DancePro.Models
             DateCreated = File.GetCreationTime(filePath);
             Thumb = UIImage.FromBundle("Folder");
             SegueString = new NSString("Folder");
-            MediaType = MediaTypes.Other;
+            MediaType = MediaTypes.Folder;
         }
 
         public virtual UIView GetDetailView(UIViewController mainController)
@@ -52,6 +54,17 @@ namespace DancePro.Models
             return false;
         }
 
+#endif
+
+#if __ANDROID__
+
+        public MediaObject(string filePath)
+        {
+            FilePath = filePath;
+            FileName = Path.GetFileName(filePath);
+            DateCreated = File.GetCreationTime(filePath);
+            MediaType = MediaTypes.Other;
+        }
 
 #endif
 

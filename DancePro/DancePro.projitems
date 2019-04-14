@@ -35,5 +35,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\AudioObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\VideoObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMediaObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceIOS.cs" />
   </ItemGroup>
 </Project>

@@ -12,8 +12,8 @@ namespace DancePro.iOS.ViewControllers
     {
         public List<MediaObject> MediaList { get; set; }
         public MediaObject MediaObject { get; set; }
-        //UIScrollView ScrollView;
-        //UIImageView ImageView;
+        UIScrollView ScrollView;
+        UIImageView ImageView;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,15 +66,15 @@ namespace DancePro.iOS.ViewControllers
         }
 
 
-        //public override void ViewDidLayoutSubviews()
-        //{
-        //    base.ViewDidLayoutSubviews();
-        //    if(ImageView != null && ScrollView != null)
-        //    {
-        //        ImageView.Center = ScrollView.Center;
-        //    }
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+            if(ImageView != null && ScrollView != null)
+            {
+                UpdateMediaObjectView();
+            }
 
-        //}
+        }
 
         private void RemoveSubviews()
         {
@@ -88,7 +88,48 @@ namespace DancePro.iOS.ViewControllers
         private void UpdateMediaObjectView()
         {
             RemoveSubviews();
-            View.Add(MediaObject.GetDetailView(this));
+            //View.Add(MediaObject.GetDetailView(this));
+            var view = GetSubview();
+            if(view != null)
+            {
+                View.AddSubview(view);
+            }
+        }
+
+        private UIView GetSubview()
+        {
+            //Verify MediaObject as ImageObject
+            ImageObject imageObject = (ImageObject)MediaObject;
+            if (imageObject == null) return null;
+
+
+            CGRect rect = new CGRect(0, NavigationController.NavigationBar.Frame.Height, View.Frame.Width, View.Frame.Height - (TabBarController.TabBar.Frame.Height + NavigationController.NavigationBar.Frame.Height));
+
+            ScrollView = new UIScrollView(rect);
+            ImageView = new UIImageView(new CGRect(0, 0, rect.Width, rect.Height));
+            //ImageView = new UIImageView(imageObject.Image);
+            ImageView.Image = imageObject.Image;
+            ScrollView.AddSubview(ImageView);
+            ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+            ScrollView.ContentSize = new CGSize(View.Frame.Width, View.Frame.Height);
+            ScrollView.ContentMode = UIViewContentMode.ScaleAspectFit;
+            ImageView.Center = ScrollView.Center;
+            ScrollView.MinimumZoomScale = 1f;
+            ScrollView.MaximumZoomScale = 10f;
+            ScrollView.ViewForZoomingInScrollView += (view) => { return ImageView; };
+
+            ScrollView.DidZoom += (object sender, EventArgs e) => {
+
+            };
+            ScrollView.AddGestureRecognizer(new UITapGestureRecognizer((e) => {
+
+                //TODO: Perform Hide and reveal of Image UI
+                //ToolbarsView.Hidden = !ToolbarsView.Hidden;
+                NavigationController.NavigationBar.Hidden = !NavigationController.NavigationBar.Hidden;
+                TabBarController.TabBar.Hidden = !TabBarController.TabBar.Hidden;
+
+            }));
+            return ScrollView;
         }
 
         public override void ViewWillDisappear(bool animated)

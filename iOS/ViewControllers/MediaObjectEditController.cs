@@ -36,8 +36,8 @@ namespace DancePro.iOS.ViewControllers
         public void SetUpButtons()
         {
             var inset = 5;
-            var buttonWidth = ShareButton.Frame.Width - (inset*2);
-            var buttonHeight = ShareButton.Frame.Height - (inset*5);
+            var buttonWidth = SaveButton.Frame.Width - (inset*2);
+            var buttonHeight = SaveButton.Frame.Height - (inset*5);
 
             //Save Button
             UIImageView view = new UIImageView(UIImage.FromBundle("Icon_Save"));
@@ -45,16 +45,15 @@ namespace DancePro.iOS.ViewControllers
             view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
             SaveButton.AddSubview(view);
             //Move Button Set Up
-            view = new UIImageView(UIImage.FromBundle("Icon_Move"));
-            view.ContentMode = UIViewContentMode.ScaleAspectFit;
-            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
-            MoveButton.AddSubview(view);
-            MoveButton.Enabled = false;
+            //view = new UIImageView(UIImage.FromBundle("Icon_Move"));
+            //view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            //view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            //MoveButton.AddSubview(view);
             //Share Button Set Up
-            view = new UIImageView(UIImage.FromBundle("Icon_Share"));
-            view.ContentMode = UIViewContentMode.ScaleAspectFit;
-            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
-            ShareButton.AddSubview(view);
+            //view = new UIImageView(UIImage.FromBundle("Icon_Share"));
+            //view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            //view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            //ShareButton.AddSubview(view);
             //Delete Button Set Up
             view = new UIImageView(UIImage.FromBundle("Icon_Delete"));
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
@@ -96,6 +95,42 @@ namespace DancePro.iOS.ViewControllers
             }
         }
 
+        //partial void Share_TouchUpInside(UIButton sender)
+        //{
+        //    UIActivityViewController activity;
+        //    switch (MediaObject.MediaType)
+        //    {
+        //        case MediaTypes.Image:
+        //            ImageObject imageObject = MediaObject as ImageObject;
+        //            if (imageObject != null)
+        //            {
+        //                var image = NSObject.FromObject(imageObject.Image);
+        //                var items = new[] { image };
+        //                activity = new UIActivityViewController(items, null);
+        //                PresentViewController(activity, true, null);
+        //            }
+        //            break;
+        //        case MediaTypes.Audio:
+        //            AudioObject audioObject = MediaObject as AudioObject;
+        //            if (audioObject != null)
+        //            {
+        //                var items = new[] { FromObject(audioObject.Audio) };
+        //                activity = new UIActivityViewController(items, null);
+        //                PresentViewController(activity, true, null);
+        //            }
+        //            break;
+        //        case MediaTypes.Video:
+        //            VideoObject videoObject = MediaObject as VideoObject;
+        //            if (videoObject != null)
+        //            {
+        //                var items = new[] { FromObject(videoObject.Asset) };
+        //                activity = new UIActivityViewController(items, null);
+        //                PresentViewController(activity, true, null);
+        //            }
+        //            break;
+        //    }
+        //}
+
         partial void Cancel_TouchUpInside(UIButton sender)
         {
             DismissViewController(true, null);
@@ -107,7 +142,7 @@ namespace DancePro.iOS.ViewControllers
             alert.AddTextField((obj) => obj.Text = System.IO.Path.GetFileNameWithoutExtension(MediaObject.FileName));
             var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
-                var isSuccess = (MediaObject.MediaType == MediaTypes.Other) ? App.MediaService.RenameFolder(MediaObject, alert.TextFields[0].Text) : App.MediaService.RenameMediaObject(MediaObject, alert.TextFields[0].Text);
+                var isSuccess = (MediaObject.MediaType == MediaTypes.Folder) ? App.MediaService.RenameFolder(MediaObject, alert.TextFields[0].Text) : App.MediaService.RenameMediaObject(MediaObject, alert.TextFields[0].Text);
                 controller.GetMedia();
             });
             alert.AddAction(actionCancel);
@@ -120,12 +155,12 @@ namespace DancePro.iOS.ViewControllers
             var isSuccess = false;
             var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,null);
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
-                isSuccess = MediaObject.MediaType == MediaTypes.Other ? App.MediaService.DeleteFolder(MediaObject) : App.MediaService.DeleteMediaObject(MediaObject);
+                isSuccess = MediaObject.MediaType == MediaTypes.Folder ? App.MediaService.DeleteFolder(MediaObject) : App.MediaService.DeleteMediaObject(MediaObject);
                 controller.GetMedia();
                 DismissViewController(true, null);
             });
 
-            var Message = (MediaObject.MediaType == MediaTypes.Other) ? "Are you sure you want to delete the folder \"" + MediaObject.FileName + "\" and all it's contents?" : "Are you sure you want to delete the file " + MediaObject.FileName;
+            var Message = (MediaObject.MediaType == MediaTypes.Folder) ? "Are you sure you want to delete the folder \"" + MediaObject.FileName + "\" and all it's contents?" : "Are you sure you want to delete the file " + MediaObject.FileName;
             var alert = UIAlertController.Create("WARNING!",Message, UIAlertControllerStyle.Alert);
             alert.AddAction(actionCancel);
             alert.AddAction(actionOk);
@@ -187,10 +222,10 @@ namespace DancePro.iOS.ViewControllers
             }
         }
 
-        partial void Move_TouchUpInside(UIButton sender)
-        {
-            throw new NotImplementedException();
-        }
+        //partial void Move_TouchUpInside(UIButton sender)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private UIAlertController Alert(string title, string message, List<UIAlertAction> actions)
         {

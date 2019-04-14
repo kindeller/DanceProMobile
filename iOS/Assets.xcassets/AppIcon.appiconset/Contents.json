@@ -1,31 +1,31 @@
 {
   "images": [
     {
-      "filename": "DP iPhone and iPad Notification IOS 7-12 x2.png",
+      "filename": "40.png",
       "size": "20x20",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "filename": "DP iPhone Notification IOS 7-12 x3.png",
+      "filename": "60.png",
       "size": "20x20",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
-      "filename": "DP iPhone Spotlight x2.png",
+      "filename": "58.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "filename": "DP iPhone x3.png",
+      "filename": "87.png",
       "size": "29x29",
       "scale": "3x",
       "idiom": "iphone"
     },
     {
-      "filename": "DP iPad Spotlight IOS 7-12 x2.png",
+      "filename": "80.png",
       "size": "40x40",
       "scale": "2x",
       "idiom": "iphone"
@@ -49,59 +49,61 @@
       "idiom": "iphone"
     },
     {
-      "filename": "DP iPad Notifications IOS 7-12 x1.png",
+      "filename": "20.png",
       "size": "20x20",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPhone and iPad Notification IOS 7-12 x2.png",
+      "filename": "40-1.png",
       "size": "20x20",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
+      "filename": "29.png",
       "size": "29x29",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPhone Spotlight x2.png",
+      "filename": "58-1.png",
       "size": "29x29",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPhone and iPad Notification IOS 7-12 x2.png",
+      "filename": "40-2.png",
       "size": "40x40",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPad Spotlight IOS 7-12 x2.png",
+      "filename": "80-1.png",
       "size": "40x40",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPad Pro App IOS 9-12 x2.png",
+      "filename": "167.png",
       "size": "83.5x83.5",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
+      "filename": "76.png",
       "size": "76x76",
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP iPad App IOS 7-12 x2.png",
+      "filename": "152.png",
       "size": "76x76",
       "scale": "2x",
       "idiom": "ipad"
     },
     {
-      "filename": "DP App Store IOS.png",
+      "filename": "AppIcon_DancePro-1.png",
       "size": "1024x1024",
       "scale": "1x",
       "idiom": "ios-marketing"

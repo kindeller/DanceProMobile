@@ -1,0 +1,71 @@
+﻿
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/frameLayout1"
+	android:scrollbars="vertical"
+	android:paddingBottom="50dp">
+	<LinearLayout
+		android:orientation="vertical"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/linearLayout1"
+		android:gravity="fill">
+		<ImageView
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/imageViewLogo"
+			android:layout_weight="6"
+			android:translationX="150dp"
+			android:translationY="-100dp"
+			android:scaleX="1.5"
+			android:scaleY="1.5" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/button2"
+			android:layout_weight="2"
+			android:text="My Media"
+			android:hint="Download your media at dance competitions."/>
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView1"
+			android:text="Download your media at dance competitions."
+			android:gravity="center" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/button1"
+			android:layout_weight="2"
+			android:text="Photos" />
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView1"
+			android:text="Download your media at dance competitions."
+			android:gravity="center" />
+		<Button
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/button3"
+			android:layout_weight="2"
+			android:layout_gravity="top"
+			android:text="Videos " />
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/textView1"
+			android:text="Download your media at dance competitions."
+			android:gravity="center" />
+	</LinearLayout>
+</FrameLayout>

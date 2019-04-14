@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DancePro.ViewModels;
 using Foundation;
 using DancePro.Services;
 using DancePro.Models;
@@ -16,6 +15,7 @@ namespace DancePro.iOS.ViewControllers
         List<MediaObject> MediaObjects = new List<MediaObject>();
         DirectoryInfo CurrentDirectory;
         UIAlertController CurrentNetworkAlert;
+        NetworkServiceIOS NetworkService;
 
         public MyMediaViewController(IntPtr intPtr) : base(intPtr)
         {
@@ -26,41 +26,49 @@ namespace DancePro.iOS.ViewControllers
         {
             if (CurrentNetworkAlert != null)
             {
-                if (App.NetworkService.isListening)
+                if (NetworkService.isListening)
                 {
-                    CurrentNetworkAlert.Title = App.NetworkService.Address + ":" + App.NetworkService.Port;
+                    CurrentNetworkAlert.Title = NetworkService.Address + ":" + NetworkService.Port;
                     CurrentNetworkAlert.Message = "For Dance Pro kiosk use only.";
                 }
-
+                else
+                {
+                    CurrentNetworkAlert.DismissViewController(true, null);
+                    //ConnectSwitch.On = false;
+                }
             }
-
         }
 
 
         partial void OnConnectSwitchChanged(UISwitch sender)
         {
+            //If switch turned on
             if (sender.On)
             {
-                if (!App.NetworkService.ValidateNetwork())
+                //check wifi connection
+                if (!NetworkService.ValidateNetwork())
                 {
+                    //disconnect if not on wifi
                     sender.SetState(false, true);
                     return;
                 }
+
+
                 List<UIAlertAction> actions = new List<UIAlertAction>();
                 var action = UIAlertAction.Create("Finish", UIAlertActionStyle.Cancel, alert => { 
-                    App.NetworkService.Disconnect();
+                    NetworkService.Disconnect();
                     sender.SetState(false, true);
                     GetMedia();
                 var disconnectOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => { });
                     Alert("Disconnect!", "Please Remember to disconnect your device from our network.", new List<UIAlertAction>() { disconnectOk });
                 });
                 actions.Add(action);
-                App.NetworkService.Connect();
-                CurrentNetworkAlert = Alert(App.NetworkService.Address + ":" + App.NetworkService.Port, "(For Dance Pro kiosk use only)", actions);
+                NetworkService.Connect();
+                CurrentNetworkAlert = Alert(NetworkService.Address + ":" + NetworkService.Port, "(For Dance Pro kiosk use only)", actions);
             }
-            else
+            else //disconnected programmatically
             {
-                App.NetworkService.Disconnect();
+                NetworkService.Disconnect();
                 GetMedia();
             }
         }
@@ -88,7 +96,7 @@ namespace DancePro.iOS.ViewControllers
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
             //MediaCollectionView.Delegate = new MyMediaViewDelegate();
-
+            NetworkService = AppDelegate.NetworkService;
             GetMedia();
 
             MediaCollectionView.DragDelegate = this;
@@ -183,6 +191,7 @@ namespace DancePro.iOS.ViewControllers
             if (result > 0)
             {
                 MediaObject up = new MediaObject(CurrentDirectory.Parent.FullName);
+                up.MediaType = MediaTypes.Other;
                 up.Thumb = UIImage.FromBundle("Back");
                 MediaObjects.Insert(0, up);
                 //MediaObjects.Add(up);
@@ -193,8 +202,9 @@ namespace DancePro.iOS.ViewControllers
                 MyMediaUICollectionSource source = new MyMediaUICollectionSource(MediaObjects, this);
                 MediaCollectionView.ShowsVerticalScrollIndicator = false;
                 MediaCollectionView.Source = source;
-            }
 
+            }
+            MediaCollectionView.ReloadData();
         }
 
         /// <summary>
@@ -271,7 +281,7 @@ namespace DancePro.iOS.ViewControllers
         public UIDragItem[] GetItemsForBeginningDragSession(UICollectionView collectionView, IUIDragSession session, NSIndexPath indexPath)
         {
             MyMediaViewCell cell = collectionView.CellForItem(indexPath) as MyMediaViewCell;
-            if(cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
+            if(cell != null && cell.MediaObject.MediaType != MediaTypes.Folder)
             {
                 NSItemProvider provider = new NSItemProvider(cell, "object");
                 UIDragItem item = new UIDragItem(provider);
@@ -300,14 +310,14 @@ namespace DancePro.iOS.ViewControllers
 
                     var cell = collectionView.CellForItem(coordinator.DestinationIndexPath) as MyMediaViewCell;
 
-                    if(cell != null && cell.MediaObject.MediaType == MediaTypes.Other)
+                    if(cell != null && (cell.MediaObject.MediaType == MediaTypes.Folder || cell.MediaObject.MediaType == MediaTypes.Other))
                     {
                         foreach(var item in coordinator.Items)
                         {
                             MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
                             if(mediaViewCell != null)
                             {
-                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Other) //Item is a folder
+                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Folder) //Item is a folder
                                 {
                                     //Attempt move Folder
                                     if(App.MediaService.MoveFolder(mediaViewCell.MediaObject, cell.MediaObject))

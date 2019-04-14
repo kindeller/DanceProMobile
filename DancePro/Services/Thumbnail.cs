@@ -1,13 +1,19 @@
 ﻿using System;
+
+#if __ANDROID__
 using System.IO;
-using AVFoundation;
-using CoreMedia;
-using Foundation;
-using CoreGraphics;
+using Android.Graphics;
+using Android.Media;
+using System.Collections.Generic;
+#endif
 
 #if __IOS__
 using UIKit;
 using ImageIO;
+using AVFoundation;
+using CoreMedia;
+using Foundation;
+using CoreGraphics;
 #endif
 
 namespace DancePro.Services
@@ -26,7 +32,6 @@ namespace DancePro.Services
             return PhotoResizer.ImageFromByteArray(PhotoResizer.ResizeImageIOS(bytes, width, height, quality));
         }
 
-        //TODO: Testing
         public static CGImageSource GenerateThumbImage(string url, long usecond)
         {
             AVAssetImageGenerator imageGenerator = new AVAssetImageGenerator(AVAsset.FromUrl((new Foundation.NSUrl(url))));
@@ -51,20 +56,20 @@ namespace DancePro.Services
 #endif
 
 #if __ANDROID__
-        public ImageSource GenerateThumbImage(string url, long usecond)
-        {   
-            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-            retriever.SetDataSource(url, new Dictionary<string, string>());
-            Bitmap bitmap = retriever.GetFrameAtTime(usecond);
-            if (bitmap != null)
-            {
-                MemoryStream stream = new MemoryStream();
-                bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
-                byte[] bitmapData = stream.ToArray();
-                return ImageSource.FromStream(() => new MemoryStream(bitmapData));
-            }
-            return null;
-        }
+        //public ImageSource GenerateThumbImage(string url, long usecond)
+        //{   
+        //    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        //    retriever.SetDataSource(url, new Dictionary<string, string>());
+        //    Bitmap bitmap = retriever.GetFrameAtTime(usecond);
+        //    if (bitmap != null)
+        //    {
+        //        MemoryStream stream = new MemoryStream();
+        //        bitmap.Compress(Bitmap.CompressFormat.Png, 0, stream);
+        //        byte[] bitmapData = stream.ToArray();
+        //        return ImageSource.FromStream(() => new MemoryStream(bitmapData));
+        //    }
+        //    return null;
+        //}
 
 #endif
     }

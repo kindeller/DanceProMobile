@@ -12,9 +12,10 @@ namespace DancePro.Models
 {
     public class ImageObject : MediaObject
     {
-        public UIImage Image { get; set; }
+
 
 #if __IOS__
+    public UIImage Image { get; set; }
         public ImageObject(string filePath) : base(filePath)
         {
             MediaType = MediaTypes.Image;
@@ -30,7 +31,7 @@ namespace DancePro.Models
             UIImageView ImageView = new UIImageView(rect);
             ImageView.Image = Image;
             UIScrollView ScrollView = new UIScrollView(rect);
-            ScrollView.AddSubview(ImageView);
+            //ScrollView.AddSubview(ImageView);
             ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
             ScrollView.ContentSize = ImageView.Image.Size;
             //ScrollView.ContentMode = UIViewContentMode.ScaleAspectFit;
@@ -54,6 +55,15 @@ namespace DancePro.Models
         
 #endif
 
+#if __ANDROID__
+
+        public ImageObject(string filePath) : base(filePath)
+        {
+            MediaType = MediaTypes.Image;
+
+        }
+
+#endif
 
 
     }

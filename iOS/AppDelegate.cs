@@ -1,6 +1,7 @@
 ﻿using Foundation;
 using ObjCRuntime;
 using UIKit;
+using DancePro.Services;
 
 namespace DancePro.iOS
 {
@@ -11,6 +12,7 @@ namespace DancePro.iOS
     {
         // class-level declarations
         public static bool CanRotate { get; set; }
+        public static NetworkServiceIOS NetworkService { get; set; }
 
         public override UIWindow Window
         {
@@ -21,6 +23,7 @@ namespace DancePro.iOS
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             App.Initialize();
+            NetworkService = new NetworkServiceIOS();
 
             return true;
         }

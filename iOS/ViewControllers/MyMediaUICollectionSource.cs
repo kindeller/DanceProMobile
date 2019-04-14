@@ -44,6 +44,15 @@ namespace DancePro.iOS.ViewControllers
         {
             MyMediaViewCell cell = (MyMediaViewCell)collectionView.CellForItem(indexPath);
 
+
+            if(cell.MediaObject.MediaType == MediaTypes.Folder)
+            {
+                ViewController.ChangeDirectory(cell.MediaObject.FilePath);
+                return;
+            }
+
+
+
             if (cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
                 NSString segueString = cell.MediaObject.SegueString;

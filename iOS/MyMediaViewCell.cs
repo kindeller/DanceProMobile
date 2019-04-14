@@ -32,6 +32,23 @@ namespace DancePro.iOS
             DateLabel.Text = mediaObject.DateCreated.ToShortDateString();
             ThumbImage.Image = mediaObject.Thumb;
             ThumbImage.ContentMode = UIViewContentMode.ScaleAspectFit;
+
+            if(mediaObject.MediaType == MediaTypes.Other)
+            {
+                MenuButton.Enabled = false;
+                MenuButton.Hidden = true;
+                DateLabel.Enabled = false;
+                DateLabel.Hidden = true;
+                Title.TextAlignment = UITextAlignment.Center;
+            }
+            else
+            {
+                MenuButton.Enabled = true;
+                MenuButton.Hidden = false;
+                DateLabel.Enabled = true;
+                DateLabel.Hidden = false;
+                Title.TextAlignment = UITextAlignment.Left;
+            }
         }
 
         partial void MediaCellMenu_UpInside(UIButton sender)

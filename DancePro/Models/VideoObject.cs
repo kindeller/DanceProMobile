@@ -7,10 +7,9 @@ namespace DancePro.Models
 {
     public class VideoObject : MediaObject
     {
-
+#if __IOS__
         public AVAsset Asset { get; private set; }
         public AVPlayerItem PlayerItem { get; private set; }
-
 
         public VideoObject(string filePath) : base(filePath)
         {
@@ -22,5 +21,14 @@ namespace DancePro.Models
             MediaType = MediaTypes.Video;
 
         }
+#endif
+
+#if __ANDROID__
+        
+        public VideoObject(string filePath) : base(filePath)
+        {
+            MediaType = MediaTypes.Video;
+        }
+#endif
     }
 }

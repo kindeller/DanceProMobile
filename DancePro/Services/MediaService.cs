@@ -49,7 +49,7 @@ namespace DancePro.Services
             return new DirectoryInfo(MediaPath);
         }
 
-
+#if __IOS__
         public static NSString GetSegueString(MediaObject obj) {
 
             switch (obj.MediaType) {
@@ -63,6 +63,7 @@ namespace DancePro.Services
                     return null;
             }
         }
+#endif
 
         public List<MediaObject> GetMediaFromFolder() {
 
@@ -171,7 +172,7 @@ namespace DancePro.Services
                     throw new IOException("File Does not Exist");
                 }
 
-                if (obj.MediaType != MediaTypes.Other)
+                if (obj.MediaType != MediaTypes.Folder)
                 {
                     var filename = Path.GetFileNameWithoutExtension(obj.FilePath);
                     filename = string.Concat(filename, "Copy", Path.GetExtension(obj.FilePath));
@@ -182,7 +183,7 @@ namespace DancePro.Services
                 }
                 else
                 {
-                    if(obj.MediaType == MediaTypes.Other) {
+                    if(obj.MediaType == MediaTypes.Folder) {
 
                         //if (isUnderMaxFileThreadshold(obj.FilePath)) {
                         throw new NotImplementedException("The Duplication of Folders is not yet Supported.");

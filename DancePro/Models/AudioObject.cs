@@ -11,11 +11,20 @@ namespace DancePro.Models
 
         //NSUrl AudioFileURL;
 
+#if __IOS__
+
+        public AVAudioFile Audio { get; set; }
 
         public AudioObject(string filePath) : base(filePath)
         {
             MediaType = MediaTypes.Audio;
             NSUrl url = NSUrl.FromFilename(filePath);
+            NSError err;
+            Audio = new AVAudioFile(url, out err);
+            if(err != null)
+            {
+                Console.WriteLine("Failed to create audio file: " + FileName);
+            }
             SegueString = new NSString("AudioSegue");
             Thumb = UIImage.FromBundle("Audio");
         }
@@ -51,5 +60,18 @@ namespace DancePro.Models
 
             return view;
         }*/
+
+#endif
+
+#if __ANDROID__
+
+        public AudioObject(string filePath) : base(filePath)
+        {
+            MediaType = MediaTypes.Audio;
+            NSUrl url = NSUrl.FromFilename(filePath);
+        }
+
+#endif
+
     }
 }

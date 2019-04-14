@@ -2,40 +2,42 @@
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System;
-using Xamarin.Essentials;
 using System.Net.NetworkInformation;
-using NetworkExtension;
-using System.Threading.Tasks;
-using UIKit;
+
 
 namespace DancePro.Services
 {
-    public class NetworkService
+    public abstract class NetworkService
     {
-        NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
-        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "dppv3778", false);
 
-        HttpRequestHandler handler;
+        public HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
         public int Port { get; private set; }
         public string Address { get; private set; }
         public bool isListening;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:DancePro.Services.NetworkService"/> class.
+        /// Adds Listener for change of network Address.
+        /// Sets up Port and handler along with init for the first time.
+        /// </summary>
         public NetworkService()
         {
             NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
-            //GetRandomPort
-            //Port = new Random().Next(8081, 65535);
-            Port = 3045; //Temp testing value
-
             handler = new HttpRequestHandler("./Root");
             Initialise();
 
         }
 
+        /// <summary>
+        /// Initialise this instance with IP Address Details.
+        /// </summary>
         private void Initialise()
         {
+            //Request new Port number
+            //Port = new Random().Next(8081, 10000);
+            Port = 3045;
+
             //Request Local Wifi IP Address
             var local = GetIP();
             prefixes.Clear();
@@ -53,86 +55,44 @@ namespace DancePro.Services
             }
         }
 
+        /// <summary>
+        /// Handles the change to network address.
+        /// </summary>
+        /// <param name="sender">Sender.</param>
+        /// <param name="e">E.</param>
         void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
         {
+            if (handler == null) return;
             Initialise();
         }
 
-
+        /// <summary>
+        /// Connect this instance to the handler and begins listening.
+        /// </summary>
         public void Connect()
         {
             isListening = true;
             handler.ListenAsynchronously(prefixes);
         }
 
+        /// <summary>
+        /// Disconnect this instance from the handler and stops listening.
+        /// </summary>
         public void Disconnect()
         {
             isListening = false;
             handler.StopListening();
-            //TODO: attempt to disconnect from wifi here?
-            if (isOnWifi())
-            {
-                WifiManager.RemoveConfiguration(config.Ssid);
-            }
+            DisconnectFromWifi();
         }
 
-        private IPAddress GetIP()
-        {
-            if (isOnWifi())
-            {
-                //Active WiFi
-                foreach (var netInterface in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if (netInterface.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || netInterface.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                    {
-                        foreach (var addrInfo in netInterface.GetIPProperties().UnicastAddresses)
-                        {
-                            if (addrInfo.Address.AddressFamily == AddressFamily.InterNetwork)
-                            {
-                                return addrInfo.Address;
-                            }
-                        }
-                    }
-                }
-            }
+        public abstract void DisconnectFromWifi();
 
-            //backup 
-            return null;
-        }
-        
-        public bool ValidateNetwork()
-        {
-            if (isOnWifi())
-            {
-                return true;
-            }
+        public abstract IPAddress GetIP();
 
-            ConnectToWifi();
+        public abstract bool ValidateNetwork();
 
+        public abstract bool isOnWifi();
 
-            return false;
-        }
-
-        public bool isOnWifi()
-        {
-
-            var profiles = Connectivity.ConnectionProfiles;
-
-            foreach (var profile in profiles)
-            {
-                if (profile == ConnectionProfile.WiFi)
-                {
-
-                    return true;
-                }
-
-            }
-            return false;
-        }
-
-        public void ConnectToWifi() {
-
-            WifiManager.ApplyConfiguration(config, (obj) => { });
-        }
+        public abstract void ConnectToWifi();
     }
 }

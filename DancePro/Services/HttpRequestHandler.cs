@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
-using DancePro.Services;
-using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
 
 namespace DancePro.Services
 {
@@ -24,6 +24,21 @@ namespace DancePro.Services
 
     public class HttpRequestHandler
         {
+
+        private static readonly string[] AcceptedFileTypes =
+        {
+            ".jpeg",
+            ".jpg",
+            ".mov",
+            ".mp3",
+            ".mpeg",
+            ".mpg",
+            ".png",
+            ".mp4"
+            //TODO: Enable Zip extension support once Zip can be unzipped in app.
+            //".zip"
+
+        };
 
         private static readonly string[] indexFiles =
             {
@@ -190,6 +205,7 @@ namespace DancePro.Services
                 string requestData = sr.ReadToEnd();
 
                 // get filename path
+
                 filename = context.Request.Url.AbsolutePath;
                 if (filename != null) filename = filename.Substring(1);
 
@@ -209,7 +225,6 @@ namespace DancePro.Services
                 }
                 filename = Path.Combine(path, filename);
             }
-
 
             try
             {
@@ -271,9 +286,14 @@ namespace DancePro.Services
             
             if (parser.Success)
             {
+                //Validate incoming file type
+                if (!IsValidFileType(parser.Filename))
+                {
+                    throw new HttpRequestException("Invalid File Type.");
+                }
 
-                //TODO: Update for handling incoming file path info and creation in correct location.
                 string fullPath = App.MediaService.GetMediaPath() + parser.FilePath;
+
                 try
                 {
                     if (!Directory.Exists(fullPath)) {
@@ -282,6 +302,11 @@ namespace DancePro.Services
 
                     string fileName = fullPath + parser.Filename;
                     File.WriteAllBytes(fileName, parser.FileContents);
+                    UploadFileInfo fileInfo = new UploadFileInfo();
+                    fileInfo.name = parser.Filename;
+                    fileInfo.dir = parser.FilePath;
+                    fileInfo.size = parser.FileContents.Length;
+                    fileInfo.type = parser.ContentType;
                     context.Response.StatusCode = 204;
                     context.Response.Close();
                 }
@@ -291,10 +316,27 @@ namespace DancePro.Services
                     context.Response.Close();
                     throw;
                 }
-
             }
         }
+
+        private bool IsValidFileType(string filename)
+        {
+            string fileExt = Path.GetExtension(filename);
+
+            if (string.IsNullOrEmpty(fileExt)) return true;
+            foreach(string ext in AcceptedFileTypes)
+            {
+                if (string.Compare(fileExt, ext) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
+
+
 
     //TODO: Update File info handling and response to request
     public class UploadFileInfo
@@ -312,4 +354,30 @@ namespace DancePro.Services
         public string delete_url { get; set; }
         public Dictionary<string, UploadFileInfo> image_versions { get; set; }
     }
+
+
+    //Prep Serialization for JSON response to each file request.
+
+    //public static class Json
+    //{
+    //    public static T Deserialise<T>(string json)
+    //    {
+    //        T obj = Activator.CreateInstance<T>();
+    //        using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
+    //        {
+    //            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+    //            obj = (T)serializer.ReadObject(ms);
+    //            return obj;
+    //        }
+    //    }
+    //    public static string Serialize<T>(T obj)
+    //    {
+    //        DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+    //        using (MemoryStream ms = new MemoryStream())
+    //        {
+    //            serializer.WriteObject(ms, obj);
+    //            return Encoding.UTF8.GetString(ms.ToArray());
+    //        }
+    //    }
+    //}
 }

@@ -35,7 +35,7 @@
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Aaron Clifford (S6U58HK3W3)</CodesignKey>
     <MtouchUseLlvm>true</MtouchUseLlvm>
     <MtouchFloat32>true</MtouchFloat32>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
@@ -43,6 +43,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>DancePro Dist Profile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
@@ -50,12 +51,13 @@
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Aaron Clifford (S6U58HK3W3)</CodesignKey>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>DancePro Dist Profile</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,18 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\First.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed.png" />
-    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed%402x.png" />
-    <ImageAsset Include="Assets.xcassets\First.imageset\tab_feed%403x.png" />
-    <ImageAsset Include="Assets.xcassets\Second.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about.png" />
-    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about%402x.png" />
-    <ImageAsset Include="Assets.xcassets\Second.imageset\tab_about%403x.png" />
-    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo.png" />
-    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%402x.png" />
-    <ImageAsset Include="Assets.xcassets\XamarinLogo.imageset\xamarin_logo%403x.png" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Home.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Media.imageset\Contents.json" />
@@ -143,17 +133,8 @@
     <ImageAsset Include="Assets.xcassets\Home.imageset\Home.png" />
     <ImageAsset Include="Assets.xcassets\Home.imageset\Home 2x.png" />
     <ImageAsset Include="Assets.xcassets\Home.imageset\Home 3x.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone and iPad Notification IOS 7-12 x2.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Notification IOS 7-12 x3.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone x3.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Spotlight IOS 7-12 x2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone App IOS 7-12 x2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone App IOS 7-12 x3.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP App Store IOS.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Pro App IOS 9-12 x2.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad App IOS 7-12 x2.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPad Notifications IOS 7-12 x1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone Spotlight x2.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\microphone-icon.png" />
@@ -200,6 +181,21 @@
     <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 500.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 750.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 1024.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\20.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon_DancePro-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
