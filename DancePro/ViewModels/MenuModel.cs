@@ -7,12 +7,8 @@ namespace DancePro
         public MenuModel()
         {
             Title = "Home";
-
-            OpenPhotosCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://photos.dancepro.com.au/"));
-            OpenVideosCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://www.dancepro.com.au/video"));
+            OpenWebsiteCommand = new Command(() => Plugin.Share.CrossShare.Current.OpenBrowser("https://www.dancepro.com.au/"));
         }
-
-        public ICommand OpenPhotosCommand { get; }
-        public ICommand OpenVideosCommand { get; }
+        public ICommand OpenWebsiteCommand { get; }
     }
 }

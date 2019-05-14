@@ -25,21 +25,6 @@ namespace DancePro.Services
     public class HttpRequestHandler
         {
 
-        private static readonly string[] AcceptedFileTypes =
-        {
-            ".jpeg",
-            ".jpg",
-            ".mov",
-            ".mp3",
-            ".mpeg",
-            ".mpg",
-            ".png",
-            ".mp4"
-            //TODO: Enable Zip extension support once Zip can be unzipped in app.
-            //".zip"
-
-        };
-
         private static readonly string[] indexFiles =
             {
                 "index.html",
@@ -282,58 +267,29 @@ namespace DancePro.Services
 
         private void POST(HttpListenerContext context) {
 
+
+            int id = new Random().Next(1, 1000);
+            MediaService MediaService = App.MediaService;
+            MediaService.NewDownload(id);
+
             MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
-            
+
             if (parser.Success)
             {
-                //Validate incoming file type
-                if (!IsValidFileType(parser.Filename))
+
+                if (MediaService.SaveDownload(id,parser))
                 {
-                    throw new HttpRequestException("Invalid File Type.");
-                }
-
-                string fullPath = App.MediaService.GetMediaPath() + parser.FilePath;
-
-                try
-                {
-                    if (!Directory.Exists(fullPath)) {
-                        Directory.CreateDirectory(fullPath);
-                    }
-
-                    string fileName = fullPath + parser.Filename;
-                    File.WriteAllBytes(fileName, parser.FileContents);
-                    UploadFileInfo fileInfo = new UploadFileInfo();
-                    fileInfo.name = parser.Filename;
-                    fileInfo.dir = parser.FilePath;
-                    fileInfo.size = parser.FileContents.Length;
-                    fileInfo.type = parser.ContentType;
                     context.Response.StatusCode = 204;
                     context.Response.Close();
                 }
-                catch
+                else
                 {
                     context.Response.StatusCode = 500;
                     context.Response.Close();
-                    throw;
                 }
             }
         }
 
-        private bool IsValidFileType(string filename)
-        {
-            string fileExt = Path.GetExtension(filename);
-
-            if (string.IsNullOrEmpty(fileExt)) return true;
-            foreach(string ext in AcceptedFileTypes)
-            {
-                if (string.Compare(fileExt, ext) == 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
     }
 
 

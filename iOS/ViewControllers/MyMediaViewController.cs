@@ -40,38 +40,38 @@ namespace DancePro.iOS.ViewControllers
         }
 
 
-        partial void OnConnectSwitchChanged(UISwitch sender)
-        {
-            //If switch turned on
-            if (sender.On)
-            {
-                //check wifi connection
-                if (!NetworkService.ValidateNetwork())
-                {
-                    //disconnect if not on wifi
-                    sender.SetState(false, true);
-                    return;
-                }
+        //partial void OnConnectSwitchChanged(UISwitch sender)
+        //{
+        //    //If switch turned on
+        //    if (sender.On)
+        //    {
+        //        //check wifi connection
+        //        if (!NetworkService.ValidateNetwork())
+        //        {
+        //            //disconnect if not on wifi
+        //            sender.SetState(false, true);
+        //            return;
+        //        }
 
 
-                List<UIAlertAction> actions = new List<UIAlertAction>();
-                var action = UIAlertAction.Create("Finish", UIAlertActionStyle.Cancel, alert => { 
-                    NetworkService.Disconnect();
-                    sender.SetState(false, true);
-                    GetMedia();
-                var disconnectOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => { });
-                    Alert("Disconnect!", "Please Remember to disconnect your device from our network.", new List<UIAlertAction>() { disconnectOk });
-                });
-                actions.Add(action);
-                NetworkService.Connect();
-                CurrentNetworkAlert = Alert(NetworkService.Address + ":" + NetworkService.Port, "(For Dance Pro kiosk use only)", actions);
-            }
-            else //disconnected programmatically
-            {
-                NetworkService.Disconnect();
-                GetMedia();
-            }
-        }
+        //        List<UIAlertAction> actions = new List<UIAlertAction>();
+        //        var action = UIAlertAction.Create("Finish", UIAlertActionStyle.Cancel, alert => { 
+        //            NetworkService.Disconnect();
+        //            sender.SetState(false, true);
+        //            GetMedia();
+        //        var disconnectOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => { });
+        //            Alert("Disconnect!", "Please Remember to disconnect your device from our network.", new List<UIAlertAction>() { disconnectOk });
+        //        });
+        //        actions.Add(action);
+        //        NetworkService.Connect();
+        //        CurrentNetworkAlert = Alert(NetworkService.Address + ":" + NetworkService.Port, "(For Dance Pro kiosk use only)", actions);
+        //    }
+        //    else //disconnected programmatically
+        //    {
+        //        NetworkService.Disconnect();
+        //        GetMedia();
+        //    }
+        //}
 
 
         private UIAlertController Alert(string title, string message, List<UIAlertAction> actions)
@@ -103,7 +103,7 @@ namespace DancePro.iOS.ViewControllers
             MediaCollectionView.DropDelegate = this;
             MediaCollectionView.DragInteractionEnabled = true;
 
-            NavigationController.NavigationBar.TopItem.RightBarButtonItem = new UIBarButtonItem(ConnectSwitch);
+            //NavigationController.NavigationBar.TopItem.RightBarButtonItem = new UIBarButtonItem(ConnectSwitch);
             var newFolderButton = new UIBarButtonItem("+", UIBarButtonItemStyle.Done, (sender, e) =>
             {
                 var alert = UIAlertController.Create("New Folder", "New folder name...", UIAlertControllerStyle.Alert);

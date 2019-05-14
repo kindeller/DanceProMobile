@@ -9,8 +9,27 @@ namespace DancePro.Services
 {
     public class MediaService
     {
+        public bool AutoAppendDuplicates { get; set; } = true;
         private string MediaPath = string.Empty;
         private const int FileWarningThreshhold = 25;
+
+        public delegate void DownloadUpdateHandler(object sender, NewDownloadModel model);
+        public delegate void DownloadStartedEventHandler(object sender, NewDownloadModel model);
+
+        public event DownloadUpdateHandler DownloadUpdate;
+        public event DownloadStartedEventHandler startedEventHandler;
+
+        protected virtual void OnDownloadUpdate(object sender, NewDownloadModel e)
+        {
+            DownloadUpdateHandler handler = DownloadUpdate;
+            handler?.Invoke(this, e);
+        }
+        protected virtual void OnDownloadStarted(object sender, NewDownloadModel e)
+        {
+            DownloadStartedEventHandler handler = startedEventHandler;
+            handler?.Invoke(this, e);
+        }
+
 
         public static IDictionary<string, MediaTypes> FileToMediaTypes = new Dictionary<string, MediaTypes>(StringComparer.InvariantCultureIgnoreCase)
         {
@@ -19,7 +38,24 @@ namespace DancePro.Services
             {".png",MediaTypes.Image},
             {".mp4",MediaTypes.Video},
             {".mp3",MediaTypes.Audio},
-            {".wav",MediaTypes.Audio}
+            {".wav",MediaTypes.Audio},
+            {".m4a",MediaTypes.Audio}
+
+        };
+
+        private static readonly string[] AcceptedFileTypes =
+        {
+            ".jpeg",
+            ".jpg",
+            ".mov",
+            ".mp3",
+            ".mpeg",
+            ".m4a",
+            ".mpg",
+            ".png",
+            ".mp4"
+            //TODO: Enable Zip extension support once Zip can be unzipped in app.
+            //".zip"
 
         };
 
@@ -64,6 +100,61 @@ namespace DancePro.Services
             }
         }
 #endif
+
+        public void NewDownload(int id)
+        {
+            OnDownloadStarted(this, new NewDownloadModel(id));
+        }
+
+        public bool SaveDownload(int id, MultipartParser parser)
+        {
+            NewDownloadModel model = new NewDownloadModel(id, parser.Filename,status: NewDownloadModel.DownloadStatus.Copying);
+            OnDownloadUpdate(this, model);
+
+            if (IsValidFileType(parser.Filename))
+            {
+                try
+                {
+                    string fullPath = GetMediaPath() + parser.FilePath;
+                    if (!Directory.Exists(fullPath))
+                    {
+                        Directory.CreateDirectory(fullPath);
+                    }
+
+                    string fileName = fullPath + parser.Filename;
+                    //if (File.Exists(fileName))
+                    //{
+                    //    //Append Copy
+                    //    var name = Path.GetFileNameWithoutExtension(parser.Filename) + "Copy" + Path.GetExtension(parser.Filename);
+                    //    fileName = fullPath + name;
+                    //}
+
+                    File.WriteAllBytes(fileName, parser.FileContents);
+                    model.Status = NewDownloadModel.DownloadStatus.Completed;
+                    model.Message = "Complete";
+                    OnDownloadUpdate(this, model);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    //var message = e.Message;
+                    //Console.WriteLine("Error writting to file..." + parser.Filename + " : " + e.Message);
+                    //model.Status = NewDownloadModel.DownloadStatus.Failed;
+                    //model.Message = "Copy Error";
+                    //OnDownloadUpdate(this, model);
+                    return false;
+                }
+            }
+            else
+            {
+                model.Status = NewDownloadModel.DownloadStatus.Failed;
+                model.Message = "Invalid Type";
+                OnDownloadUpdate(this, model);
+                Console.WriteLine("Invalid Incoming file type..." + Path.GetExtension(parser.Filename));
+                return false;
+            }
+        }
+
 
         public List<MediaObject> GetMediaFromFolder() {
 
@@ -317,6 +408,22 @@ namespace DancePro.Services
             }
 
             return (fileTotal < FileWarningThreshhold) ? true : false;
+        }
+
+        private bool IsValidFileType(string filename)
+        {
+            string fileExt = Path.GetExtension(filename);
+
+            if (string.IsNullOrEmpty(fileExt)) return true;
+            foreach (string ext in AcceptedFileTypes)
+            {
+                if (string.Compare(fileExt, ext) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
     }

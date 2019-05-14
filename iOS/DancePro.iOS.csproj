@@ -28,6 +28,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
     <CodesignProvision>Aarons iPhone Test Profile</CodesignProvision>
+<MtouchSdkVersion>12.2</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -196,6 +197,20 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon_DancePro-1.png" />
+    <ImageAsset Include="Assets.xcassets\Transfer.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Transfer.imageset\transfer.png" />
+    <ImageAsset Include="Assets.xcassets\Transfer.imageset\transfer x3.png" />
+    <ImageAsset Include="Assets.xcassets\Transfer.imageset\transfer x2.png" />
+    <ImageAsset Include="Assets.xcassets\Facebook.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Instagram.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Mail.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Website.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Mail.imageset\email.png" />
+    <ImageAsset Include="Assets.xcassets\Instagram.imageset\instagram.png" />
+    <ImageAsset Include="Assets.xcassets\Facebook.imageset\facebook2.png" />
+    <ImageAsset Include="Assets.xcassets\Website.imageset\website2.png" />
+    <ImageAsset Include="Assets.xcassets\Website.imageset\website2-1.png" />
+    <ImageAsset Include="Assets.xcassets\Website.imageset\website.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -282,6 +297,18 @@
     <Compile Include="ViewControllers\VideoLinkViewController.Designer.cs">
       <DependentUpon>VideoLinkViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewControllers\TransferMediaViewController.cs" />
+    <Compile Include="ViewControllers\TransferMediaViewController.designer.cs">
+      <DependentUpon>TransferMediaViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewControllers\TransferUICollectionSource.cs" />
+    <Compile Include="ViewControllers\TransferUICollectionDataSource.designer.cs">
+      <DependentUpon>TransferUICollectionSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TransferCollectionViewCell.cs" />
+    <Compile Include="TransferCollectionViewCell.designer.cs">
+      <DependentUpon>TransferCollectionViewCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -313,6 +340,8 @@
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="ViewControllers\MediaItemViewController.xib" />
     <InterfaceDefinition Include="ViewControllers\VideoObjectViewController1.xib" />
+    <InterfaceDefinition Include="ViewControllers\TransferMediaViewController.xib" />
+    <InterfaceDefinition Include="TransferCollectionViewCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\Home.imageset\" />
@@ -336,6 +365,11 @@
     <Folder Include="Assets.xcassets\DanceProLogo.imageset\" />
     <Folder Include="Assets.xcassets\DanceProLogoIcon.imageset\" />
     <Folder Include="Assets.xcassets\Back.imageset\" />
+    <Folder Include="Assets.xcassets\Transfer.imageset\" />
+    <Folder Include="Assets.xcassets\Facebook.imageset\" />
+    <Folder Include="Assets.xcassets\Instagram.imageset\" />
+    <Folder Include="Assets.xcassets\Mail.imageset\" />
+    <Folder Include="Assets.xcassets\Website.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

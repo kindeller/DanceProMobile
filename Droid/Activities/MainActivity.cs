@@ -76,8 +76,8 @@ namespace DancePro.Droid
             {
                 case 0: return MenuFragment.NewInstance();
                 case 1: return MyMediaFragment.NewInstance();
-                case 2: return AboutFragment.NewInstance();
-                case 3: return BrowseFragment.NewInstance();
+                case 2: return PhotosFragment.NewInstance();
+                case 3: return VideosFragment.NewInstance();
                 case 4: return ContactFragment.NewInstance();
             }
             return null;

@@ -3,6 +3,7 @@ using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
 
+
 namespace DancePro.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/SplashTheme", MainLauncher = true)]

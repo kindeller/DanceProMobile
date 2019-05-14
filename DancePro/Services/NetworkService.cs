@@ -15,6 +15,7 @@ namespace DancePro.Services
         public int Port { get; private set; }
         public string Address { get; private set; }
         public bool isListening;
+        public bool Enabled { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:DancePro.Services.NetworkService"/> class.
@@ -23,7 +24,6 @@ namespace DancePro.Services
         /// </summary>
         public NetworkService()
         {
-            NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
             handler = new HttpRequestHandler("./Root");
             Initialise();
 
@@ -56,17 +56,6 @@ namespace DancePro.Services
         }
 
         /// <summary>
-        /// Handles the change to network address.
-        /// </summary>
-        /// <param name="sender">Sender.</param>
-        /// <param name="e">E.</param>
-        void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
-        {
-            if (handler == null) return;
-            Initialise();
-        }
-
-        /// <summary>
         /// Connect this instance to the handler and begins listening.
         /// </summary>
         public void Connect()
@@ -94,5 +83,7 @@ namespace DancePro.Services
         public abstract bool isOnWifi();
 
         public abstract void ConnectToWifi();
+
+
     }
 }

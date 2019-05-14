@@ -141,6 +141,8 @@
     <Compile Include="Fragments\PhotosFragment.cs" />
     <Compile Include="Fragments\VideosFragment.cs" />
     <Compile Include="Fragments\ContactFragment.cs" />
+    <Compile Include="Activities\MyMediaActivity.cs" />
+    <Compile Include="Helpers\MediaRecyclerViewAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -189,6 +191,7 @@
     <AndroidResource Include="Resources\layout\fragment_contact.axml" />
     <AndroidResource Include="Resources\drawable\ic_DancePro.png" />
     <AndroidResource Include="Resources\drawable\logo.png" />
+    <AndroidResource Include="Resources\layout\MediaCellLayout.axml" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

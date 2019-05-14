@@ -16,32 +16,10 @@ namespace DancePro.iOS.ViewControllers
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel ConnectLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UISwitch ConnectSwitch { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UICollectionView MediaCollectionView { get; set; }
-
-        [Action ("OnConnectSwitchChanged:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void OnConnectSwitchChanged (UIKit.UISwitch sender);
 
         void ReleaseDesignerOutlets ()
         {
-            if (ConnectLabel != null) {
-                ConnectLabel.Dispose ();
-                ConnectLabel = null;
-            }
-
-            if (ConnectSwitch != null) {
-                ConnectSwitch.Dispose ();
-                ConnectSwitch = null;
-            }
-
             if (MediaCollectionView != null) {
                 MediaCollectionView.Dispose ();
                 MediaCollectionView = null;

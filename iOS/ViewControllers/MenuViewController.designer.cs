@@ -20,23 +20,23 @@ namespace DancePro.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton PhotosButton { get; set; }
+        UIKit.UIButton TransferButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton VideosButton { get; set; }
+        UIKit.UIButton WebsiteButton { get; set; }
 
         [Action ("MediaButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void MediaButton_TouchUpInside (UIKit.UIButton sender);
 
-        [Action ("UIButton3099_TouchUpInside:")]
+        [Action ("TransferButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton3099_TouchUpInside (UIKit.UIButton sender);
+        partial void TransferButton_TouchUpInside (UIKit.UIButton sender);
 
-        [Action ("UIButton3100_TouchUpInside:")]
+        [Action ("WebsiteButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
-        partial void UIButton3100_TouchUpInside (UIKit.UIButton sender);
+        partial void WebsiteButton_TouchUpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -45,14 +45,14 @@ namespace DancePro.iOS
                 MediaButton = null;
             }
 
-            if (PhotosButton != null) {
-                PhotosButton.Dispose ();
-                PhotosButton = null;
+            if (TransferButton != null) {
+                TransferButton.Dispose ();
+                TransferButton = null;
             }
 
-            if (VideosButton != null) {
-                VideosButton.Dispose ();
-                VideosButton = null;
+            if (WebsiteButton != null) {
+                WebsiteButton.Dispose ();
+                WebsiteButton = null;
             }
         }
     }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿
+using System;
+
 using Foundation;
 using UIKit;
 using System.Collections.Generic;
 using DancePro.Models;
-using System.Drawing;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -17,7 +18,6 @@ namespace DancePro.iOS.ViewControllers
         {
             MediaObjects = list;
             ViewController = controller;
-
         }
 
 
