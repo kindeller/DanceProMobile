@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
-using CoreGraphics;
-using Foundation;
+
 
 #if __IOS__
 using UIKit;
 using AVFoundation;
+using CoreGraphics;
+using Foundation;
 #endif
 
 namespace DancePro.Models

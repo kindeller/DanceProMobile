@@ -24,7 +24,6 @@ namespace DancePro.iOS
         {
             App.Initialize();
             NetworkService = new NetworkServiceIOS();
-
             return true;
         }
 
@@ -62,6 +61,11 @@ namespace DancePro.iOS
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, [Transient] UIWindow forWindow)
         {
             return CanRotate ? UIInterfaceOrientationMask.All : UIInterfaceOrientationMask.Portrait;
+        }
+
+        public static NetworkService RefreshNetworkService()
+        {
+            return NetworkService = new NetworkServiceIOS();
         }
 
     }

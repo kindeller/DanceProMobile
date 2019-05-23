@@ -106,10 +106,14 @@ namespace DancePro.Services
         private int requestCounter = 0;
             private ManualResetEvent stopEvent = new ManualResetEvent(false);
 
+        public event EventHandler ListenerStoppedEvent;
+
         public HttpRequestHandler(string _path)
         {
             path = _path;
         }
+
+
         public void ListenAsynchronously(IEnumerable<string> prefixes)
             {
                 HttpListener listener = new HttpListener();
@@ -143,6 +147,7 @@ namespace DancePro.Services
                     {
                         // stopEvent was signalled 
                         callbackState.Listener.Stop();
+                        ListenerStoppedEvent?.Invoke(this,null);
                         break;
                     }
                 }

@@ -19,6 +19,7 @@ namespace DancePro.iOS.ViewControllers
 
         public MediaObjectViewController(IntPtr intPtr) : base(intPtr)
         {
+            AppDelegate.CanRotate = true;
             MediaList = new List<MediaObject>();
             PropertyChanged += MediaObjectViewController_PropertyChanged;
         }
@@ -29,7 +30,18 @@ namespace DancePro.iOS.ViewControllers
             // Perform any additional setup after loading the view, typically from a nib.
             UpdateMediaObjectView();
             UpdateMediaObjectsUI();
+            NavigationController.NavigationBar.Hidden = true;
+            TabBarController.TabBar.Hidden = true;
+        }
 
+        public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
+        {
+            UpdateMediaObjectView();
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            AppDelegate.CanRotate = false;
         }
 
         private void UpdateMediaObject(MediaObject obj)
@@ -103,11 +115,13 @@ namespace DancePro.iOS.ViewControllers
             if (imageObject == null) return null;
 
 
-            CGRect rect = new CGRect(0, NavigationController.NavigationBar.Frame.Height, View.Frame.Width, View.Frame.Height - (TabBarController.TabBar.Frame.Height + NavigationController.NavigationBar.Frame.Height));
-
+            //CGRect rect = new CGRect(0, NavigationController.NavigationBar.Frame.Height, View.Frame.Width, View.Frame.Height - (TabBarController.TabBar.Frame.Height + NavigationController.NavigationBar.Frame.Height));
+            CGRect rect = View.Frame;
             ScrollView = new UIScrollView(rect);
             ImageView = new UIImageView(new CGRect(0, 0, rect.Width, rect.Height));
             //ImageView = new UIImageView(imageObject.Image);
+            ScrollView.ShowsHorizontalScrollIndicator = false;
+            ScrollView.ShowsVerticalScrollIndicator = false;
             ImageView.Image = imageObject.Image;
             ScrollView.AddSubview(ImageView);
             ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;

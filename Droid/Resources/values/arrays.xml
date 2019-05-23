@@ -5,6 +5,5 @@
         <item>@string/tab2</item>
         <item>@string/tab3</item>
         <item>@string/tab4</item>
-        <item>@string/tab5</item>
     </string-array>
 </resources>

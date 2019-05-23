@@ -35,6 +35,9 @@ namespace DancePro.Droid
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+
+
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -42,12 +45,18 @@ namespace DancePro.Droid
             ViewModel = new MenuModel();
 
             View view = inflater.Inflate(Resource.Layout.fragment_menu, container, false);
-            ImageView imageView = view.FindViewById<ImageView>(Resource.Id.imageViewLogo);
-            imageView.SetImageResource(Resource.Drawable.ic_DancePro);
-            imageView.SetScaleType(ImageView.ScaleType.FitCenter);
-            imageView.SetAdjustViewBounds(true);
-            imageView.SetMaxHeight(container.Height / 4);
-            imageView.SetMaxWidth(container.Width / 4);
+            Button websiteButton = view.FindViewById<Button>(Resource.Id.Main_WebsiteButton);
+            websiteButton.Click += (sender, e) => {
+
+                ViewModel.OpenWebsiteCommand.Execute(null);
+
+            };
+            //ImageView imageView = view.FindViewById<ImageView>(Resource.Id.imageViewLogo);
+            //imageView.SetImageResource(Resource.Drawable.ic_DancePro);
+            //imageView.SetScaleType(ImageView.ScaleType.FitCenter);
+            //imageView.SetAdjustViewBounds(true);
+            //imageView.SetMaxHeight(container.Height / 4);
+            //imageView.SetMaxWidth(container.Width / 4);
             return view;
 
         }

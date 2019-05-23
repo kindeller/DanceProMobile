@@ -8,6 +8,7 @@ using Android.Support.V4.App;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 
+
 namespace DancePro.Droid
 {
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon",
@@ -61,24 +62,26 @@ namespace DancePro.Droid
         string[] titles;
 
         public override int Count => titles.Length;
+        
 
         public TabsAdapter(Context context, Android.Support.V4.App.FragmentManager fm) : base(fm)
         {
             titles = context.Resources.GetTextArray(Resource.Array.sections);
         }
 
+
         public override Java.Lang.ICharSequence GetPageTitleFormatted(int position) =>
-                            new Java.Lang.String(titles[position]);
+                new Java.Lang.String(titles[position]);
+
 
         public override Android.Support.V4.App.Fragment GetItem(int position)
         {
             switch (position)
             {
                 case 0: return MenuFragment.NewInstance();
-                case 1: return MyMediaFragment.NewInstance();
-                case 2: return PhotosFragment.NewInstance();
-                case 3: return VideosFragment.NewInstance();
-                case 4: return ContactFragment.NewInstance();
+                case 1: return TransferMediaFragment.NewInstance();
+                case 2: return MyMediaFragment.NewInstance();
+                case 3: return ContactFragment.NewInstance();
             }
             return null;
         }

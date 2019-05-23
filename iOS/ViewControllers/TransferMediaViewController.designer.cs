@@ -32,11 +32,19 @@ namespace DancePro.iOS.ViewControllers
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton ToggleButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel TotalLabel { get; set; }
 
         [Action ("Clear_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Clear_TouchUpInside (UIKit.UIButton sender);
+
+        [Action ("ToggleButton_UpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ToggleButton_UpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -58,6 +66,11 @@ namespace DancePro.iOS.ViewControllers
             if (DownloadsLabel != null) {
                 DownloadsLabel.Dispose ();
                 DownloadsLabel = null;
+            }
+
+            if (ToggleButton != null) {
+                ToggleButton.Dispose ();
+                ToggleButton = null;
             }
 
             if (TotalLabel != null) {

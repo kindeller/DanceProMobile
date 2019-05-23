@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DancePro.Models;
 using DancePro.Services;
 
@@ -25,9 +26,15 @@ namespace DancePro.ViewModels
         public TransferViewModel(NetworkService networkService)
         {
             NetworkService = networkService;
+            NetworkService.Connect();
+            NetworkService.OnStoppedListening += NetworkService_OnStoppedListening;
             App.MediaService.startedEventHandler += MediaService_StartedEventHandler;
             App.MediaService.DownloadUpdate += MediaService_DownloadUpdate;
             DownloadingMedia = new List<NewDownloadModel>();
+        }
+
+        void NetworkService_OnStoppedListening(object sender, EventArgs e)
+        {
         }
 
         void MediaService_DownloadUpdate(object sender, NewDownloadModel model)
@@ -68,6 +75,43 @@ namespace DancePro.ViewModels
         {
             DownloadingMedia.Clear();
             OnDownloadsUpdated();
+        }
+
+        public void Connect()
+        {
+           NetworkService.Connect();
+        }
+
+        public void Disconnect()
+        {
+            NetworkService.Disconnect();
+        }
+
+        public void ToggleConnection()
+        {
+            if (NetworkService.isListening)
+            {
+                Disconnect();
+            }
+            else
+            {
+                Connect();
+            }
+        }
+
+        public bool isNetworkListening()
+        {
+           return NetworkService.isListening;
+        }
+
+        public string GetDeviceID()
+        {
+            return NetworkService.GetDeviceID();
+        }
+
+        public void UpdateNetworkService(NetworkService service)
+        {
+            NetworkService = service;
         }
 
     }

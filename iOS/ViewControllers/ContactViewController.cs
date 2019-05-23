@@ -26,7 +26,7 @@ namespace DancePro.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
+            NavigationController.NavigationBar.Hidden = true;
 
         }
 

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using DancePro.Models;
+
+#if __IOS__
 using Foundation;
 using UIKit;
+
+#endif
 
 namespace DancePro.Services
 {

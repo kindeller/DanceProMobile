@@ -26,7 +26,7 @@ namespace DancePro.iOS
         {
             Controller = controller;
             MediaObject = mediaObject;
-            BackgroundColor = UIColor.LightGray;
+            BackgroundColor = UIColor.FromRGB(220, 220, 220);
             Layer.BorderColor = UIColor.DarkGray.CGColor;
             Title.Text = mediaObject.FileName;
             DateLabel.Text = mediaObject.DateCreated.ToShortDateString();

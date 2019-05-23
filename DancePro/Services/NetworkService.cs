@@ -3,19 +3,21 @@ using System.Net.Sockets;
 using System.Collections.Generic;
 using System;
 using System.Net.NetworkInformation;
-
+using System.Threading.Tasks;
 
 namespace DancePro.Services
 {
     public abstract class NetworkService
     {
-
+        //public event EventHandler isListeningChanged;
+        public event EventHandler OnStoppedListening;
         public HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
         public int Port { get; private set; }
         public string Address { get; private set; }
         public bool isListening;
         public bool Enabled { get; set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:DancePro.Services.NetworkService"/> class.
@@ -25,8 +27,22 @@ namespace DancePro.Services
         public NetworkService()
         {
             handler = new HttpRequestHandler("./Root");
+            handler.ListenerStoppedEvent += Handler_ListenerStoppedEvent;
             Initialise();
 
+        }
+
+        void Handler_ListenerStoppedEvent(object sender, EventArgs e)
+        {
+            SetIsListening(false);
+            OnStoppedListening?.Invoke(this, null);
+        }
+
+
+        private void SetIsListening(bool b)
+        {
+            isListening = b;
+            //isListeningChanged?.Invoke(this, null);
         }
 
         /// <summary>
@@ -60,8 +76,9 @@ namespace DancePro.Services
         /// </summary>
         public void Connect()
         {
-            isListening = true;
-            handler.ListenAsynchronously(prefixes);
+                SetIsListening(true);
+                handler.ListenAsynchronously(prefixes);
+                
         }
 
         /// <summary>
@@ -69,10 +86,12 @@ namespace DancePro.Services
         /// </summary>
         public void Disconnect()
         {
-            isListening = false;
+            SetIsListening(false);
             handler.StopListening();
-            DisconnectFromWifi();
+            //DisconnectFromWifi();
         }
+
+
 
         public abstract void DisconnectFromWifi();
 
@@ -84,6 +103,11 @@ namespace DancePro.Services
 
         public abstract void ConnectToWifi();
 
-
+        public string GetDeviceID()
+        {
+            var id = GetIP()?.ToString()?.Split('.')?[3].Split(':')?[0];
+            return id ?? "";
+        }
+        
     }
 }

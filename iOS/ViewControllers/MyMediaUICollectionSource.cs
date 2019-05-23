@@ -5,6 +5,7 @@ using Foundation;
 using UIKit;
 using System.Collections.Generic;
 using DancePro.Models;
+using AVKit;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -55,11 +56,21 @@ namespace DancePro.iOS.ViewControllers
 
             if (cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
-                NSString segueString = cell.MediaObject.SegueString;
-
-                if (!string.IsNullOrEmpty(segueString))
+                if(cell.MediaObject.MediaType == MediaTypes.Video)
                 {
-                    ViewController.PerformSegue(segueString, cell);
+                    var video = (VideoObject)cell.MediaObject;
+                    var AVPlayerController = new AVPlayerViewController();
+                    AVPlayerController.Player = new AVFoundation.AVPlayer(video.PlayerItem);
+                    ViewController.PresentViewController(AVPlayerController, true, null);
+                }
+                else
+                {
+                    NSString segueString = cell.MediaObject.SegueString;
+
+                    if (!string.IsNullOrEmpty(segueString))
+                    {
+                        ViewController.PerformSegue(segueString, cell);
+                    }
                 }
             }
             else

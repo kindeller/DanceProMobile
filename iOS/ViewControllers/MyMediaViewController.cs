@@ -228,14 +228,17 @@ namespace DancePro.iOS.ViewControllers
                         case MediaTypes.Image:
                             controller.MediaObject = (ImageObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
+                            segue.DestinationViewController.Title = controller.MediaObject.FileName;
                             break;
                         case MediaTypes.Audio:
                             controller.MediaObject = (AudioObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
+                            segue.DestinationViewController.Title = controller.MediaObject.FileName;
                             break;
                         case MediaTypes.Video:
                             controller.MediaObject = (VideoObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
+                            segue.DestinationViewController.Title = controller.MediaObject.FileName;
                             break;
                     }
 

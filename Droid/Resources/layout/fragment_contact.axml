@@ -1,3 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:gravity="center_vertical">
+	<TextView
+		android:text="Have a question?"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="24.0dp"
+		android:id="@+id/textView1"
+		android:gravity="center"
+		android:layout_marginTop="2.0dp"
+		android:textSize="10sp" />
+	<TextView
+		android:text="Please feel free to get in contact with us!"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="31.5dp"
+		android:id="@+id/textView2"
+		android:gravity="center"
+		android:layout_marginBottom="0.0dp"
+		android:textSize="10sp" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:layout_width="match_parent"
+		android:layout_height="200px"
+		android:id="@+id/linearLayout1"
+		android:gravity="center_horizontal"
+		android:minHeight="25px">
+		<ImageButton
+			android:id="@+id/imageButton1"
+			android:src="@drawable/facebook2"
+			android:scaleType="centerInside"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="#ffffffff"
+			android:onClick="FacebookButton_OnClick" />
+		<ImageButton
+			android:src="@drawable/email2"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton2"
+			android:layout_weight="1"
+			android:scaleType="centerInside"
+			android:background="#ffffffff"
+			android:onClick="EmailButton_OnClick" />
+		<ImageButton
+			android:src="@drawable/instagram2"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton3"
+			android:layout_weight="1"
+			android:scaleType="centerInside"
+			android:background="#ffffffff"
+			android:onClick="InstagramButton_OnClick" />
+	</LinearLayout>
+	<TextView
+		android:text="Don't forget to like and follow us on our social media pages to stay up to date with our shoots!"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="60.0dp"
+		android:id="@+id/textView3"
+		android:gravity="center"
+		android:layout_marginBottom="0.0dp"
+		android:textSize="10sp" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="200px"
+		android:id="@+id/linearLayout1"
+		android:gravity="center_horizontal"
+		android:background="#ffffffff">
+		<ImageButton
+			android:src="@drawable/website2"
+			android:layout_width="200px"
+			android:layout_height="match_parent"
+			android:id="@+id/imageButton1"
+			android:scaleType="centerInside"
+			android:background="#ffffffff"
+			android:onClick="WebsiteButton_OnClick" />
+	</LinearLayout>
+	<TextView
+		android:text="Visit our website to view images from all of our competitions and concerts."
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="match_parent"
+		android:layout_height="61.0dp"
+		android:id="@+id/textView3"
+		android:gravity="center"
+		android:textSize="10sp" />
 </LinearLayout>

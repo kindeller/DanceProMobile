@@ -1,7 +1,10 @@
 ﻿using System;
+
+#if __IOS__
 using AVFoundation;
 using Foundation;
 using MediaPlayer;
+#endif
 
 namespace DancePro.Models
 {

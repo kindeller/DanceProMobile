@@ -38,5 +38,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceIOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TransferViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NewDownloadModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceAndroid.cs" />
   </ItemGroup>
 </Project>

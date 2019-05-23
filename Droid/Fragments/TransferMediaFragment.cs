@@ -12,17 +12,21 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
+using DancePro.ViewModels;
+using DancePro.Models;
+
 namespace DancePro.Droid
 {
-    public class VideosFragment : Android.Support.V4.App.Fragment, IFragmentVisible
+    public class TransferMediaFragment : Android.Support.V4.App.Fragment, IFragmentVisible
     {
-
-        public static VideosFragment NewInstance() => new VideosFragment { Arguments = new Bundle() };
+        TransferViewModel ViewModel;
 
         public void BecameVisible()
         {
 
         }
+
+        public static TransferMediaFragment NewInstance() => new TransferMediaFragment { Arguments = new Bundle() };
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,10 +37,10 @@ namespace DancePro.Droid
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            ViewModel = new TransferViewModel(App.NetworkService);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            View view = inflater.Inflate(Resource.Layout.fragment_TransferMedia, container, false);
+            return view;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace DancePro.iOS
 
         partial void MediaButton_TouchUpInside(UIButton sender)
         {
-            TabBarController.SelectedIndex = 1;
+            TabBarController.SelectedIndex = 2;
         }
 
         partial void WebsiteButton_TouchUpInside(UIButton sender)
@@ -48,7 +48,7 @@ namespace DancePro.iOS
 
         partial void TransferButton_TouchUpInside(UIButton sender)
         {
-            TabBarController.SelectedIndex = 2;
+            TabBarController.SelectedIndex = 1;
         }
     }
 }

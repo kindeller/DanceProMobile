@@ -15,6 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <ReleaseVersion>1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -138,11 +139,10 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Fragments\MenuFragment.cs" />
     <Compile Include="Fragments\MyMediaFragment.cs" />
-    <Compile Include="Fragments\PhotosFragment.cs" />
-    <Compile Include="Fragments\VideosFragment.cs" />
     <Compile Include="Fragments\ContactFragment.cs" />
     <Compile Include="Activities\MyMediaActivity.cs" />
     <Compile Include="Helpers\MediaRecyclerViewAdapter.cs" />
+    <Compile Include="Fragments\TransferMediaFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -186,12 +186,19 @@
     <AndroidResource Include="Resources\values-v21\styles.xml" />
     <AndroidResource Include="Resources\layout\fragment_menu.axml" />
     <AndroidResource Include="Resources\layout\fragment_mymedia.axml" />
-    <AndroidResource Include="Resources\layout\fragment_photos.axml" />
-    <AndroidResource Include="Resources\layout\fragment_videos.axml" />
     <AndroidResource Include="Resources\layout\fragment_contact.axml" />
     <AndroidResource Include="Resources\drawable\ic_DancePro.png" />
     <AndroidResource Include="Resources\drawable\logo.png" />
     <AndroidResource Include="Resources\layout\MediaCellLayout.axml" />
+    <AndroidResource Include="Resources\layout\fragment_TransferMedia.axml" />
+    <AndroidResource Include="Resources\drawable\email.png" />
+    <AndroidResource Include="Resources\drawable\email2.png" />
+    <AndroidResource Include="Resources\drawable\facebook.png" />
+    <AndroidResource Include="Resources\drawable\facebook2.png" />
+    <AndroidResource Include="Resources\drawable\instagram.png" />
+    <AndroidResource Include="Resources\drawable\instagram2.png" />
+    <AndroidResource Include="Resources\drawable\website.png" />
+    <AndroidResource Include="Resources\drawable\website2.png" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

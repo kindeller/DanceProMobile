@@ -27,6 +27,8 @@ namespace DancePro.Services
             this.Success = false;
 
             // Read the stream into a byte array
+
+
             byte[] data = ToByteArray(stream);
 
             // Copy to a string for header parsing
@@ -115,17 +117,17 @@ namespace DancePro.Services
 
         private byte[] ToByteArray(Stream stream)
         {
-            byte[] buffer = new byte[32768];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                while (true)
+           byte[] buffer = new byte[32768];
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    int read = stream.Read(buffer, 0, buffer.Length);
-                    if (read <= 0)
-                        return ms.ToArray();
-                    ms.Write(buffer, 0, read);
+                    while (true)
+                    {
+                        int read = stream.Read(buffer, 0, buffer.Length);
+                        if (read <= 0)
+                            return ms.ToArray();
+                        ms.Write(buffer, 0, read);
+                    }
                 }
-            }
         }
 
         public bool Success

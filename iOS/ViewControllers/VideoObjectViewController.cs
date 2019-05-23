@@ -4,6 +4,7 @@ using DancePro.Models;
 using UIKit;
 using AVKit;
 using AVFoundation;
+using Foundation;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -24,15 +25,17 @@ namespace DancePro.iOS.ViewControllers
 
             AppDelegate.CanRotate = true;
             InitialisePlayer();
+        }
 
-       }
 
         private void InitialisePlayer()
         {
             var video = (VideoObject)MediaObject;
             Player = new AVPlayer(video.PlayerItem);
+            NavigationController.NavigationBar.Hidden = true;
             TabBarController.TabBar.Hidden = true;
         }
+
 
         public override void DidReceiveMemoryWarning()
         {
@@ -50,6 +53,7 @@ namespace DancePro.iOS.ViewControllers
         {
             base.ViewWillDisappear(animated);
             TabBarController.TabBar.Hidden = false;
+            NavigationController.NavigationBar.Hidden = false;
         }
 
 

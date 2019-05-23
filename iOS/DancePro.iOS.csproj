@@ -9,6 +9,7 @@
     <RootNamespace>DancePro.iOS</RootNamespace>
     <AssemblyName>DancePro.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -399,6 +400,28 @@
     <Content Include="Root\js\vendor\jquery.ui.widget.js" />
     <Content Include="Root\js\cors\jquery.postmessage-transport.js" />
     <Content Include="Root\js\cors\jquery.xdr-transport.js" />
+    <Content Include="Root\js\bootstrap.js" />
+    <Content Include="Root\js\bootstrap.bundle.min.js" />
+    <Content Include="Root\js\bootstrap.min.js" />
+    <Content Include="Root\js\bootstrap.js.map" />
+    <Content Include="Root\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Root\js\bootstrap.bundle.js.map" />
+    <Content Include="Root\js\bootstrap.min.js.map" />
+    <Content Include="Root\js\bootstrap.bundle.js" />
+    <Content Include="Root\js\jquery-3.4.1.min.js" />
+    <Content Include="Root\css\bootstrap.css" />
+    <Content Include="Root\css\bootstrap-grid.css.map" />
+    <Content Include="Root\css\bootstrap.min.css.map" />
+    <Content Include="Root\css\bootstrap.min.css" />
+    <Content Include="Root\css\bootstrap-reboot.css.map" />
+    <Content Include="Root\css\bootstrap-grid.css" />
+    <Content Include="Root\css\bootstrap-reboot.min.css" />
+    <Content Include="Root\css\bootstrap-grid.min.css.map" />
+    <Content Include="Root\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Root\css\bootstrap.css.map" />
+    <Content Include="Root\css\bootstrap-reboot.css" />
+    <Content Include="Root\css\bootstrap-grid.min.css" />
+    <Content Include="Root\logo.jpg" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

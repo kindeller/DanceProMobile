@@ -1,8 +1,11 @@
 ﻿using System;
+
+#if __IOS__
 using AVFoundation;
 using Foundation;
 using UIKit;
 using CoreGraphics;
+#endif
 
 namespace DancePro.Models
 {
@@ -68,7 +71,6 @@ namespace DancePro.Models
         public AudioObject(string filePath) : base(filePath)
         {
             MediaType = MediaTypes.Audio;
-            NSUrl url = NSUrl.FromFilename(filePath);
         }
 
 #endif
