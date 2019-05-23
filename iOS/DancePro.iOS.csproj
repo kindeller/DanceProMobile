@@ -9,7 +9,7 @@
     <RootNamespace>DancePro.iOS</RootNamespace>
     <AssemblyName>DancePro.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.1</ReleaseVersion>
+    <ReleaseVersion>1.1.1</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -422,6 +422,9 @@
     <Content Include="Root\css\bootstrap-reboot.css" />
     <Content Include="Root\css\bootstrap-grid.min.css" />
     <Content Include="Root\logo.jpg" />
+    <Content Include="Root\js\jquery-3.2.1.min.js" />
+    <Content Include="Root\js\bootstrap-4.2.1.min.js" />
+    <Content Include="Root\js\popper.min.js" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
