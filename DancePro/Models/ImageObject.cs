@@ -21,7 +21,7 @@ namespace DancePro.Models
         {
             MediaType = MediaTypes.Image;
             Image = UIImage.FromFile(filePath);
-            Thumb = Image;
+            Thumb = Image.Scale(new CGSize(Image.Size.Width/10,Image.Size.Height/10));
             SegueString = new NSString("ImageSegue");
         }
 

@@ -25,6 +25,7 @@ namespace DancePro.iOS.ViewControllers
 
             Model.DownloadsUpdated += Model_DownloadsUpdated;
             InitTransfer();
+            UIApplication.SharedApplication.IdleTimerDisabled = true;
         }
 
         void NetworkService_OnStoppedListening(object sender, EventArgs e)
@@ -48,13 +49,17 @@ namespace DancePro.iOS.ViewControllers
                 DownloadsCollectionView.Source = source;
 
                 //DownloadsCollectionView.ReloadData();
-                TotalLabel.Text = $"({Model.GetCompletedCount()} / {Model.GetDownloadCount()})";
+                var completed = Model.GetCompletedCount();
+                var downloading = Model.GetDownloadCount();
+                TotalLabel.Text = $"({completed} / {downloading})";
+                TotalLabel.TextColor = (completed == downloading) ? AppDelegate.DanceProBlue : UIColor.Black;
             });
 
         }
 
         partial void ToggleButton_UpInside(UIButton sender)
         {
+
             if (Model.isNetworkListening())
             {
                 ToggleButton.Enabled = false;
@@ -65,6 +70,7 @@ namespace DancePro.iOS.ViewControllers
                 Model.ToggleConnection();
                 ToggleButtonText();
             }
+            SetDeviceText();
         }
 
 
@@ -92,14 +98,28 @@ namespace DancePro.iOS.ViewControllers
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
+            Model.ConnectToWifi();
             SetDeviceText();
+            UIApplication.SharedApplication.IdleTimerDisabled = true;
+        }
 
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+            UIApplication.SharedApplication.IdleTimerDisabled = false;
         }
 
         private void SetDeviceText()
         {
-            var id = Model.GetDeviceID();
-            AddressLabel.Text = (string.IsNullOrEmpty(id)) ? "Not Connected!" : "Device ID:" + id;
+            string text = "Not Connected!";
+
+            if (Model.isNetworkListening())
+            {
+                var id = Model.GetDeviceID();
+                if (!string.IsNullOrEmpty(id)) text = "Device ID: " + id;
+            }
+
+            AddressLabel.Text = text;
         }
 
         private void ToggleButtonText()

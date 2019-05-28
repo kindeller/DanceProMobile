@@ -13,6 +13,7 @@ namespace DancePro.iOS
         // class-level declarations
         public static bool CanRotate { get; set; }
         public static NetworkServiceIOS NetworkService { get; set; }
+        public readonly static UIColor DanceProBlue = UIColor.FromRGB(18, 141, 215);
 
         public override UIWindow Window
         {

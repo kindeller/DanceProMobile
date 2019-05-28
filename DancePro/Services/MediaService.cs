@@ -49,6 +49,7 @@ namespace DancePro.Services
 
         private static readonly string[] AcceptedFileTypes =
         {
+
             ".jpeg",
             ".jpg",
             ".mov",
@@ -416,7 +417,7 @@ namespace DancePro.Services
 
         private bool IsValidFileType(string filename)
         {
-            string fileExt = Path.GetExtension(filename);
+            string fileExt = Path.GetExtension(filename).ToLower();
 
             if (string.IsNullOrEmpty(fileExt)) return true;
             foreach (string ext in AcceptedFileTypes)

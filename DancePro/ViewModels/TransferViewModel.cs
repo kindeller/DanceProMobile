@@ -114,5 +114,13 @@ namespace DancePro.ViewModels
             NetworkService = service;
         }
 
+        public void ConnectToWifi()
+        {
+            if (!NetworkService.isOnWifi())
+            {
+                NetworkService.ConnectToWifi();
+            }
+
+        }
     }
 }

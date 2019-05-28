@@ -99,6 +99,15 @@ namespace DancePro.iOS.ViewControllers
             NetworkService = AppDelegate.NetworkService;
             GetMedia();
 
+
+            //Attempting to change the Estimated size to allow dyamic sizing for cell in collection.
+
+            //var layout = MediaCollectionView.CollectionViewLayout as UICollectionViewFlowLayout;
+            //if(layout != null)
+            //{
+            //    layout.EstimatedItemSize = new CoreGraphics.CGSize(113, 134);
+            //}
+
             MediaCollectionView.DragDelegate = this;
             MediaCollectionView.DropDelegate = this;
             MediaCollectionView.DragInteractionEnabled = true;
@@ -151,7 +160,7 @@ namespace DancePro.iOS.ViewControllers
             if (info.Exists)
             {
                 CurrentDirectory = info;
-                Title = CurrentDirectory.Name;
+                //Title = CurrentDirectory.Name;
                 GetMedia();
             }
             else
@@ -284,7 +293,7 @@ namespace DancePro.iOS.ViewControllers
         public UIDragItem[] GetItemsForBeginningDragSession(UICollectionView collectionView, IUIDragSession session, NSIndexPath indexPath)
         {
             MyMediaViewCell cell = collectionView.CellForItem(indexPath) as MyMediaViewCell;
-            if(cell != null && cell.MediaObject.MediaType != MediaTypes.Folder)
+            if(cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
                 NSItemProvider provider = new NSItemProvider(cell, "object");
                 UIDragItem item = new UIDragItem(provider);

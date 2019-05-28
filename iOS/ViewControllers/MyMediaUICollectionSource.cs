@@ -6,6 +6,7 @@ using UIKit;
 using System.Collections.Generic;
 using DancePro.Models;
 using AVKit;
+using AVFoundation;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -30,6 +31,7 @@ namespace DancePro.iOS.ViewControllers
 
         public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
         {
+
             var cell = (MyMediaViewCell)collectionView.DequeueReusableCell(MyMediaViewCell.CellID, indexPath);
             MediaObject mediaObject = MediaObjects[indexPath.Row];
             cell.UpdateRow(mediaObject,ViewController);
@@ -61,6 +63,20 @@ namespace DancePro.iOS.ViewControllers
                     var video = (VideoObject)cell.MediaObject;
                     var AVPlayerController = new AVPlayerViewController();
                     AVPlayerController.Player = new AVFoundation.AVPlayer(video.PlayerItem);
+                    try
+                    {
+                        using(var session = AVAudioSession.SharedInstance())
+                        {
+                            session.SetCategory(AVAudioSessionCategory.Playback);
+                            session.SetActive(true);
+                        }
+
+                    }
+                    catch
+                    {
+                        AVPlayerController.Player.Muted = false;
+                    }
+                    AVPlayerController.Player.Play();
                     ViewController.PresentViewController(AVPlayerController, true, null);
                 }
                 else

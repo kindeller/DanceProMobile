@@ -76,9 +76,14 @@ namespace DancePro.Services
         /// </summary>
         public void Connect()
         {
+            ConnectToWifi();
+
+            if (ValidateNetwork())
+            {
                 SetIsListening(true);
                 handler.ListenAsynchronously(prefixes);
-                
+            }
+
         }
 
         /// <summary>

@@ -33,6 +33,7 @@ namespace DancePro.iOS
                     ActivityIndicator.Hidden = true;
                     ActivityIndicator.StopAnimating();
                     CompletedImage.Hidden = false;
+                    MessageLabel.TextColor = AppDelegate.DanceProBlue;
                     break;
                 case NewDownloadModel.DownloadStatus.Downloading:
                     ActivityIndicator.Hidden = false;
@@ -40,6 +41,7 @@ namespace DancePro.iOS
                     CompletedImage.Hidden = true;
                     break;
                 case NewDownloadModel.DownloadStatus.Failed:
+                    MessageLabel.TextColor = UIColor.Red;
                     ActivityIndicator.Hidden = true;
                     ActivityIndicator.StopAnimating();
                     break;

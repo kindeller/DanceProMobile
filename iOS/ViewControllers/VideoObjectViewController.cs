@@ -34,6 +34,7 @@ namespace DancePro.iOS.ViewControllers
             Player = new AVPlayer(video.PlayerItem);
             NavigationController.NavigationBar.Hidden = true;
             TabBarController.TabBar.Hidden = true;
+            Player.Play();
         }
 
 

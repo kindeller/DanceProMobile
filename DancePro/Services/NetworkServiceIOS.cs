@@ -1,4 +1,4 @@
-﻿#if __IOS__
+﻿ #if __IOS__
 using System;
 using Xamarin.Essentials;
 using NetworkExtension;
@@ -6,6 +6,9 @@ using UIKit;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Threading.Tasks;
+using SystemConfiguration;
+using Foundation;
 
 namespace DancePro.Services
 {
@@ -13,7 +16,7 @@ namespace DancePro.Services
     public class NetworkServiceIOS : NetworkService
     {
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
-        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "dppv3778", false);
+        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
 
         public NetworkServiceIOS()
         {
@@ -43,16 +46,13 @@ namespace DancePro.Services
             //backup 
             return null;
         }
+
         public override bool ValidateNetwork()
         {
             if (isOnWifi())
             {
                 return true;
             }
-
-            ConnectToWifi();
-
-
             return false;
         }
 
@@ -75,8 +75,9 @@ namespace DancePro.Services
 
         public override void ConnectToWifi()
         {
-
+            config.JoinOnce = true;
             WifiManager.ApplyConfiguration(config, (obj) => { });
+            AsyncWaitForConnection();
         }
 
         public override void DisconnectFromWifi()
@@ -85,6 +86,25 @@ namespace DancePro.Services
             {
                 //WifiManager.RemoveConfiguration(config.Ssid);
             }
+        }
+
+        private async void AsyncWaitForConnection()
+        {
+            await Task.Run(() =>
+            {
+
+                while (true)
+                {
+                    if (isOnWifi())
+                    {
+                        //TODO: This works and removes the config but still auto-joins after taking away the wifi network.
+                        WifiManager.RemoveConfiguration(config.Ssid);
+                        return;
+                    }
+                }
+
+            });
+
         }
 
     }
