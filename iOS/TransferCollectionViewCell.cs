@@ -26,7 +26,7 @@ namespace DancePro.iOS
             Model = downloadModel;
             TitleLabel.Text = Model.FileName;
             MessageLabel.Text = downloadModel.Message;
-
+            
             switch (downloadModel.Status)
             {
                 case NewDownloadModel.DownloadStatus.Completed:
@@ -42,6 +42,7 @@ namespace DancePro.iOS
                     break;
                 case NewDownloadModel.DownloadStatus.Failed:
                     MessageLabel.TextColor = UIColor.Red;
+                    CompletedImage.Hidden = true;
                     ActivityIndicator.Hidden = true;
                     ActivityIndicator.StopAnimating();
                     break;

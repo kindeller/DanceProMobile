@@ -42,7 +42,13 @@ namespace DancePro.iOS.ViewControllers
 
         void Model_DownloadsUpdated(List<Models.NewDownloadModel> mediaList)
         {
-            
+            //Console.WriteLine("[TModel] Updating Media List");
+
+            //foreach(var item in mediaList)
+            //{
+            //    Console.WriteLine("(" + item.ID + ") " + item.FileName + " - " + item.Message);
+            //}
+            //Console.WriteLine("// End List");
             InvokeOnMainThread(() => {
                 TransferUICollectionSource source = new TransferUICollectionSource();
                 source.DownloadList = mediaList;

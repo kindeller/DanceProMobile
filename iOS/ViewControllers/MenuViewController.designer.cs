@@ -20,11 +20,23 @@ namespace DancePro.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel MyMediaSubtitle { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton TransferButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel TransferMediaSubtitle { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton WebsiteButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel WebsiteSubtitle { get; set; }
 
         [Action ("MediaButton_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -45,14 +57,29 @@ namespace DancePro.iOS
                 MediaButton = null;
             }
 
+            if (MyMediaSubtitle != null) {
+                MyMediaSubtitle.Dispose ();
+                MyMediaSubtitle = null;
+            }
+
             if (TransferButton != null) {
                 TransferButton.Dispose ();
                 TransferButton = null;
             }
 
+            if (TransferMediaSubtitle != null) {
+                TransferMediaSubtitle.Dispose ();
+                TransferMediaSubtitle = null;
+            }
+
             if (WebsiteButton != null) {
                 WebsiteButton.Dispose ();
                 WebsiteButton = null;
+            }
+
+            if (WebsiteSubtitle != null) {
+                WebsiteSubtitle.Dispose ();
+                WebsiteSubtitle = null;
             }
         }
     }

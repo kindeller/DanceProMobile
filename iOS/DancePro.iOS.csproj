@@ -9,7 +9,7 @@
     <RootNamespace>DancePro.iOS</RootNamespace>
     <AssemblyName>DancePro.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.1.4</ReleaseVersion>
+    <ReleaseVersion>1.1.5</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -139,7 +139,6 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\DP iPhone App IOS 7-12 x3.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Audio.imageset\microphone-icon.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 30.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 60.png" />
     <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 90.png" />
@@ -212,6 +211,9 @@
     <ImageAsset Include="Assets.xcassets\Website.imageset\website2.png" />
     <ImageAsset Include="Assets.xcassets\Website.imageset\website2-1.png" />
     <ImageAsset Include="Assets.xcassets\Website.imageset\website.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Complete.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Icon_Complete.imageset\Complete.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\speaker.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -371,6 +373,7 @@
     <Folder Include="Assets.xcassets\Instagram.imageset\" />
     <Folder Include="Assets.xcassets\Mail.imageset\" />
     <Folder Include="Assets.xcassets\Website.imageset\" />
+    <Folder Include="Assets.xcassets\Icon_Complete.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

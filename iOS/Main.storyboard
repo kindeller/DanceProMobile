@@ -30,7 +30,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-59" y="159"/>
         </scene>
         <!--Home-->
         <scene sceneID="3092">
@@ -45,8 +45,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3098">
-                                <rect key="frame" x="45" y="308.5" width="339" height="121.5"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <rect key="frame" x="45" y="308" width="339" height="120"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="My Media">
                                     <color key="titleColor" red="0.30196078431372547" green="0.83137254901960789" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
@@ -56,8 +56,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3099">
-                                <rect key="frame" x="38" y="435.5" width="339" height="122.5"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <rect key="frame" x="38" y="436" width="339" height="120"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Transfer Media">
                                     <color key="titleColor" red="0.30196078431372547" green="0.83137254901960789" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,8 +67,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3100">
-                                <rect key="frame" x="45" y="564.5" width="339" height="121.5"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <rect key="frame" x="45" y="564" width="339" height="112"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Website">
                                     <color key="titleColor" red="0.30196078431372547" green="0.83137254901960789" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,9 +78,30 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DanceProLogoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="82569">
-                                <rect key="frame" x="40.5" y="-194" width="504.5" height="500.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="43" y="-219" width="504" height="500"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMinX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View and manage your personal DancePro media gallery." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="130617" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" adjustsFontForContentSizeCategory="YES" numberOfLines="2" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" hidden="YES">
+                                <rect key="frame" x="82" y="340" width="250" height="56"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer media from an event captured by DancePro." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="130793" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" numberOfLines="2" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" hidden="YES">
+                                <rect key="frame" x="90" y="470" width="250" height="56"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit our Website for other competitions and events." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="130794" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" numberOfLines="2" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" hidden="YES">
+                                <rect key="frame" x="90" y="596" width="250" height="56"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -91,6 +112,9 @@
                         <outlet property="MediaButton" destination="3098" id="name-outlet-3098"/>
                         <outlet property="TransferButton" destination="3099" id="name-outlet-3099"/>
                         <outlet property="WebsiteButton" destination="3100" id="name-outlet-3100"/>
+                        <outlet property="MyMediaSubtitle" destination="130617" id="name-outlet-130617"/>
+                        <outlet property="TransferMediaSubtitle" destination="130793" id="name-outlet-130793"/>
+                        <outlet property="WebsiteSubtitle" destination="130794" id="name-outlet-130794"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3095" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -143,7 +167,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="113" height="134"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14907">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="14907" minimumFontSize="9">
                                             <rect key="frame" x="8" y="98" width="96" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -315,11 +339,11 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63467">
                                         <rect key="frame" x="14" y="9" width="110.5" height="80"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Save">
+                                        <state key="normal" title="Share">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="Save_TouchUpInside:" destination="63442" eventType="touchUpInside" id="63488"/>
+                                            <action selector="Share_TouchUpInside:" destination="63442" id="131281" eventType="touchUpInside"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63468">
@@ -375,7 +399,7 @@
                         <outlet property="DeleteButton" destination="63468" id="name-outlet-63468"/>
                         <outlet property="DuplicateButton" destination="63475" id="name-outlet-63475"/>
                         <outlet property="RenameButton" destination="63477" id="name-outlet-63477"/>
-                        <outlet property="SaveButton" destination="63467" id="name-outlet-63467"/>
+                        <outlet property="ShareButton" destination="63467" id="name-outlet-63467"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63444" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -676,7 +700,7 @@
                                                     <rect key="frame" x="112" y="33" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </activityIndicatorView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon_Save" translatesAutoresizingMaskIntoConstraints="NO" id="91687">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Icon_Complete" translatesAutoresizingMaskIntoConstraints="NO" id="91687">
                                                     <rect key="frame" x="106" y="28" width="33" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -709,9 +733,9 @@
                                 <rect key="frame" x="20" y="128" width="374" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
-                                    <fragment content=" 1. Connect to DancePro Wifi Network. (Use QR code at kiosk)&#xA; 2. Present phone to kiosk team member.">
+                                    <fragment content=" 1. Connect to DancePro Wifi Network.&#xA; 2. Present phone to kiosk team member.">
                                         <attributes>
-                                            <font key="NSFont" name="Helvetica" family="Helvetica" size="35"/>
+                                            <font key="NSFont" name="Helvetica" family="Helvetica" size="30"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -727,11 +751,11 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0/0)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="91690" minimumFontSize="15" fixedFrame="YES">
-                                <rect key="frame" x="173" y="615" width="68" height="27"/>
+                                <rect key="frame" x="166" y="615" width="82" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
-                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMaxY="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES" widthSizable="YES" flexibleMinY="YES"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92002" fixedFrame="YES">
                                 <rect key="frame" x="300.5" y="612.5" width="77.5" height="31.5"/>
@@ -745,9 +769,9 @@
                                 <rect key="frame" x="20" y="90" width="374" height="37"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
-                                    <fragment content="To transfer media onto your device at dance competitions:">
+                                    <fragment content="To transfer media onto your device:">
                                         <attributes>
-                                            <font key="NSFont" name="Helvetica" family="Helvetica" size="35"/>
+                                            <font key="NSFont" name="Helvetica" family="Helvetica" size="30"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
                                     </fragment>
@@ -842,11 +866,11 @@
         <image name="DanceProLogoIcon" width="3543" height="3543"/>
         <image name="Facebook" width="1024" height="1024"/>
         <image name="Home" width="30" height="30"/>
-        <image name="Icon_Save" width="92" height="125"/>
         <image name="Instagram" width="1024" height="1024"/>
         <image name="Mail" width="1024" height="1024"/>
         <image name="Media" width="30" height="27"/>
         <image name="Transfer" width="30" height="30"/>
         <image name="Website" width="1024" height="1024"/>
+        <image name="Icon_Complete" width="100" height="100"/>
     </resources>
 </document>

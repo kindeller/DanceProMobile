@@ -281,8 +281,8 @@ namespace DancePro.Services
 
             if (parser.Success)
             {
-
-                if (MediaService.SaveDownload(id,parser))
+                Console.WriteLine("[HTTP] Incoming Download: " + parser.Filename);
+                if (MediaService.SaveDownload(id,parser.Filename,parser.FilePath,parser.FileContents))
                 {
                     context.Response.StatusCode = 204;
                     context.Response.Close();

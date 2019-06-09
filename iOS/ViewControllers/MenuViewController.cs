@@ -17,6 +17,10 @@ namespace DancePro.iOS
         {
             base.ViewDidLoad();
             Title = ViewModel.Title;
+            //TransferMediaSubtitle.AdjustsFontForContentSizeCategory = true;
+            //WebsiteSubtitle.AdjustsFontForContentSizeCategory = true;
+            //TransferMediaSubtitle.Font = MyMediaSubtitle.Font;
+            //WebsiteSubtitle.Font = MyMediaSubtitle.Font;
             AddButtonText(MediaButton, "View and manage your personal DancePro media gallery.");
             AddButtonText(TransferButton, "Transfer media from a DancePro Kiosk event.");
             AddButtonText(WebsiteButton, "Visit our Website for other competitions and events.");

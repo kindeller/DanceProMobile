@@ -10,6 +10,7 @@ namespace DancePro.ViewModels
     {
         NetworkService NetworkService;
         List<NewDownloadModel> DownloadingMedia;
+        public int CompletedCount { get; private set; }
 
         public delegate void DownloadMediaChanged(List<NewDownloadModel> mediaList);
 
@@ -39,19 +40,34 @@ namespace DancePro.ViewModels
 
         void MediaService_DownloadUpdate(object sender, NewDownloadModel model)
         {
-            foreach(var m in DownloadingMedia)
+            Console.WriteLine("Update Incoming: " + model.FileName);
+            int completedCount = 0;
+            lock (DownloadingMedia)
             {
-                if(m.ID == model.ID)
+                foreach (var m in DownloadingMedia)
                 {
-                    m.CopyModel(model);
-                    OnDownloadsUpdated();
+                    if (m.ID == model.ID)
+                    {
+                        Console.WriteLine("Updating Media: " + model.FileName + ". Status: " + model.Status);
+                        m.CopyModel(model);
+                        if (model.Status == NewDownloadModel.DownloadStatus.Completed) completedCount++;
+                        OnDownloadsUpdated();
+                    }
                 }
             }
+
+            CompletedCount = completedCount;
+           
+
         }
 
         void MediaService_StartedEventHandler(object sender, NewDownloadModel model)
         {
-            DownloadingMedia.Add(model);
+            Console.WriteLine("New Download: " + model.FileName + ". Status: " + model.Status);
+            lock (DownloadingMedia)
+            {
+                DownloadingMedia.Add(model);
+            }
             OnDownloadsUpdated();
         }
 
@@ -62,13 +78,21 @@ namespace DancePro.ViewModels
 
         public int GetCompletedCount()
         {
-            int total = 0;
-            foreach(var item in DownloadingMedia)
+            try
             {
-                if (item.Status == NewDownloadModel.DownloadStatus.Completed) total++;
+                int total = 0;
+                foreach (var item in DownloadingMedia)
+                {
+                    if (item.Status == NewDownloadModel.DownloadStatus.Completed) total++;
+                }
+                return total;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
             }
 
-            return total;
         }
 
         public void ClearDownloads()

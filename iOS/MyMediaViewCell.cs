@@ -40,6 +40,7 @@ namespace DancePro.iOS
                 DateLabel.Enabled = false;
                 DateLabel.Hidden = true;
                 Title.TextAlignment = UITextAlignment.Center;
+                BackgroundColor = UIColor.White;
             }
             else
             {

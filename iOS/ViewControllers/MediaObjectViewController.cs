@@ -32,6 +32,21 @@ namespace DancePro.iOS.ViewControllers
             UpdateMediaObjectsUI();
             NavigationController.NavigationBar.Hidden = true;
             TabBarController.TabBar.Hidden = true;
+
+            List<MediaObject> remove = new List<MediaObject>();
+            foreach (var media in MediaList)
+            {
+                if(media.MediaType != MediaTypes.Image)
+                {
+                    remove.Add(media);
+                }
+            }
+
+            foreach (var item in remove)
+            {
+                MediaList.Remove(item);
+            }
+
         }
 
         public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
@@ -93,6 +108,7 @@ namespace DancePro.iOS.ViewControllers
             foreach( var subview in View.Subviews)
             {
                 subview.RemoveFromSuperview();
+                subview.Dispose();
             }
         }
 
@@ -133,8 +149,35 @@ namespace DancePro.iOS.ViewControllers
             ScrollView.ViewForZoomingInScrollView += (view) => { return ImageView; };
 
             ScrollView.DidZoom += (object sender, EventArgs e) => {
-
+                var scale = ScrollView.ZoomScale;
             };
+
+            UISwipeGestureRecognizer recognizer = new UISwipeGestureRecognizer();
+            recognizer.Direction = UISwipeGestureRecognizerDirection.Right;
+            recognizer.AddTarget((obj) => {
+
+                var r = obj as UISwipeGestureRecognizer;
+                HandleSwipe(r);
+            
+            });
+            ScrollView.AddGestureRecognizer(recognizer);
+            recognizer = new UISwipeGestureRecognizer();
+            recognizer.Direction = UISwipeGestureRecognizerDirection.Left;
+            recognizer.AddTarget((obj) => {
+
+                var r = obj as UISwipeGestureRecognizer;
+                HandleSwipe(r);
+
+            });
+            ScrollView.AddGestureRecognizer(recognizer);
+            //recognizer = new UISwipeGestureRecognizer();
+            //recognizer.Direction = UISwipeGestureRecognizerDirection.Down;
+            //recognizer.AddTarget((obj) => {
+
+            //    DismissViewController(true, null);
+
+            //});
+            //ScrollView.AddGestureRecognizer(recognizer);
             ScrollView.AddGestureRecognizer(new UITapGestureRecognizer((e) => {
 
                 //TODO: Perform Hide and reveal of Image UI
@@ -146,11 +189,69 @@ namespace DancePro.iOS.ViewControllers
             return ScrollView;
         }
 
+        private void HandleSwipe(UISwipeGestureRecognizer rec)
+        {
+            if(ScrollView.ZoomScale == 1)
+            {
+                switch (rec.Direction)
+                {
+                    case UISwipeGestureRecognizerDirection.Left:
+                        ChangeImage(GetNextImage());
+                        break;
+                    case UISwipeGestureRecognizerDirection.Right:
+                        ChangeImage(GetPreviousImage());
+
+                        break;
+                    case UISwipeGestureRecognizerDirection.Up:
+                        DismissViewController(true, null);
+                        break;
+
+                }
+            }
+        }
+
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
         }
 
+
+        public void ChangeImage(MediaObject obj)
+        {
+            if (obj == null) return;
+            MediaObject = obj;
+            ImageView.Image = new UIImage(MediaObject.FilePath);
+        }
+
+        public MediaObject GetNextImage()
+        {
+            for (int i = 0; i < MediaList.Count; i++)
+            {
+                if (MediaList[i].FilePath == MediaObject.FilePath)
+                {
+                    if (++i >= MediaList.Count) return null;
+
+                    return MediaList[i];
+                }
+            }
+
+            return null;
+        }
+
+        public MediaObject GetPreviousImage()
+        {
+            for (int i = 0; i < MediaList.Count; i++)
+            {
+                if (MediaList[i].FilePath == MediaObject.FilePath)
+                {
+                    if (i == 0) return null;
+
+                    return MediaList[--i];
+                }
+            }
+
+            return null;
+        }
 
 
 

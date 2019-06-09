@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AssetsLibrary;
+using AVFoundation;
 using DancePro.Models;
 using Foundation;
 using UIKit;
@@ -36,34 +38,39 @@ namespace DancePro.iOS.ViewControllers
         public void SetUpButtons()
         {
             var inset = 5;
-            var buttonWidth = SaveButton.Frame.Width - (inset*2);
-            var buttonHeight = SaveButton.Frame.Height - (inset*5);
+            var buttonWidth = ShareButton.Frame.Width - (inset*2);
+            var buttonHeight = ShareButton.Frame.Height - (inset*5);
 
             //Save Button
-            UIImageView view = new UIImageView(UIImage.FromBundle("Icon_Save"));
-            view.ContentMode = UIViewContentMode.ScaleAspectFit;
-            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
-            SaveButton.AddSubview(view);
+            //UIImageView view = new UIImageView(UIImage.FromBundle("Icon_Save"));
+            //view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            //view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            //SaveButton.AddSubview(view);
+
             //Move Button Set Up
             //view = new UIImageView(UIImage.FromBundle("Icon_Move"));
             //view.ContentMode = UIViewContentMode.ScaleAspectFit;
             //view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
             //MoveButton.AddSubview(view);
+
             //Share Button Set Up
-            //view = new UIImageView(UIImage.FromBundle("Icon_Share"));
-            //view.ContentMode = UIViewContentMode.ScaleAspectFit;
-            //view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
-            //ShareButton.AddSubview(view);
+            UIImageView view = new UIImageView(UIImage.FromBundle("Icon_Share"));
+            view.ContentMode = UIViewContentMode.ScaleAspectFit;
+            view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
+            ShareButton.AddSubview(view);
+
             //Delete Button Set Up
             view = new UIImageView(UIImage.FromBundle("Icon_Delete"));
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
             view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
             DeleteButton.AddSubview(view);
+
             //Duplicate Button Set Up
             view = new UIImageView(UIImage.FromBundle("Icon_Duplicate"));
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
             view.Frame = new CoreGraphics.CGRect(inset, inset, buttonWidth, buttonHeight);
             DuplicateButton.AddSubview(view);
+
             //Rename Button Set Up
             view = new UIImageView(UIImage.FromBundle("Icon_Rename"));
             view.ContentMode = UIViewContentMode.ScaleAspectFit;
@@ -95,41 +102,49 @@ namespace DancePro.iOS.ViewControllers
             }
         }
 
-        //partial void Share_TouchUpInside(UIButton sender)
-        //{
-        //    UIActivityViewController activity;
-        //    switch (MediaObject.MediaType)
-        //    {
-        //        case MediaTypes.Image:
-        //            ImageObject imageObject = MediaObject as ImageObject;
-        //            if (imageObject != null)
-        //            {
-        //                var image = NSObject.FromObject(imageObject.Image);
-        //                var items = new[] { image };
-        //                activity = new UIActivityViewController(items, null);
-        //                PresentViewController(activity, true, null);
-        //            }
-        //            break;
-        //        case MediaTypes.Audio:
-        //            AudioObject audioObject = MediaObject as AudioObject;
-        //            if (audioObject != null)
-        //            {
-        //                var items = new[] { FromObject(audioObject.Audio) };
-        //                activity = new UIActivityViewController(items, null);
-        //                PresentViewController(activity, true, null);
-        //            }
-        //            break;
-        //        case MediaTypes.Video:
-        //            VideoObject videoObject = MediaObject as VideoObject;
-        //            if (videoObject != null)
-        //            {
-        //                var items = new[] { FromObject(videoObject.Asset) };
-        //                activity = new UIActivityViewController(items, null);
-        //                PresentViewController(activity, true, null);
-        //            }
-        //            break;
-        //    }
-        //}
+        partial void Share_TouchUpInside(UIButton sender)
+        {
+            UIActivityViewController activity = new UIActivityViewController(new NSObject[] { null }, null);
+            var items = new NSObject[0];
+            switch (MediaObject.MediaType)
+            {
+                case MediaTypes.Image:
+                    ImageObject imageObject = MediaObject as ImageObject;
+                    if (imageObject != null)
+                    {
+                        items = new[] { imageObject.Image };
+                    }
+                    break;
+                case MediaTypes.Audio:
+                    AudioObject audioObject = MediaObject as AudioObject;
+                    if (audioObject != null)
+                    {
+                        NSUrl url = NSUrl.CreateFileUrl(new[] { audioObject.FilePath });
+                        items = new[] { url };
+                    }
+                    break;
+                case MediaTypes.Video:
+                    VideoObject videoObject = MediaObject as VideoObject;
+                    if (videoObject != null)
+                    {
+                        NSUrl url = NSUrl.CreateFileUrl(new[] { videoObject.FilePath });
+                        items = new[] { url };
+                    }
+                    break;
+            }
+            activity = new UIActivityViewController(items,null);
+            activity.ExcludedActivityTypes = new[]
+            {
+                UIActivityType.AirDrop,
+                UIActivityType.SaveToCameraRoll,
+                UIActivityType.CopyToPasteboard,
+                UIActivityType.OpenInIBooks,
+                new NSString("com.apple.CloudDocsUI.AddToiCloudDrive"),
+                //new NSString("com.apple.mobilenotes.SharingExtension"),
+                //new NSString("com.apple.reminders.RemindersEditorExtension")
+            };
+            PresentViewController(activity, true, null);
+        }
 
         partial void Cancel_TouchUpInside(UIButton sender)
         {

@@ -111,42 +111,43 @@ namespace DancePro.Services
             OnDownloadStarted(this, new NewDownloadModel(id));
         }
 
-        public bool SaveDownload(int id, MultipartParser parser)
+        public bool SaveDownload(int id, string Filename, string FilePath, byte[] FileContents)
         {
-            NewDownloadModel model = new NewDownloadModel(id, parser.Filename,status: NewDownloadModel.DownloadStatus.Copying);
+            byte[] FileData = new byte[FileContents.Length];
+            FileContents.CopyTo(FileData, 0);
+            NewDownloadModel model = new NewDownloadModel(id, Filename,status: NewDownloadModel.DownloadStatus.Copying);
             OnDownloadUpdate(this, model);
-
-            if (IsValidFileType(parser.Filename))
+            Console.WriteLine("[Media] Copying " + "(" + id + ") " + model.FileName + "...");
+            if (IsValidFileType(Filename))
             {
                 try
                 {
-                    string fullPath = GetMediaPath() + parser.FilePath;
+                    string fullPath = GetMediaPath() + FilePath;
                     if (!Directory.Exists(fullPath))
                     {
                         Directory.CreateDirectory(fullPath);
                     }
 
-                    string fileName = fullPath + parser.Filename;
+                    string fileName = fullPath + Filename;
                     //if (File.Exists(fileName))
                     //{
                     //    //Append Copy
                     //    var name = Path.GetFileNameWithoutExtension(parser.Filename) + "Copy" + Path.GetExtension(parser.Filename);
                     //    fileName = fullPath + name;
                     //}
-
-                    File.WriteAllBytes(fileName, parser.FileContents);
+                    File.WriteAllBytes(fileName, FileData);
                     model.Status = NewDownloadModel.DownloadStatus.Completed;
                     model.Message = "Complete";
                     OnDownloadUpdate(this, model);
+                    Console.WriteLine("[Media] Download Complete: " + model.FileName);
                     return true;
                 }
                 catch (Exception e)
                 {
-                    //var message = e.Message;
-                    //Console.WriteLine("Error writting to file..." + parser.Filename + " : " + e.Message);
-                    //model.Status = NewDownloadModel.DownloadStatus.Failed;
-                    //model.Message = "Copy Error";
-                    //OnDownloadUpdate(this, model);
+                    Console.WriteLine("Error writting to file..." + Filename + " : " + e.Message);
+                    model.Status = NewDownloadModel.DownloadStatus.Failed;
+                    model.Message = "Copy Error";
+                    OnDownloadUpdate(this, model);
                     return false;
                 }
             }
@@ -155,7 +156,7 @@ namespace DancePro.Services
                 model.Status = NewDownloadModel.DownloadStatus.Failed;
                 model.Message = "Invalid Type";
                 OnDownloadUpdate(this, model);
-                Console.WriteLine("Invalid Incoming file type..." + Path.GetExtension(parser.Filename));
+                Console.WriteLine("Invalid Incoming file type..." + Path.GetExtension(Filename));
                 return false;
             }
         }
@@ -259,32 +260,74 @@ namespace DancePro.Services
             return true;
         }
 
-        public bool DuplicateMediaObject(MediaObject obj) 
+
+        /// <summary>
+        /// Recursive function for copying all media from one location to another. Can specify a new folder or if it will append to each file/folder.
+        /// </summary>
+        /// <returns><c>true</c>, if media object was duplicated, <c>false</c> otherwise.</returns>
+        /// <param name="obj">Media Object to be copied.</param>
+        /// <param name="dir">Specified Directory to copy too.</param>
+        /// <param name="appendCopy">If set to <c>true</c> append "copy" onto each object.</param>
+        public bool DuplicateMediaObject(MediaObject obj, DirectoryInfo dir = null, bool appendCopy = true) 
         {
             try 
             {
-                if (!File.Exists(obj.FilePath))
-                {
-                    throw new IOException("File Does not Exist");
-                }
+                //Set Append String
+                string append = appendCopy ? "Copy" : "";
+
+
+
+                // -- Non Folder Object --
 
                 if (obj.MediaType != MediaTypes.Folder)
                 {
+                    if (!File.Exists(obj.FilePath))
+                    {
+                        throw new IOException("File Does not Exist");
+                    }
+
                     var filename = Path.GetFileNameWithoutExtension(obj.FilePath);
-                    filename = string.Concat(filename, "Copy", Path.GetExtension(obj.FilePath));
-                    var dest = Path.GetDirectoryName(obj.FilePath);
+                    filename = string.Concat(filename, append, Path.GetExtension(obj.FilePath));
+
+                    var dest = (dir == null) ? Path.GetDirectoryName(obj.FilePath) : dir.FullName;
                     dest = Path.Combine(dest, filename);
                     File.Copy(obj.FilePath, dest);
                     return true;
                 }
                 else
                 {
+                    // -- Folder Object -- 
+
                     if(obj.MediaType == MediaTypes.Folder) {
 
-                        //if (isUnderMaxFileThreadshold(obj.FilePath)) {
-                        throw new NotImplementedException("The Duplication of Folders is not yet Supported.");
-                        //}
+                        //Check for Maximum Files allowed to be copied.
+                        if (isUnderMaxFileThreadshold(obj.FilePath)) 
+                        {
 
+                            //Copy folder with new name
+                            DirectoryInfo newDir = null;
+                            if(dir != null)
+                            {
+                                newDir = Directory.CreateDirectory(Path.Combine(dir.FullName,obj.FileName + append));
+                            }
+                            else
+                            {
+                                newDir = Directory.CreateDirectory(obj.FilePath + append);
+                            }
+                            //get media from folder to list
+                            var media = GetMediaFromFolder(obj.FilePath);
+                            bool failed = true;
+                            foreach (var item in media)
+                            {
+                                //Copy each item in the folder.
+                                DuplicateMediaObject(item, newDir);
+                            }
+                            return failed ? false : true;
+
+
+
+                        }
+                        return false;
                     }
                     else {
                         return false;
@@ -298,6 +341,7 @@ namespace DancePro.Services
                 return false;
             }
         }
+        
 
 
         public bool DeleteMediaObject(MediaObject obj) 

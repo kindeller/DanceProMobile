@@ -40,7 +40,7 @@ namespace DancePro.Services
             if (delimiterEndIndex > -1)
             {
                 string delimiter = content.Substring(0, content.IndexOf("\r\n", StringComparison.CurrentCulture));
-
+                 
                 // Look for Content-Type
                 Regex re = new Regex(@"(?<=Content\-Type:)(.*?)(?=\r\n\r\n)");
                 Match contentTypeMatch = re.Match(content);

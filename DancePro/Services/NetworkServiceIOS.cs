@@ -97,6 +97,8 @@ namespace DancePro.Services
                 {
                     if (isOnWifi())
                     {
+                        Console.WriteLine("Connected to Wifi!");
+                        //TODO: Add "failed to/connected to wifi network" prompt.
                         //TODO: This works and removes the config but still auto-joins after taking away the wifi network.
                         WifiManager.RemoveConfiguration(config.Ssid);
                         return;

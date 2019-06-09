@@ -45,12 +45,14 @@ namespace DancePro.Services
         public static UIImage GenerateThumbImage(AVAsset asset)
         {
             AVAssetImageGenerator imageGenerator = new AVAssetImageGenerator(asset);
+            //imageGenerator.RequestedTimeToleranceAfter = new CMTime(5, 1);
+            //imageGenerator.RequestedTimeToleranceBefore = new CMTime(5, 1);
             imageGenerator.AppliesPreferredTrackTransform = true;
             CMTime actualTime;
             NSError error;
 
             long time = (long)Math.Floor(asset.Duration.Seconds / 2);
-            CGImage cgImage = imageGenerator.CopyCGImageAtTime(new CMTime(time, 1000000), out actualTime, out error);
+            CGImage cgImage = imageGenerator.CopyCGImageAtTime(new CMTime(time, 1), out actualTime, out error);
             return new UIImage(cgImage);
         }
 #endif

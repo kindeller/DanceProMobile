@@ -80,8 +80,16 @@ namespace DancePro.Services
 
             if (ValidateNetwork())
             {
-                SetIsListening(true);
-                handler.ListenAsynchronously(prefixes);
+                try
+                {
+                    SetIsListening(true);
+                    handler.ListenAsynchronously(prefixes);
+                }
+                catch
+                {
+                    SetIsListening(false);
+                }
+
             }
 
         }
