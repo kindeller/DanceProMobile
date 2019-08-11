@@ -8,6 +8,7 @@ namespace DancePro
         public static bool UseMockDataStore = true;
         public static string BackendUrl = "http://localhost:5000";
         public static MediaService MediaService;
+        public static NetworkService NetworkService;
         //public static NetworkServiceAndroid NetworkService;
 
         public static void Initialize()
@@ -17,7 +18,13 @@ namespace DancePro
             else
                 ServiceLocator.Instance.Register<IDataStore<Item>, CloudDataStore>();
             MediaService = new MediaService();
-            //NetworkService = new NetworkServiceAndroid();
+
+#if __IOS__
+            NetworkService = new NetworkServiceIOS();
+#endif
+#if __ANDROID__
+            NetworkService = new NetworkServiceAndroid();
+#endif
         }
 
 

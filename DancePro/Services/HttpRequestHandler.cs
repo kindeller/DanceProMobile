@@ -205,6 +205,7 @@ namespace DancePro.Services
                     foreach (string indexFile in indexFiles)
                     {
                         string fullPath = Path.Combine(path, indexFile);
+                        
                         if (File.Exists(fullPath))
                         {
                             filename = indexFile;

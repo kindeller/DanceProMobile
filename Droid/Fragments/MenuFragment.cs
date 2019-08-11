@@ -51,12 +51,12 @@ namespace DancePro.Droid
                 ViewModel.OpenWebsiteCommand.Execute(null);
 
             };
-            //ImageView imageView = view.FindViewById<ImageView>(Resource.Id.imageViewLogo);
-            //imageView.SetImageResource(Resource.Drawable.ic_DancePro);
-            //imageView.SetScaleType(ImageView.ScaleType.FitCenter);
-            //imageView.SetAdjustViewBounds(true);
-            //imageView.SetMaxHeight(container.Height / 4);
-            //imageView.SetMaxWidth(container.Width / 4);
+            ImageView imageView = view.FindViewById<ImageView>(Resource.Id.imageViewLogo);
+            imageView.SetImageResource(Resource.Drawable.ic_DancePro_x1);
+            imageView.SetScaleType(ImageView.ScaleType.Center);
+            imageView.SetAdjustViewBounds(true);
+            imageView.SetMaxHeight(container.Height / 2);
+            imageView.SetMaxWidth(container.Width / 2);
             return view;
 
         }

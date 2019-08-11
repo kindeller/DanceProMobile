@@ -146,5 +146,24 @@ namespace DancePro.ViewModels
             }
 
         }
+
+        public string GetDeviceText()
+        {
+            string text = "Not Connected!";
+
+            if (isNetworkListening())
+            {
+                var id = GetDeviceID();
+                if (!string.IsNullOrEmpty(id)) text = "Device ID: " + id;
+            }
+
+            //return text;
+            return NetworkService.GetIP().ToString();
+        }
+
+        public string GetButtonText()
+        {
+            return isNetworkListening() ? "Disable" : "Enable";
+        }
     }
 }

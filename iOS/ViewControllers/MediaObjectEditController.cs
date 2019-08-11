@@ -158,7 +158,17 @@ namespace DancePro.iOS.ViewControllers
             var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
                 var isSuccess = (MediaObject.MediaType == MediaTypes.Folder) ? App.MediaService.RenameFolder(MediaObject, alert.TextFields[0].Text) : App.MediaService.RenameMediaObject(MediaObject, alert.TextFields[0].Text);
-                controller.GetMedia();
+                if (isSuccess)
+                {
+                    controller.GetMedia();
+                }
+                else
+                {
+                    var a = UIAlertController.Create("Failed", "Please try again with a different name.", UIAlertControllerStyle.Alert);
+                    a.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null));
+                    PresentViewController(a, true, null);
+                }
+
             });
             alert.AddAction(actionCancel);
             alert.AddAction(actionOk);

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.IO;
+using Android.App;
 
 namespace DancePro.Services
 {
@@ -26,7 +28,12 @@ namespace DancePro.Services
         /// </summary>
         public NetworkService()
         {
-            handler = new HttpRequestHandler("./Root");
+
+            //handler = new HttpRequestHandler("./Root");
+#if __ANDROID__
+                string path = Path.Combine(Application.Context.FilesDir.Path, "Root").ToString();
+            handler = new HttpRequestHandler(path);
+#endif
             handler.ListenerStoppedEvent += Handler_ListenerStoppedEvent;
             Initialise();
 
@@ -76,6 +83,7 @@ namespace DancePro.Services
         /// </summary>
         public void Connect()
         {
+            Initialise();
             ConnectToWifi();
 
             if (ValidateNetwork())

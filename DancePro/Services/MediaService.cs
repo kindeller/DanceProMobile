@@ -245,6 +245,7 @@ namespace DancePro.Services
                 if (File.Exists(obj.FilePath)) {
                     var directory = Path.GetDirectoryName(obj.FilePath);
                     var destinationPath = Path.Combine(directory, newName);
+                    destinationPath = destinationPath += Path.GetExtension(obj.FilePath);
                     File.Move(obj.FilePath, destinationPath);
                 }
                 else {

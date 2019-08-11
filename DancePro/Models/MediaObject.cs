@@ -57,6 +57,7 @@ namespace DancePro.Models
 #endif
 
 #if __ANDROID__
+        public int ResourceID { get; private set; }
 
         public MediaObject(string filePath)
         {

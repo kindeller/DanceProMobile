@@ -104,7 +104,7 @@ namespace DancePro.Services
         public static byte[] ResizeImageAndroid (byte[] imageData, float width, float height, int quality)
         {
         // Load the bitmap
-        Bitmap originalImage = BitmapFactory.DecodeByteArray (imageData, 0, imageData.Length);
+        Android.Graphics.Bitmap originalImage = BitmapFactory.DecodeByteArray (imageData, 0, imageData.Length);
 
         float oldWidth = (float)originalImage.Width;
         float oldHeight = (float)originalImage.Height;
@@ -122,11 +122,11 @@ namespace DancePro.Services
         float newHeight = oldHeight * scaleFactor;
         float newWidth = oldWidth * scaleFactor;
 
-        Bitmap resizedImage = Bitmap.CreateScaledBitmap(originalImage, (int)newWidth, (int)newHeight, false);
+        Android.Graphics.Bitmap resizedImage = Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)newWidth, (int)newHeight, false);
 
         using (MemoryStream ms = new MemoryStream())
         {
-        resizedImage.Compress (Bitmap.CompressFormat.Jpeg, quality, ms);
+        resizedImage.Compress (Android.Graphics.Bitmap.CompressFormat.Jpeg, quality, ms);
         return ms.ToArray ();
         }
         }

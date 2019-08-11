@@ -40,14 +40,18 @@ namespace DancePro.Droid
                 fragment?.BecameVisible();
             };
 
-            Toolbar.MenuItemClick += (sender, e) =>
-            {
-                var intent = new Intent(this, typeof(AddItemActivity)); ;
-                StartActivity(intent);
-            };
+            //Toolbar.MenuItemClick += (sender, e) =>
+            //{
+            //    var intent = new Intent(this, typeof(AddItemActivity)); ;
+            //    StartActivity(intent);
+            //};
 
-            SupportActionBar.SetDisplayHomeAsUpEnabled(false);
-            SupportActionBar.SetHomeButtonEnabled(false);
+            //SupportActionBar.SetDisplayHomeAsUpEnabled(false);
+            //SupportActionBar.SetHomeButtonEnabled(false);
+
+
+            CopyAssets assets = new CopyAssets();
+            assets.CopyAllAssets();
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

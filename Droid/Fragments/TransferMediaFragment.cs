@@ -20,6 +20,8 @@ namespace DancePro.Droid
     public class TransferMediaFragment : Android.Support.V4.App.Fragment, IFragmentVisible
     {
         TransferViewModel ViewModel;
+        Button btnEnable;
+        TextView connectedText;
 
         public void BecameVisible()
         {
@@ -40,7 +42,21 @@ namespace DancePro.Droid
             ViewModel = new TransferViewModel(App.NetworkService);
 
             View view = inflater.Inflate(Resource.Layout.fragment_TransferMedia, container, false);
+            connectedText = view.FindViewById<TextView>(Resource.Id.textConnected);
+            connectedText.Text = ViewModel.GetDeviceText();
+            btnEnable = view.FindViewById<Button>(Resource.Id.btnEnable);
+            btnEnable.Click += (sender, e) => {
+
+                ViewModel.ToggleConnection();
+                ToggleButtonText();
+            };
             return view;
+        }
+
+        private void ToggleButtonText()
+        {
+            var text = ViewModel.isNetworkListening() ? "Disable" : "Enable";
+            btnEnable.Text = text;
         }
     }
 }

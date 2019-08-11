@@ -117,21 +117,12 @@ namespace DancePro.iOS.ViewControllers
 
         private void SetDeviceText()
         {
-            string text = "Not Connected!";
-
-            if (Model.isNetworkListening())
-            {
-                var id = Model.GetDeviceID();
-                if (!string.IsNullOrEmpty(id)) text = "Device ID: " + id;
-            }
-
-            AddressLabel.Text = text;
+            AddressLabel.Text = Model.GetDeviceText();
         }
 
         private void ToggleButtonText()
-        {
-            var text = Model.isNetworkListening() ? "Disable" : "Enable";
-            ToggleButton.SetTitle(text, UIControlState.Normal);
+        { 
+            ToggleButton.SetTitle(Model.GetButtonText(), UIControlState.Normal);
         }
     }
 }

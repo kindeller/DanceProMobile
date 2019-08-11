@@ -1,3 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:minWidth="25px"
+	android:minHeight="25px">
+	<TextView
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView1"
+		android:text="To transfer media onto your device:"
+		android:gravity="center" />
+	<TextView
+		android:text="1. Connect to DPPV Wifi Network"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView2"
+		android:gravity="center" />
+	<TextView
+		android:text="2. Present phone to kiosk member"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textView3"
+		android:gravity="center" />
+	<TextView
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textConnected"
+		android:layout_weight="0.5"
+		android:text="Not Connected!"
+		android:gravity="center" />
+	<TextView
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textDownloads"
+		android:text="Downloads"
+		android:gravity="center"
+		android:layout_weight="0.25" />
+	<android.support.v7.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/recyclerView1"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_weight="5" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1"
+		android:gravity="center"
+		android:layout_marginRight="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_weight="0.25">
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/btnEnable"
+			android:text="Enable" />
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textCount"
+			android:layout_weight="1"
+			android:text="(0/0)"
+			android:gravity="center" />
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/btnClear"
+			android:text="Clear" />
+	</LinearLayout>
 </LinearLayout>

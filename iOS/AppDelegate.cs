@@ -12,6 +12,7 @@ namespace DancePro.iOS
     {
         // class-level declarations
         public static bool CanRotate { get; set; }
+        //TODO: [REMOVE] - Move this reference to App.NetworkService to unify iOS and Android
         public static NetworkServiceIOS NetworkService { get; set; }
         public readonly static UIColor DanceProBlue = UIColor.FromRGB(18, 141, 215);
 
@@ -24,6 +25,7 @@ namespace DancePro.iOS
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
             App.Initialize();
+            //TODO: [REMOVE] - Move this reference to App.NetworkService to unify iOS and Android
             NetworkService = new NetworkServiceIOS();
             return true;
         }

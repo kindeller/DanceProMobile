@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <ReleaseVersion>1.1.5</ReleaseVersion>
+    <ReleaseVersion>1.1.6</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -143,12 +143,136 @@
     <Compile Include="Activities\MyMediaActivity.cs" />
     <Compile Include="Helpers\MediaRecyclerViewAdapter.cs" />
     <Compile Include="Fragments\TransferMediaFragment.cs" />
+    <Compile Include="MediaFolder.cs" />
+    <Compile Include="MediaAdapter.cs" />
+    <Compile Include="CopyAssets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="packages.config" />
+    <None Include="Assets\Root\server\dotnet\Default.aspx.cs" />
+    <None Include="Assets\Root\server\dotnet\UploadHandler.cs" />
+    <None Include="Root\css\bootstrap.css" />
+    <None Include="Root\css\bootstrap.css.map" />
+    <None Include="Root\css\bootstrap.min.css" />
+    <None Include="Root\css\bootstrap.min.css.map" />
+    <None Include="Root\css\bootstrap-grid.css" />
+    <None Include="Root\css\bootstrap-grid.css.map" />
+    <None Include="Root\css\bootstrap-grid.min.css" />
+    <None Include="Root\css\bootstrap-grid.min.css.map" />
+    <None Include="Root\css\bootstrap-reboot.css" />
+    <None Include="Root\css\bootstrap-reboot.css.map" />
+    <None Include="Root\css\bootstrap-reboot.min.css" />
+    <None Include="Root\css\bootstrap-reboot.min.css.map" />
+    <None Include="Root\css\jquery.fileupload.css" />
+    <None Include="Root\css\jquery.fileupload-noscript.css" />
+    <None Include="Root\css\jquery.fileupload-ui.css" />
+    <None Include="Root\css\jquery.fileupload-ui-noscript.css" />
+    <None Include="Root\css\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\app.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.bundle.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.bundle.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.bundle.min.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\bootstrap.min.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\cors\jquery.postmessage-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\cors\jquery.xdr-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-angular.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-audio.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-image.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-jquery-ui.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-process.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-ui.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-validate.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.fileupload-video.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery.iframe-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery-3.2.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\jquery-3.4.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\main.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\popper.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\js\vendor\jquery.ui.widget.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Root\server\.DS_Store" />
+    <None Include="Root\server\dotnet\Default.aspx" />
+    <None Include="Root\server\dotnet\Default.aspx.cs" />
+    <None Include="Root\server\dotnet\UploadHandler.cs" />
+    <None Include="Root\server\gae-go\app.yaml" />
+    <None Include="Root\server\gae-go\main.go" />
+    <None Include="Root\server\gae-go\static\favicon.ico" />
+    <None Include="Root\server\gae-go\static\robots.txt" />
+    <None Include="Root\server\gae-python\app.yaml" />
+    <None Include="Root\server\gae-python\main.py" />
+    <None Include="Root\server\gae-python\static\favicon.ico" />
+    <None Include="Root\server\gae-python\static\robots.txt" />
+    <None Include="Root\server\php\.DS_Store" />
+    <None Include="Root\server\php\docker-compose.yml" />
+    <None Include="Root\server\php\Dockerfile" />
+    <None Include="Root\server\php\files\.gitignore" />
+    <None Include="Root\server\php\files\.htaccess" />
+    <None Include="Root\server\php\index.php" />
+    <None Include="Root\server\php\UploadHandler.php" />
+    <None Include="Root\js\bootstrap-4.2.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\background_splash.xml" />
@@ -199,6 +323,152 @@
     <AndroidResource Include="Resources\drawable\instagram2.png" />
     <AndroidResource Include="Resources\drawable\website.png" />
     <AndroidResource Include="Resources\drawable\website2.png" />
+    <AndroidResource Include="Resources\drawable\ic_DancePro_x1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Root\upload\UploadHandler.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Root\upload\UploadHandler.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Root\" />
+    <Folder Include="Root\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Root\css\bootstrap.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap.css.map" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap.min.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap.min.css.map" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-grid.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-grid.css.map" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-grid.min.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-grid.min.css.map" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-reboot.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-reboot.css.map" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-reboot.min.css" />
+    <AndroidAsset Include="Assets\Root\css\bootstrap-reboot.min.css.map" />
+    <AndroidAsset Include="Assets\Root\css\jquery.fileupload.css" />
+    <AndroidAsset Include="Assets\Root\css\jquery.fileupload-noscript.css" />
+    <AndroidAsset Include="Assets\Root\css\jquery.fileupload-ui.css" />
+    <AndroidAsset Include="Assets\Root\css\jquery.fileupload-ui-noscript.css" />
+    <AndroidAsset Include="Assets\Root\css\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\app.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.bundle.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.bundle.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.bundle.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.bundle.min.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap.min.js.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\bootstrap-4.2.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\cors\jquery.postmessage-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\cors\jquery.xdr-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-angular.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-audio.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-image.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-jquery-ui.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-process.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-ui.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-validate.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.fileupload-video.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery.iframe-transport.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery-3.2.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\jquery-3.4.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\main.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\popper.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\js\vendor\jquery.ui.widget.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Root\server\.DS_Store" />
+    <AndroidAsset Include="Assets\Root\server\dotnet\Default.aspx" />
+    <AndroidAsset Include="Assets\Root\server\gae-go\app.yaml" />
+    <AndroidAsset Include="Assets\Root\server\gae-go\main.go" />
+    <AndroidAsset Include="Assets\Root\server\gae-go\static\favicon.ico" />
+    <AndroidAsset Include="Assets\Root\server\gae-go\static\robots.txt" />
+    <AndroidAsset Include="Assets\Root\server\gae-python\app.yaml" />
+    <AndroidAsset Include="Assets\Root\server\gae-python\main.py" />
+    <AndroidAsset Include="Assets\Root\server\gae-python\static\favicon.ico" />
+    <AndroidAsset Include="Assets\Root\server\gae-python\static\robots.txt" />
+    <AndroidAsset Include="Assets\Root\server\php\.DS_Store" />
+    <AndroidAsset Include="Assets\Root\server\php\docker-compose.yml" />
+    <AndroidAsset Include="Assets\Root\server\php\Dockerfile" />
+    <AndroidAsset Include="Assets\Root\server\php\files\.gitignore" />
+    <AndroidAsset Include="Assets\Root\server\php\files\.htaccess" />
+    <AndroidAsset Include="Assets\Root\server\php\index.php" />
+    <AndroidAsset Include="Assets\Root\server\php\UploadHandler.php" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Root\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Root\logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

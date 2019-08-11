@@ -3,6 +3,9 @@ using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using Android.App;
+using Android.Content;
+using Android.Net.Wifi;
 
 namespace DancePro.Services
 {
@@ -54,8 +57,15 @@ namespace DancePro.Services
 
         public override bool isOnWifi()
         {
+            var con = Application.Context.GetSystemService(Context.WifiService) as WifiManager;
+
+            if(con != null)
+            {
+                //add && con.ConnectionInfo.SSID == "DPPV" below to exit testing
+                return con.IsWifiEnabled && (con.ConnectionInfo.NetworkId != -1);
+            }
+
             return false;
-           //TODO:
         }
 
         public override void ConnectToWifi()
