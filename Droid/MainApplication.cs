@@ -9,7 +9,7 @@ using Plugin.CurrentActivity;
 namespace DancePro.Droid
 {
     //You can specify additional application information in this attribute
-    [Application]
+    [Application(Icon ="@drawable/logo",Logo ="@drawable/logo")]
     public class MainApplication : Application, Application.IActivityLifecycleCallbacks
     {
         public MainApplication(IntPtr handle, JniHandleOwnership transer)

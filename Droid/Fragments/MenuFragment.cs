@@ -23,7 +23,6 @@ namespace DancePro.Droid
         public static MenuFragment NewInstance() => new MenuFragment { Arguments = new Bundle() };
 
         public static MenuModel ViewModel { get; set; }
-        ProgressBar progress;
 
         public void BecameVisible()
         {
@@ -50,6 +49,22 @@ namespace DancePro.Droid
 
                 ViewModel.OpenWebsiteCommand.Execute(null);
 
+            };
+            Button myMediaButton = view.FindViewById<Button>(Resource.Id.Main_MediaButton);
+            myMediaButton.Click += (object sender, EventArgs e) => {
+                iOnFragmentChangeListener fragchange = (iOnFragmentChangeListener)Activity;
+                if(fragchange != null)
+                {
+                    fragchange.ChangeFragment(2);
+                }
+            };
+            Button transferMediaButton = view.FindViewById<Button>(Resource.Id.Main_TransferButton);
+            transferMediaButton.Click += (object sender, EventArgs e) => {
+                iOnFragmentChangeListener fragchange = (iOnFragmentChangeListener)Activity;
+                if (fragchange != null)
+                {
+                    fragchange.ChangeFragment(1);
+                }
             };
             ImageView imageView = view.FindViewById<ImageView>(Resource.Id.imageViewLogo);
             imageView.SetImageResource(Resource.Drawable.ic_DancePro_x1);

@@ -35,7 +35,7 @@ namespace DancePro.Services
         }
 
 
-        public static IDictionary<string, MediaTypes> FileToMediaTypes = new Dictionary<string, MediaTypes>(StringComparer.InvariantCultureIgnoreCase)
+        public static readonly IDictionary<string, MediaTypes> FileToMediaTypes = new Dictionary<string, MediaTypes>(StringComparer.InvariantCultureIgnoreCase)
         {
             {".jpg",MediaTypes.Image},
             {".jpeg",MediaTypes.Image},
@@ -77,9 +77,9 @@ namespace DancePro.Services
 
         public static MediaTypes GetMediaType(string filePath)
         {
-            MediaTypes type;
-            FileToMediaTypes.TryGetValue(Path.GetExtension(filePath), out type);
-            return type;
+                MediaTypes type;
+                FileToMediaTypes.TryGetValue(Path.GetExtension(filePath), out type);
+                return type;
         }
 
         public string GetMediaPath() {
@@ -129,12 +129,6 @@ namespace DancePro.Services
                     }
 
                     string fileName = fullPath + Filename;
-                    //if (File.Exists(fileName))
-                    //{
-                    //    //Append Copy
-                    //    var name = Path.GetFileNameWithoutExtension(parser.Filename) + "Copy" + Path.GetExtension(parser.Filename);
-                    //    fileName = fullPath + name;
-                    //}
                     File.WriteAllBytes(fileName, FileData);
                     model.Status = NewDownloadModel.DownloadStatus.Completed;
                     model.Message = "Complete";
@@ -186,9 +180,23 @@ namespace DancePro.Services
            var directories = Directory.GetDirectories(folderPath);
 
             foreach(var directory in directories) {
-                mediaObjects.Add(new MediaObject(directory));
+                MediaObject mo = new MediaObject(directory);
+                mo.MediaType = MediaTypes.Folder;
+                mediaObjects.Add(mo);
+                //TODO: Test impact of changes on iOS:
+                //mediaObjects.add(new MediaObject(directory);
             }
 
+           //TODO: add back button object if not in root DIR + Test Impact on iOS
+           if(folderPath == App.MediaService.MediaPath || folderPath + "/" == App.MediaService.MediaPath)
+            {
+                return mediaObjects;
+            }
+
+            DirectoryInfo dir = new DirectoryInfo(folderPath);
+            MediaObject media = new MediaObject(dir.Parent.ToString());
+            media.MediaType = MediaTypes.Other;
+            mediaObjects.Insert(0, media);
             return mediaObjects;
         }
 
@@ -347,8 +355,19 @@ namespace DancePro.Services
 
         public bool DeleteMediaObject(MediaObject obj) 
         {
+            // -- Invalid type
+            if (obj.MediaType == MediaTypes.Other) return false;
+
+            // -- Folder
+            if(obj.MediaType == MediaTypes.Folder)
+            {
+                return DeleteFolder(obj);
+            }
+
+            // -- Its a File
             try
             {
+                File.SetAttributes(obj.FilePath, FileAttributes.Normal);
                 File.Delete(obj.FilePath);
             }
             catch (Exception e)

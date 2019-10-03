@@ -5,7 +5,9 @@ using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.IO;
+#if __ANDROID__
 using Android.App;
+#endif
 
 namespace DancePro.Services
 {
@@ -29,12 +31,12 @@ namespace DancePro.Services
         public NetworkService()
         {
 
-            //handler = new HttpRequestHandler("./Root");
+            handler = new HttpRequestHandler("./Root");
 #if __ANDROID__
                 string path = Path.Combine(Application.Context.FilesDir.Path, "Root").ToString();
             handler = new HttpRequestHandler(path);
 #endif
-            handler.ListenerStoppedEvent += Handler_ListenerStoppedEvent;
+            if (handler != null) handler.ListenerStoppedEvent += Handler_ListenerStoppedEvent;
             Initialise();
 
         }

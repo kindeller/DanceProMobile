@@ -1,15 +1,112 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:minWidth="25px"
-	android:minHeight="25px">
+	android:minHeight="25px"
+	android:id="@+id/MyMediaLayoutMain">
+    	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="50dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1">
+		<ImageButton
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:minWidth="25dp"
+			android:minHeight="25dp"
+			android:src="@drawable/newfolderblueicon30"
+			android:id="@+id/NewfolderButton"
+			android:scaleType="fitCenter"
+			android:maxWidth="50dp"
+			android:maxHeight="50dp"
+			android:adjustViewBounds="true"
+			android:background="#ffffff" />
+        </LinearLayout>
 	<android.support.v7.widget.RecyclerView
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/MyMediaRecycleView" />
-</LinearLayout>
+		android:id="@+id/MyMediaRecycleView"
+        android:translationZ="-1dp"
+        android:translationY="25dp"/>
+	<LinearLayout
+		android:orientation="vertical"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/DetailsTab"
+		android:layout_alignParentBottom="true"
+		android:gravity="bottom"
+		android:background="#87393939">
+		<LinearLayout
+			android:orientation="horizontal"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/linearLayoutDetailsTop">
+			<ImageButton
+				android:src="@drawable/shareiconblue30"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/DetailsShareButton"
+				android:layout_weight="1"
+				android:scaleType="fitCenter"
+				android:adjustViewBounds="true"
+				android:maxWidth="100dp"
+				android:maxHeight="100dp"
+                />
+			<ImageButton
+				android:src="@drawable/trashiconblue90"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/DetailsDeleteButton"
+				android:layout_weight="1"
+				android:scaleType="fitCenter"
+				android:adjustViewBounds="true"
+				android:maxWidth="100dp"
+				android:maxHeight="100dp"/>
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/linearLayoutDetailsBottom">
+			<ImageButton
+				android:src="@drawable/duplicateiconblue30"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/DetailsDuplicateButton"
+				android:layout_weight="1"
+				android:scaleType="fitCenter"
+				android:adjustViewBounds="true"
+				android:maxWidth="100dp"
+				android:maxHeight="100dp"/>
+			<ImageButton
+				android:src="@drawable/renameiconblue30"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/DetailsRenameButton"
+				android:layout_weight="1"
+				android:scaleType="fitCenter"
+				android:adjustViewBounds="true"
+				android:maxWidth="100dp"
+				android:maxHeight="100dp"/>
+		</LinearLayout>
+		<Button
+			android:text="Cancel"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/DetailsCancelButton" />
+	</LinearLayout>
+</RelativeLayout>

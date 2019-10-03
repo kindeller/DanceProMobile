@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+        <Button
+		android:text="Close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/AudioCloseButton" />
+	<ImageView
+		android:src="@drawable/speaker"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/AudioImage"
+		android:scaleType="fitCenter"
+		android:adjustViewBounds="true"
+		android:maxHeight="100dp"
+		android:maxWidth="100dp" />
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/AudioLayoutContainer"
+		android:gravity="center_horizontal">
+		<ImageButton
+			android:src="@drawable/playbutton"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/PlayButton"
+			android:scaleType="fitCenter"
+			android:background="#ffffff"
+			android:adjustViewBounds="true"
+			android:layout_marginRight="25dp"
+			android:maxWidth="75dp"
+			android:maxHeight="75dp" 
+             />
+		<ImageButton
+			android:src="@drawable/stopbutton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/StopButton"
+			android:scaleType="fitCenter"
+			android:background="#ffffff"
+			android:adjustViewBounds="true"
+			android:layout_marginLeft="25dp"
+			android:maxWidth="75dp"
+			android:maxHeight="75dp" />
+	</LinearLayout>
+	<SeekBar
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:minWidth="25px"
+		android:id="@+id/AudioSeekBar"
+		android:minHeight="50px"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1"
+		android:gravity="center_horizontal">
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textCurrentTime"
+			android:layout_weight="1"
+			android:gravity="left"
+			android:text="00:00" />
+		<TextView
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/textTotalTime"
+			android:layout_weight="1"
+			android:gravity="right"
+			android:text="00:00" />
+	</LinearLayout>
+</LinearLayout>

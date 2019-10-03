@@ -15,7 +15,7 @@ namespace DancePro.Droid
         LaunchMode = LaunchMode.SingleInstance,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation,
         ScreenOrientation = ScreenOrientation.Portrait)]
-    public class MainActivity : BaseActivity
+    public class MainActivity : BaseActivity, iOnFragmentChangeListener
     {
         protected override int LayoutResource => Resource.Layout.activity_main;
 
@@ -32,6 +32,7 @@ namespace DancePro.Droid
             pager.Adapter = adapter;
             tabs.SetupWithViewPager(pager);
             pager.OffscreenPageLimit = 3;
+            
 
             pager.PageSelected += (sender, args) =>
             {
@@ -58,6 +59,11 @@ namespace DancePro.Droid
         {
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
             return base.OnCreateOptionsMenu(menu);
+        }
+
+        public void ChangeFragment(int id)
+        {
+            pager.SetCurrentItem(id, true);
         }
     }
 
@@ -91,5 +97,10 @@ namespace DancePro.Droid
         }
 
         public override int GetItemPosition(Java.Lang.Object frag) => PositionNone;
+    }
+
+    public interface iOnFragmentChangeListener
+    {
+        void ChangeFragment(int id);
     }
 }

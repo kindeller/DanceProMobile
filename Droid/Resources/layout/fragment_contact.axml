@@ -34,7 +34,7 @@
 		android:gravity="center_horizontal"
 		android:minHeight="25px">
 		<ImageButton
-			android:id="@+id/imageButton1"
+			android:id="@+id/facebookButton"
 			android:src="@drawable/facebook2"
 			android:scaleType="centerInside"
 			android:layout_width="match_parent"
@@ -46,7 +46,7 @@
 			android:src="@drawable/email2"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
-			android:id="@+id/imageButton2"
+			android:id="@+id/emailButton"
 			android:layout_weight="1"
 			android:scaleType="centerInside"
 			android:background="#ffffffff"
@@ -55,7 +55,7 @@
 			android:src="@drawable/instagram2"
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
-			android:id="@+id/imageButton3"
+			android:id="@+id/instaButton"
 			android:layout_weight="1"
 			android:scaleType="centerInside"
 			android:background="#ffffffff"
@@ -83,7 +83,7 @@
 			android:src="@drawable/website2"
 			android:layout_width="200px"
 			android:layout_height="match_parent"
-			android:id="@+id/imageButton1"
+			android:id="@+id/websiteButton"
 			android:scaleType="centerInside"
 			android:background="#ffffffff"
 			android:onClick="WebsiteButton_OnClick" />

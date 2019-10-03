@@ -136,7 +136,7 @@ namespace DancePro.iOS.ViewControllers
             activity.ExcludedActivityTypes = new[]
             {
                 UIActivityType.AirDrop,
-                UIActivityType.SaveToCameraRoll,
+                //UIActivityType.SaveToCameraRoll, Remove to disable Save to Camera Roll
                 UIActivityType.CopyToPasteboard,
                 UIActivityType.OpenInIBooks,
                 new NSString("com.apple.CloudDocsUI.AddToiCloudDrive"),

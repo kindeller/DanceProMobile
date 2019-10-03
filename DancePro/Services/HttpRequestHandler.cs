@@ -33,7 +33,7 @@ namespace DancePro.Services
                 "default.htm"
             };
 
-        private static readonly Dictionary<string, string> mimeTypes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        public static readonly Dictionary<string, string> mimeTypes = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
         {
             {".asf", "video/x-ms-asf"},
             {".asx", "video/x-ms-asf"},

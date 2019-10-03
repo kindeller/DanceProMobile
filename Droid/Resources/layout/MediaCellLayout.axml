@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="wrap_content">
 	<FrameLayout
 		android:minWidth="25px"
 		android:minHeight="25px"
@@ -20,15 +20,15 @@
 	<TextView
 		android:text="Medium Text"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="75dp"
+		android:layout_width="match_parent"
 		android:layout_height="30dp"
 		android:id="@+id/MediaCellTitle"
-		android:layout_gravity="center"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="6sp"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeStepGranularity="1sp"
-        android:maxLines="1"/>
+		android:textAlignment="center"
+		android:autoSizeTextType="uniform"
+		android:autoSizeMinTextSize="6sp"
+		android:autoSizeMaxTextSize="18sp"
+		android:autoSizeStepGranularity="2sp"
+		android:maxLines="1"/>
 	<TextView
 		android:text="Small Text"
 		android:textAppearance="?android:attr/textAppearanceSmall"
@@ -39,7 +39,7 @@
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:id="@+id/button1"
+		android:id="@+id/MediaItemDetails"
 		android:text="Details"
 		android:layout_gravity="center" />
 

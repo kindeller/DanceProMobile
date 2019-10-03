@@ -1,0 +1,38 @@
+﻿
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/relativeLayout1" >
+    	<LinearLayout
+		android:orientation="horizontal"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1"
+        android:elevation="1dp"
+        android:layout_alignBottom="@+id/viewPager1"
+        android:gravity="center_horizontal">
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/GalleryCloseButton"
+			android:text="Close" />
+	    </LinearLayout>
+	<android.support.v4.view.ViewPager
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/viewPager1">
+        	<android.support.v4.view.PagerTabStrip
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+		android:id="@+id/pagerTabStrip1" />
+</android.support.v4.view.ViewPager>
+</RelativeLayout>

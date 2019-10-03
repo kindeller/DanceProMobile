@@ -95,6 +95,11 @@ namespace DancePro.ViewModels
 
         }
 
+        public string GetCompletedText()
+        {
+            return "(" + GetCompletedCount() + "/" + GetDownloadCount() + ")";
+        }
+
         public void ClearDownloads()
         {
             DownloadingMedia.Clear();
@@ -155,10 +160,11 @@ namespace DancePro.ViewModels
             {
                 var id = GetDeviceID();
                 if (!string.IsNullOrEmpty(id)) text = "Device ID: " + id;
+                //text = NetworkService.GetIP().ToString(); //To Debug a show the full
             }
 
-            //return text;
-            return NetworkService.GetIP().ToString();
+            return text;
+            
         }
 
         public string GetButtonText()
