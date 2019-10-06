@@ -195,21 +195,21 @@ namespace DancePro.iOS.ViewControllers
         private void ReloadMediaList()
         {
 
-            var currPath = Path.GetFullPath(CurrentDirectory.FullName);
-            var root = Path.GetFullPath(App.MediaService.GetMediaPath());
-            var result = string.Compare(currPath, root);
+            //var currPath = Path.GetFullPath(CurrentDirectory.FullName);
+            //var root = Path.GetFullPath(App.MediaService.GetMediaPath());
+            //var result = string.Compare(currPath, root);
 
-            if (result > 0)
-            {
-                MediaObject up = new MediaObject(CurrentDirectory.Parent.FullName)
-                {
-                    MediaType = MediaTypes.Other,
-                    Thumb = UIImage.FromBundle("Back")
-                };
-                up.FileName = "Back: " + up.FileName;
-                MediaObjects.Insert(0, up);
-                //MediaObjects.Add(up);
-            }
+            //if (result > 0)
+            //{
+            //    MediaObject up = new MediaObject(CurrentDirectory.Parent.FullName)
+            //    {
+            //        MediaType = MediaTypes.Other,
+            //        Thumb = UIImage.FromBundle("Back")
+            //    };
+            //    up.FileName = "Back: " + up.FileName;
+            //    MediaObjects.Insert(0, up);
+            //    //MediaObjects.Add(up);
+            //}
 
             if (MediaObjects.Count > 0)
             {

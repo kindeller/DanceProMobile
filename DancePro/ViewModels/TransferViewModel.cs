@@ -27,7 +27,7 @@ namespace DancePro.ViewModels
         public TransferViewModel(NetworkService networkService)
         {
             NetworkService = networkService;
-            NetworkService.Connect();
+            //NetworkService.Connect();
             NetworkService.OnStoppedListening += NetworkService_OnStoppedListening;
             App.MediaService.startedEventHandler += MediaService_StartedEventHandler;
             App.MediaService.DownloadUpdate += MediaService_DownloadUpdate;

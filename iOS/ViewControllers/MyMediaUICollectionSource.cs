@@ -54,8 +54,6 @@ namespace DancePro.iOS.ViewControllers
                 return;
             }
 
-
-
             if (cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
                 if(cell.MediaObject.MediaType == MediaTypes.Video)

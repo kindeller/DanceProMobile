@@ -35,6 +35,8 @@ namespace DancePro.iOS
 
             if(mediaObject.MediaType == MediaTypes.Other)
             {
+                Title.Text = "Back: " + MediaObject.FileName;
+                ThumbImage.Image = UIImage.FromBundle("Back");
                 MenuButton.Enabled = false;
                 MenuButton.Hidden = true;
                 DateLabel.Enabled = false;

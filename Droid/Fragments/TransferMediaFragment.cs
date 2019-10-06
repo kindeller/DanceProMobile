@@ -52,12 +52,13 @@ namespace DancePro.Droid
             TotalCompletedTextView = view.FindViewById<TextView>(Resource.Id.transfertotaltextview);
             TransferItemsView = view.FindViewById<RecyclerView>(Resource.Id.TransferItemsView);
             connectedText = view.FindViewById<TextView>(Resource.Id.textConnected);
-            connectedText.Text = ViewModel.GetDeviceText();
+            GetDeviceID();
             btnEnable = view.FindViewById<Button>(Resource.Id.btnEnable);
             btnEnable.Click += (sender, e) => {
 
                 ViewModel.ToggleConnection();
                 ToggleButtonText();
+                GetDeviceID();
             };
             btnClear = view.FindViewById<Button>(Resource.Id.btnClear);
             btnClear.Click += (sender, e) =>
@@ -107,6 +108,11 @@ namespace DancePro.Droid
         {
             var text = ViewModel.isNetworkListening() ? "Disable" : "Enable";
             btnEnable.Text = text;
+        }
+
+        private void GetDeviceID()
+        {
+            connectedText.Text = ViewModel.GetDeviceText();
         }
     }
 }

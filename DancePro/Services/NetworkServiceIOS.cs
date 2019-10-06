@@ -17,10 +17,10 @@ namespace DancePro.Services
     {
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
         NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
+      
 
         public NetworkServiceIOS()
         {
-
         }
 
         public override IPAddress GetIP()
@@ -75,9 +75,14 @@ namespace DancePro.Services
 
         public override void ConnectToWifi()
         {
+            // -- Not implimented yet but added for future.
             config.JoinOnce = true;
-            WifiManager.ApplyConfiguration(config, (obj) => { });
-            AsyncWaitForConnection();
+            config.LifeTimeInDays = 1;
+            // -- End
+            WifiManager.ApplyConfiguration(config, (obj) => {
+                Console.WriteLine(obj?.Description);
+                WifiManager.RemoveConfiguration(config.Ssid);
+            });
         }
 
         public override void DisconnectFromWifi()
