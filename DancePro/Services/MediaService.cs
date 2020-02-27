@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using DancePro.Models;
+using System.IO.Compression;
 
 #if __IOS__
 using Foundation;
 using UIKit;
 
 #endif
+
 
 namespace DancePro.Services
 {
@@ -104,6 +106,31 @@ namespace DancePro.Services
                     return null;
             }
         }
+
+#endif
+
+#if __ANDROID__
+        public Android.Graphics.Bitmap GetScaledBitmap(ImageObject imageObject, int scale)
+        {
+            var ops = new Android.Graphics.BitmapFactory.Options();
+            ops.InSampleSize = scale;
+            try
+            {
+                using (var image = Android.Graphics.BitmapFactory.DecodeFile(imageObject.FilePath, ops))
+                {
+                    var width = image.GetScaledWidth(image.Density / 2);
+                    var height = image.GetScaledHeight(image.Density / 2);
+                    //TODO: Workout ratiofor scale and scale to appropriate dimentions
+                    return Android.Graphics.Bitmap.CreateScaledBitmap(image, width, height, false);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message + "[Bitmap Loading] Failed to load bitmap Image.");
+            }
+
+            return null;
+        }
 #endif
 
         public void NewDownload(int id)
@@ -183,11 +210,8 @@ namespace DancePro.Services
                 MediaObject mo = new MediaObject(directory);
                 mo.MediaType = MediaTypes.Folder;
                 mediaObjects.Add(mo);
-                //TODO: Test impact of changes on iOS:
-                //mediaObjects.add(new MediaObject(directory);
             }
 
-           //TODO: add back button object if not in root DIR + Test Impact on iOS
            if(folderPath == App.MediaService.MediaPath || folderPath + "/" == App.MediaService.MediaPath)
             {
                 return mediaObjects;
@@ -391,6 +415,7 @@ namespace DancePro.Services
             }
         }
 
+
         public bool MoveFolder(MediaObject folderToMove, MediaObject destFolder) {
 
             try {
@@ -494,6 +519,42 @@ namespace DancePro.Services
 
             return false;
         }
+
+        public string UnzipURL(string path)
+        {
+            Console.WriteLine(File.Exists(path));
+            Console.WriteLine(path);
+            Console.WriteLine(Path.GetExtension(path));
+            if (!File.Exists(path) || Path.GetExtension(path) != ".zip") return null;
+
+            var dir = "Download-" + Path.GetFileNameWithoutExtension(path);
+            Console.WriteLine("Directory: " + dir);
+            string newDir = Path.Combine(MediaPath, dir);
+            Console.WriteLine("Location: " + newDir);
+
+            try
+            {
+                ZipFile.ExtractToDirectory(path, newDir);
+                return newDir;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+            finally
+            {
+                File.Delete(path);
+            }
+
+        }
+
+        public bool SaveToCameraRoll(MediaObject obj)
+        {
+            return false;
+        }
+
+        
 
     }
 }

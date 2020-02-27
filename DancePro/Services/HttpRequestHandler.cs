@@ -69,6 +69,7 @@ namespace DancePro.Services
             {".mng", "video/x-mng"},
             {".mov", "video/quicktime"},
             {".mp3", "audio/mpeg"},
+            {".mp4", "video/mp4"},
             {".mpeg", "video/mpeg"},
             {".mpg", "video/mpeg"},
             {".msi", "application/oc" +

@@ -35,6 +35,7 @@ namespace DancePro.iOS.ViewControllers
             // Perform any additional setup after loading the view, typically from a nib.
             InitAudio();
             InitPlayer();
+            Play(null);
 
         }
 
@@ -84,6 +85,7 @@ namespace DancePro.iOS.ViewControllers
 
         private void UpdateTrackUI()
         {
+            if (Player == null) return;
             DurationTime.Text = getTime(Player.CurrentTime);
             DurationBar.Value = (float)Player.CurrentTime;
         }
@@ -180,11 +182,9 @@ namespace DancePro.iOS.ViewControllers
 
             if(Player != null)
             {
-                if (!Player.Playing)
-                {
-                    Player.Dispose();
-                    Player = null;
-                }
+                Player.Stop();
+                Player.Dispose();
+                Player = null;
             }
 
         }

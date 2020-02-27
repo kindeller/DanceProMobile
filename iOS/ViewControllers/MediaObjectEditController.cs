@@ -131,6 +131,18 @@ namespace DancePro.iOS.ViewControllers
                         items = new[] { url };
                     }
                     break;
+                case MediaTypes.Folder:
+                    UIAlertController controller = UIAlertController.Create("Save Folder?", "Would you like to save the folder contents to camera roll? (Video and Image Only)", UIAlertControllerStyle.Alert);
+                    controller.AddAction(UIAlertAction.Create("Save", UIAlertActionStyle.Default, (obj) => {
+                        var list = App.MediaService.GetMediaFromFolder(MediaObject.FilePath);
+                        foreach(var mo in list)
+                        {
+                            SaveMediaItemToCamera(mo);   
+                        }
+                    }));
+                    controller.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+                    PresentAlert(controller);
+                    return;
             }
             activity = new UIActivityViewController(items,null);
             activity.ExcludedActivityTypes = new[]
@@ -196,6 +208,56 @@ namespace DancePro.iOS.ViewControllers
         {
             App.MediaService.DuplicateMediaObject(MediaObject);
             controller.GetMedia();
+        }
+
+        private void SaveMediaItemToCamera(MediaObject obj)
+        {
+            switch (obj.MediaType)
+            {
+                case MediaTypes.Image:
+                    try
+                    {
+                        ImageObject Image = obj as ImageObject;
+                        if (Image != null)
+                        {
+                            new ALAssetsLibrary().WriteImageToSavedPhotosAlbum(Image.Image.CGImage, AssetsLibrary.ALAssetOrientation.Up, (arg1, arg2) => { });
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+                        Console.WriteLine(e.Message);
+                    }
+
+                    break;
+                case MediaTypes.Video:
+                    try
+                    {
+                        VideoObject Video = obj as VideoObject;
+                        if (Video != null)
+                        {
+                            NSUrl url = NSUrl.FromFilename(Video.FilePath);
+                            new ALAssetsLibrary().WriteVideoToSavedPhotosAlbum(
+                                url, (arg1, arg2) => {
+
+                                }
+                                );
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+                        Console.WriteLine(e.Message);
+                    }
+
+                    break;
+                default:
+                    //Alert("Save Failed!", "Cannot save this item to device.", new List<UIAlertAction>() { UIAlertAction.Create("Ok", UIAlertActionStyle.Cancel, null) });
+                    Console.WriteLine("Cannot Save this type of media.");
+                    break;
+            }
         }
 
         partial void Save_TouchUpInside(UIButton sender)

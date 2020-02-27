@@ -26,6 +26,18 @@ namespace DancePro.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            //Check if Intent is Zip origin
+
+            if (Intent.GetType().Equals("application/zip"))
+            {
+                //its opened from a zip.
+                var data = Intent.Data;
+                var newFolderDir = App.MediaService.UnzipURL(data.Path);
+            }
+
+
+            //Continue as normal
+
             adapter = new TabsAdapter(this, SupportFragmentManager);
             pager = FindViewById<ViewPager>(Resource.Id.viewpager);
             var tabs = FindViewById<TabLayout>(Resource.Id.tabs);

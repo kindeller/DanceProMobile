@@ -9,7 +9,7 @@
     <RootNamespace>DancePro.iOS</RootNamespace>
     <AssemblyName>DancePro.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.1.9</ReleaseVersion>
+    <ReleaseVersion>1.2.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +111,10 @@
       <HintPath>..\packages\Xamarin.Essentials.1.1.0\lib\xamarinios10\Xamarin.Essentials.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="Plugin.Permissions">
+      <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\xamarinios10\Plugin.Permissions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -333,10 +337,8 @@
     <None Include="Root\server\php\docker-compose.yml" />
     <None Include="Root\server\php\files\.gitignore" />
     <None Include="Root\server\php\files\.htaccess" />
-    <None Include="Root\server\dotnet\UploadHandler.cs" />
     <None Include="Root\server\dotnet\Default.aspx" />
     <None Include="Root\server\dotnet\Default.aspx.cs" />
-    <None Include="Root\upload\UploadHandler.cs" />
     <None Include="MediaUICollectionViewCell.cs" />
     <None Include="MediaUICollectionViewCell.xib" />
   </ItemGroup>
@@ -389,7 +391,6 @@
     <Content Include="Root\css\jquery.fileupload-ui-noscript.css" />
     <Content Include="Root\css\jquery.fileupload-ui.css" />
     <Content Include="Root\css\jquery.fileupload.css" />
-    <Content Include="Root\server\php\UploadHandler.php" />
     <Content Include="Root\server\php\index.php" />
     <Content Include="Root\js\app.js" />
     <Content Include="Root\js\jquery.fileupload-angular.js" />
@@ -431,6 +432,9 @@
     <Content Include="Root\js\jquery-3.2.1.min.js" />
     <Content Include="Root\js\bootstrap-4.2.1.min.js" />
     <Content Include="Root\js\popper.min.js" />
+    <Content Include="Root\server\php\UploadHandler.php" />
+    <Content Include="Root\server\dotnet\UploadHandler.cs" />
+    <Content Include="Root\upload\UploadHandler.cs" />
   </ItemGroup>
   <Import Project="..\DancePro\DancePro.projitems" Label="Shared" Condition="Exists('..\DancePro\DancePro.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

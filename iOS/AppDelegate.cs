@@ -2,6 +2,7 @@
 using ObjCRuntime;
 using UIKit;
 using DancePro.Services;
+using DancePro.iOS.ViewControllers;
 
 namespace DancePro.iOS
 {
@@ -71,5 +72,35 @@ namespace DancePro.iOS
             return NetworkService = new NetworkServiceIOS();
         }
 
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            var newFolderDir = App.MediaService.UnzipURL(url.Path);
+                //TODO: Do something to show download success or fail.
+                var controller = (TabBarController)Window.RootViewController;
+                
+
+                if (controller != null)
+                {
+                    controller.SelectedIndex = 2;
+                    var nav = (UINavigationController)controller.SelectedViewController;
+                    var media = (MyMediaViewController)nav.VisibleViewController;
+                    if (media != null)
+                    {
+                        if (newFolderDir != null)
+                        {
+                            media.ChangeDirectory(newFolderDir);
+                            return true;
+                        }
+                    }
+                }
+
+                
+
+
+
+
+            return false;
+        }
     }
 }
