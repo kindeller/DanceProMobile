@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Microsoft.AppCenter.Analytics;
 using UIKit;
 
 namespace DancePro.iOS
@@ -16,13 +16,21 @@ namespace DancePro.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+
+            Analytics.TrackEvent("[Menu] Loaded Page");
+
+            //TODO: Remove temp fix for darkmode issues and add dark mode support
+            //if (AppDelegate.CheckVersion(13))
+            //{
+            //    OverrideUserInterfaceStyle = UIUserInterfaceStyle.Light;
+            //}
             Title = ViewModel.Title;
             //TransferMediaSubtitle.AdjustsFontForContentSizeCategory = true;
             //WebsiteSubtitle.AdjustsFontForContentSizeCategory = true;
             //TransferMediaSubtitle.Font = MyMediaSubtitle.Font;
             //WebsiteSubtitle.Font = MyMediaSubtitle.Font;
             AddButtonText(MediaButton, "View and manage your personal DancePro media gallery.");
-            AddButtonText(TransferButton, "Transfer media from a DancePro Kiosk event.");
+            AddButtonText(TransferButton, "Transfer media at an event captured by DancePro.");
             AddButtonText(WebsiteButton, "Visit our Website for other competitions and events.");
         }
 
@@ -47,6 +55,7 @@ namespace DancePro.iOS
 
         partial void WebsiteButton_TouchUpInside(UIButton sender)
         {
+            Analytics.TrackEvent("[Menu] Clicked Website Button");
             ViewModel.OpenWebsiteCommand.Execute(null);
         }
 

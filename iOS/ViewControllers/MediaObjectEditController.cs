@@ -78,6 +78,11 @@ namespace DancePro.iOS.ViewControllers
             RenameButton.AddSubview(view);
         }
 
+        private void DismissEditMenu()
+        {
+            DismissViewController(true, null);
+        }
+
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
@@ -88,7 +93,7 @@ namespace DancePro.iOS.ViewControllers
         {
             if (controller != null)
             {
-                PresentViewController(alert, true, null);
+                PresentViewController(alert, true, DismissEditMenu);
             }
             else
             {
@@ -98,7 +103,7 @@ namespace DancePro.iOS.ViewControllers
                 {
                     vc = vc.PresentedViewController;
                 }
-                vc.PresentViewController(alert, true, null);
+                vc.PresentViewController(alert, true, DismissEditMenu);
             }
         }
 
@@ -112,7 +117,7 @@ namespace DancePro.iOS.ViewControllers
                     ImageObject imageObject = MediaObject as ImageObject;
                     if (imageObject != null)
                     {
-                        items = new[] { imageObject.Image };
+                        items = new[] { UIImage.FromFile(imageObject.FilePath) };
                     }
                     break;
                 case MediaTypes.Audio:
@@ -173,6 +178,7 @@ namespace DancePro.iOS.ViewControllers
                 if (isSuccess)
                 {
                     controller.GetMedia();
+                    DismissEditMenu();
                 }
                 else
                 {
@@ -194,20 +200,22 @@ namespace DancePro.iOS.ViewControllers
             var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) => {
                 isSuccess = MediaObject.MediaType == MediaTypes.Folder ? App.MediaService.DeleteFolder(MediaObject) : App.MediaService.DeleteMediaObject(MediaObject);
                 controller.GetMedia();
-                DismissViewController(true, null);
+                DismissEditMenu();
             });
 
             var Message = (MediaObject.MediaType == MediaTypes.Folder) ? "Are you sure you want to delete the folder \"" + MediaObject.FileName + "\" and all it's contents?" : "Are you sure you want to delete the file " + MediaObject.FileName;
             var alert = UIAlertController.Create("WARNING!",Message, UIAlertControllerStyle.Alert);
             alert.AddAction(actionCancel);
             alert.AddAction(actionOk);
-            PresentViewController(alert, true,null);
+            PresentViewController(alert, true, null);
         }
 
         partial void Duplicate__TouchUpInside(UIButton sender)
         {
             App.MediaService.DuplicateMediaObject(MediaObject);
             controller.GetMedia();
+            DismissViewController(true, null);
+
         }
 
         private void SaveMediaItemToCamera(MediaObject obj)
@@ -220,7 +228,7 @@ namespace DancePro.iOS.ViewControllers
                         ImageObject Image = obj as ImageObject;
                         if (Image != null)
                         {
-                            new ALAssetsLibrary().WriteImageToSavedPhotosAlbum(Image.Image.CGImage, AssetsLibrary.ALAssetOrientation.Up, (arg1, arg2) => { });
+                            new ALAssetsLibrary().WriteImageToSavedPhotosAlbum(UIImage.FromFile(Image.FilePath).CGImage, ALAssetOrientation.Up, (arg1, arg2) => { });
                         }
                     }
                     catch (Exception e)
@@ -260,54 +268,54 @@ namespace DancePro.iOS.ViewControllers
             }
         }
 
-        partial void Save_TouchUpInside(UIButton sender)
-        {
-            switch (MediaObject.MediaType)
-            {
-                case MediaTypes.Image:
-                    try
-                    {
-                        ImageObject Image = MediaObject as ImageObject;
-                        if (Image != null)
-                        {
-                            new AssetsLibrary.ALAssetsLibrary().WriteImageToSavedPhotosAlbum(Image.Image.CGImage, AssetsLibrary.ALAssetOrientation.Up, (arg1, arg2) => { });
-                        }
-                    }
-                    catch(Exception e)
-                    {
-                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
-                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
-                        Console.WriteLine(e.Message);
-                    }
+        //partial void Save_TouchUpInside(UIButton sender)
+        //{
+        //    switch (MediaObject.MediaType)
+        //    {
+        //        case MediaTypes.Image:
+        //            try
+        //            {
+        //                ImageObject Image = MediaObject as ImageObject;
+        //                if (Image != null)
+        //                {
+        //                    new ALAssetsLibrary().WriteImageToSavedPhotosAlbum(UIImage.FromFile(Image.FilePath).CGImage, AssetsLibrary.ALAssetOrientation.Up, (arg1, arg2) => { });
+        //                }
+        //            }
+        //            catch(Exception e)
+        //            {
+        //                var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+        //                Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+        //                Console.WriteLine(e.Message);
+        //            }
 
-                    break;
-                case MediaTypes.Video:
-                    try
-                    {
-                        VideoObject Video = MediaObject as VideoObject;
-                        if (Video != null)
-                        {
-                            NSUrl url = NSUrl.FromFilename(Video.FilePath);
-                            new AssetsLibrary.ALAssetsLibrary().WriteVideoToSavedPhotosAlbum(
-                                url, (arg1, arg2) => {
+        //            break;
+        //        case MediaTypes.Video:
+        //            try
+        //            {
+        //                VideoObject Video = MediaObject as VideoObject;
+        //                if (Video != null)
+        //                {
+        //                    NSUrl url = NSUrl.FromFilename(Video.FilePath);
+        //                    new AssetsLibrary.ALAssetsLibrary().WriteVideoToSavedPhotosAlbum(
+        //                        url, (arg1, arg2) => {
 
-                                }
-                                );
-                        }
-                    }catch(Exception e)
-                    {
-                        var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
-                        Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
-                        Console.WriteLine(e.Message);
-                    }
+        //                        }
+        //                        );
+        //                }
+        //            }catch(Exception e)
+        //            {
+        //                var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null);
+        //                Alert("Error Saving!", e.Message, new List<UIAlertAction>() { actionOk });
+        //                Console.WriteLine(e.Message);
+        //            }
 
-                    break;
-                default:
-                    Alert("Save Failed!", "Cannot save this item to device.", new List<UIAlertAction>() { UIAlertAction.Create("Ok",UIAlertActionStyle.Cancel,null) });
-                    Console.WriteLine("Cannot Save this type of media.");
-                    break;
-            }
-        }
+        //            break;
+        //        default:
+        //            Alert("Save Failed!", "Cannot save this item to device.", new List<UIAlertAction>() { UIAlertAction.Create("Ok",UIAlertActionStyle.Cancel,null) });
+        //            Console.WriteLine("Cannot Save this type of media.");
+        //            break;
+        //    }
+        //}
 
         //partial void Move_TouchUpInside(UIButton sender)
         //{

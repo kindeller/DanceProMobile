@@ -26,11 +26,10 @@ namespace DancePro.iOS
         {
             Controller = controller;
             MediaObject = mediaObject;
-            BackgroundColor = UIColor.FromRGB(220, 220, 220);
             Layer.BorderColor = UIColor.DarkGray.CGColor;
             Title.Text = mediaObject.FileName;
             DateLabel.Text = mediaObject.DateCreated.ToShortDateString();
-            ThumbImage.Image = mediaObject.Thumb;
+            ThumbImage.Image = MediaObject.GetThumb();
             ThumbImage.ContentMode = UIViewContentMode.ScaleAspectFit;
 
             if(mediaObject.MediaType == MediaTypes.Other)
@@ -42,7 +41,7 @@ namespace DancePro.iOS
                 DateLabel.Enabled = false;
                 DateLabel.Hidden = true;
                 Title.TextAlignment = UITextAlignment.Center;
-                BackgroundColor = UIColor.White;
+                
             }
             else
             {

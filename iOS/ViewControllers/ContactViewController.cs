@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using Foundation;
 using UIKit;
+using Microsoft.AppCenter.Analytics;
 
 namespace DancePro.iOS
 {
@@ -26,9 +27,15 @@ namespace DancePro.iOS
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            Analytics.TrackEvent("[Contact] Loaded Page");
             NavigationController.NavigationBar.Hidden = true;
-
-        }
+            //TODO: Remove temp fix for darkmode issues and add dark mode support
+            //if (AppDelegate.CheckVersion(13))
+            //{
+            //    OverrideUserInterfaceStyle = UIUserInterfaceStyle.Light;
+            //}
+            
+    }
 
         public override void ViewDidAppear(bool animated)
         {
@@ -46,6 +53,7 @@ namespace DancePro.iOS
 
         partial void Facebook_TouchUpInside(UIButton sender)
         {
+            Analytics.TrackEvent("[Contacts] Clicked Facebook Button");
             using(var app = UIApplication.SharedApplication)
             {
                 if (app.CanOpenUrl(ContactLinks.GetValueOrDefault("FacebookApp")))
@@ -61,6 +69,7 @@ namespace DancePro.iOS
 
         partial void Instagram_UpInside(UIButton sender)
         {
+            Analytics.TrackEvent("[Contacts] Clicked Instagram Button");
             using (var app = UIApplication.SharedApplication)
             {
                 if (app.CanOpenUrl(ContactLinks.GetValueOrDefault("InstagramApp")))
@@ -76,15 +85,26 @@ namespace DancePro.iOS
 
         partial void Mail_UpInside(UIButton sender)
         {
+            Analytics.TrackEvent("[Contacts] Clicked Mail Button");
             using (var app = UIApplication.SharedApplication)
             {
-                app.OpenUrl(ContactLinks.GetValueOrDefault("FacebookApp"));
+                app.OpenUrl(ContactLinks.GetValueOrDefault("Mail"));
             }
         }
 
 
         partial void Website_UpInside(UIButton sender)
         {
+            Analytics.TrackEvent("[Contacts] Clicked Website Button");
+            using (var app = UIApplication.SharedApplication)
+            {
+                app.OpenUrl(ContactLinks.GetValueOrDefault("Website"));
+            }
+        }
+
+        partial void WebsiteLink_UpInside(UIButton sender)
+        {
+            Analytics.TrackEvent("[Contacts] Clicked Website Button");
             using (var app = UIApplication.SharedApplication)
             {
                 app.OpenUrl(ContactLinks.GetValueOrDefault("Website"));

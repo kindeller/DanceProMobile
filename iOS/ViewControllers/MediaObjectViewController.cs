@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using CoreGraphics;
 using DancePro.Models;
+using Foundation;
+using Microsoft.AppCenter.Analytics;
 using UIKit;
 using Xamarin.iOS.iCarouselBinding;
 
@@ -46,7 +48,6 @@ namespace DancePro.iOS.ViewControllers
             {
                 MediaList.Remove(item);
             }
-
         }
 
         public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
@@ -138,7 +139,7 @@ namespace DancePro.iOS.ViewControllers
             //ImageView = new UIImageView(imageObject.Image);
             ScrollView.ShowsHorizontalScrollIndicator = false;
             ScrollView.ShowsVerticalScrollIndicator = false;
-            ImageView.Image = imageObject.Image;
+            ImageView.Image = UIImage.FromFile(imageObject.FilePath);
             ScrollView.AddSubview(ImageView);
             ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
             ScrollView.ContentSize = new CGSize(View.Frame.Width, View.Frame.Height);
@@ -252,8 +253,6 @@ namespace DancePro.iOS.ViewControllers
 
             return null;
         }
-
-
 
     }
 }

@@ -38,8 +38,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TransferViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NewDownloadModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NetworkServiceAndroid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ErrorLogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Services\CloudDataStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Native\" />
   </ItemGroup>
 </Project>

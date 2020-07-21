@@ -195,21 +195,24 @@ namespace DancePro.Services
         public List<MediaObject> GetMediaFromFolder(string folderPath)
         {
             List<MediaObject> mediaObjects = new List<MediaObject>();
-            var thing = Path.GetFullPath(folderPath);
+            //var thing = Path.GetFullPath(folderPath);
             Directory.CreateDirectory(Path.GetFullPath(folderPath));
-            List<string> files = new List<string>();
-            files.AddRange(Directory.GetFiles(Path.GetFullPath(folderPath)));
-            foreach (var file in files)
+            var direct = Directory.GetDirectories(folderPath);
+            List<string> directories = new List<string>();
+            directories.AddRange(direct);
+            foreach (var directory in directories)
             {
-                mediaObjects.Add(GetMediaObject(file));
-            }
-
-           var directories = Directory.GetDirectories(folderPath);
-
-            foreach(var directory in directories) {
                 MediaObject mo = new MediaObject(directory);
                 mo.MediaType = MediaTypes.Folder;
                 mediaObjects.Add(mo);
+            }
+            mediaObjects.Sort((x, y) => string.Compare(x.FileName, y.FileName));
+            List<string> files = new List<string>();
+            files.AddRange(Directory.GetFiles(Path.GetFullPath(folderPath)));
+            files.Sort((x, y) => string.Compare(x, y));
+            foreach (var file in files)
+            {
+                mediaObjects.Add(GetMediaObject(file));
             }
 
            if(folderPath == App.MediaService.MediaPath || folderPath + "/" == App.MediaService.MediaPath)
@@ -232,15 +235,15 @@ namespace DancePro.Services
             {
                 case MediaTypes.Image:
                     ImageObject imageObject = new ImageObject(path);
-                    return imageObject as MediaObject;
+                    return imageObject;
 
                 case MediaTypes.Audio:
                     AudioObject audioObject = new AudioObject(path);
-                    return audioObject as MediaObject;
+                    return audioObject;
 
                 case MediaTypes.Video:
                     VideoObject videoObject = new VideoObject(path);
-                    return videoObject as MediaObject;
+                    return videoObject;
                 default:
                     return new MediaObject(path);
             }

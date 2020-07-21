@@ -9,18 +9,21 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using SystemConfiguration;
 using Foundation;
+using CoreFoundation;
 
 namespace DancePro.Services
 {
 
     public class NetworkServiceIOS : NetworkService
     {
+
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
-        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
-      
+        //NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
+        NEHotspotConfiguration config = new NEHotspotConfiguration("BudiiLite-primary64C38C-5G", "826f9cb1", false);
 
         public NetworkServiceIOS()
         {
+            
         }
 
         public override IPAddress GetIP()
@@ -73,15 +76,25 @@ namespace DancePro.Services
             return false;
         }
 
-        public override void ConnectToWifi()
+        public override void ConnectToWifi(Action<string> callback)
         {
             // -- Not implimented yet but added for future.
             config.JoinOnce = true;
             config.LifeTimeInDays = 1;
             // -- End
-            WifiManager.ApplyConfiguration(config, (obj) => {
-                Console.WriteLine(obj?.Description);
-                WifiManager.RemoveConfiguration(config.Ssid);
+
+            WifiManager.ApplyConfiguration(config, (NSError e) => {
+                if(e != null)
+                {
+                    Console.WriteLine("Failed to Connect to WIFI");
+                    callback("Wifi Declined");
+                }
+                else
+                {
+                    callback("Enabling Network");
+                }
+                
+
             });
         }
 
@@ -89,31 +102,9 @@ namespace DancePro.Services
         {
             if (isOnWifi())
             {
-                //WifiManager.RemoveConfiguration(config.Ssid);
+                WifiManager.RemoveConfiguration(config.Ssid);
             }
         }
-
-        private async void AsyncWaitForConnection()
-        {
-            await Task.Run(() =>
-            {
-
-                while (true)
-                {
-                    if (isOnWifi())
-                    {
-                        Console.WriteLine("Connected to Wifi!");
-                        //TODO: Add "failed to/connected to wifi network" prompt.
-                        //TODO: This works and removes the config but still auto-joins after taking away the wifi network.
-                        WifiManager.RemoveConfiguration(config.Ssid);
-                        return;
-                    }
-                }
-
-            });
-
-        }
-
     }
 }
 

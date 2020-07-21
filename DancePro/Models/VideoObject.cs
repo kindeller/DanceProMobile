@@ -19,12 +19,30 @@ namespace DancePro.Models
             var url = NSUrl.FromFilename(filePath);
             Asset = AVAsset.FromUrl(url);
             PlayerItem = new AVPlayerItem(Asset);
-            Thumb = Services.Thumbnail.GenerateThumbImage(Asset);
-            Thumb = Thumb.Scale(new CoreGraphics.CGSize(Thumb.Size.Width /5, Thumb.Size.Height/5));
             SegueString = new NSString("VideoSegue");
             MediaType = MediaTypes.Video;
 
         }
+
+        /// <summary>
+        /// Thumb Generator method to control the setting of the objects thumbnail.
+        /// Handles if the object fails to create a thumb and sets error image (possible corrupt file).
+        /// </summary>
+        /// <returns>A UIImage object that represents the thumbnail to be used by the collection view</returns>
+        public override UIKit.UIImage GetThumb()
+        {
+            try
+            {
+                return Services.Thumbnail.GenerateThumbImage(Asset);
+            }
+            catch
+            {
+                Console.WriteLine("Error Loading Video Thumbnail: " + FileName);
+                return UIKit.UIImage.FromBundle("Error");
+            }
+
+        }
+
 #endif
 
 #if __ANDROID__

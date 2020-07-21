@@ -16,6 +16,10 @@ namespace DancePro.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIView MainView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton MediaButton { get; set; }
 
         [Outlet]
@@ -52,6 +56,11 @@ namespace DancePro.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (MainView != null) {
+                MainView.Dispose ();
+                MainView = null;
+            }
+
             if (MediaButton != null) {
                 MediaButton.Dispose ();
                 MediaButton = null;

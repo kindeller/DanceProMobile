@@ -4,6 +4,11 @@ using UIKit;
 using DancePro.Services;
 using DancePro.iOS.ViewControllers;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using System.Collections.Generic;
+
 namespace DancePro.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
@@ -28,6 +33,11 @@ namespace DancePro.iOS
             App.Initialize();
             //TODO: [REMOVE] - Move this reference to App.NetworkService to unify iOS and Android
             NetworkService = new NetworkServiceIOS();
+            AppCenter.Start("6709f283-3526-4c2e-8716-5a230f687988", typeof(Analytics), typeof(Crashes));
+            Analytics.TrackEvent("*** SESSION STARTED ***", new Dictionary<string, string>
+            {
+                {"Device Name",UIDevice.CurrentDevice.Name}
+            });
             return true;
         }
 
@@ -99,6 +109,15 @@ namespace DancePro.iOS
 
 
 
+
+            return false;
+        }
+
+        static public bool CheckVersion(int MajorVersionInt)
+        {
+            string[] version = UIDevice.CurrentDevice.SystemVersion.Split('.');
+
+            if (MajorVersionInt.ToString() == version[0]) return true;
 
             return false;
         }

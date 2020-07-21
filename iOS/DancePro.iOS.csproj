@@ -9,7 +9,7 @@
     <RootNamespace>DancePro.iOS</RootNamespace>
     <AssemblyName>DancePro.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <ReleaseVersion>1.2.0</ReleaseVersion>
+    <ReleaseVersion>1.2.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +45,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>DancePro Dist Profile</CodesignProvision>
+    <CodesignProvision>DanceProProv2021</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>pdbonly</DebugType>
@@ -81,7 +81,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>Aarons iPhone Test Profile</CodesignProvision>
+    <CodesignProvision>iPhoneXSDevelopment</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -114,6 +114,27 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="Plugin.Permissions">
       <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\xamarinios10\Plugin.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="Json.Net">
+      <HintPath>..\packages\Json.Net.1.0.18\lib\netstandard2.0\Json.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter">
+      <HintPath>..\packages\Microsoft.AppCenter.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.iOS.Bindings">
+      <HintPath>..\packages\Microsoft.AppCenter.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.iOS.Bindings.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Analytics">
+      <HintPath>..\packages\Microsoft.AppCenter.Analytics.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Analytics.iOS.Bindings">
+      <HintPath>..\packages\Microsoft.AppCenter.Analytics.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Analytics.iOS.Bindings.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Crashes">
+      <HintPath>..\packages\Microsoft.AppCenter.Crashes.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Crashes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Crashes.iOS.Bindings">
+      <HintPath>..\packages\Microsoft.AppCenter.Crashes.3.0.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Crashes.iOS.Bindings.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -161,12 +182,6 @@
     <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 30.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 60.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 90.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 30.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 60.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 90.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 30.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 60.png" />
-    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 90.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 30.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 60.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 90.png" />
@@ -183,7 +198,6 @@
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-1.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-2.png" />
-    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 500.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 750.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 1024.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40.png" />
@@ -209,17 +223,51 @@
     <ImageAsset Include="Assets.xcassets\Instagram.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Mail.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Website.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Mail.imageset\email.png" />
-    <ImageAsset Include="Assets.xcassets\Instagram.imageset\instagram.png" />
-    <ImageAsset Include="Assets.xcassets\Facebook.imageset\facebook2.png" />
-    <ImageAsset Include="Assets.xcassets\Website.imageset\website2.png" />
-    <ImageAsset Include="Assets.xcassets\Website.imageset\website2-1.png" />
-    <ImageAsset Include="Assets.xcassets\Website.imageset\website.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Complete.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Icon_Complete.imageset\Complete.png" />
-    <ImageAsset Include="Assets.xcassets\Audio.imageset\speaker.png" />
     <ImageAsset Include="Assets.xcassets\Button_More.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Button_More.imageset\More_circle %285%29.png" />
+    <ImageAsset Include="Assets.xcassets\TransferBgColor.colorset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Error.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Error.imageset\Error.png" />
+    <ImageAsset Include="Assets.xcassets\Website.imageset\website.png" />
+    <ImageAsset Include="Assets.xcassets\Instagram.imageset\instagram.png" />
+    <ImageAsset Include="Assets.xcassets\Mail.imageset\email.png" />
+    <ImageAsset Include="Assets.xcassets\Facebook.imageset\facebook.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 30-1.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Folder.imageset\Folder Blue Icon 90d.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 750d-1.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 500d.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 1024d.png" />
+    <ImageAsset Include="Assets.xcassets\Back.imageset\Back Icon Blue 500-1.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 60-1.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\TrashIconBlue90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\TrashIconBlue90d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\Trash Icon Blue 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Delete.imageset\TrashIconBlue30d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\DuplicateIconBlue30d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 90d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Duplicate.imageset\Duplicate Icon Blue 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\RenameIconBlue30d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Rename Icon Blue 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Rename.imageset\Rename Icon Blue 90d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Share Icon Blue 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Share Icon Blue 90d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\ShareIconBlue30.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 90.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 60.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 60d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 90d.png" />
+    <ImageAsset Include="Assets.xcassets\Icon_Share.imageset\Share Icon Blue 60d-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 30-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 60-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 90-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 30d-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 60d-1.png" />
+    <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 90d-1.png" />
+    <ImageAsset Include="Assets.xcassets\CellBgColor.colorset\Contents.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -379,6 +427,11 @@
     <Folder Include="Assets.xcassets\Website.imageset\" />
     <Folder Include="Assets.xcassets\Icon_Complete.imageset\" />
     <Folder Include="Assets.xcassets\Button_More.imageset\" />
+    <Folder Include="Assets.xcassets\TransferBgColor.colorset\" />
+    <Folder Include="Assets.xcassets\Error.imageset\" />
+    <Folder Include="Assets.xcassets\MediaCellBackground.colorset\" />
+    <Folder Include="Assets.xcassets\DanceProBlue.colorset\" />
+    <Folder Include="Assets.xcassets\CellBgColor.colorset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

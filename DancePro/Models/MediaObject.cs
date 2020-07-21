@@ -33,7 +33,7 @@ namespace DancePro.Models
 
 
 #if __IOS__
-        public UIImage Thumb { get; set; }
+        //public UIImage Thumb { get; set; }
         public NSString SegueString { get; protected set; }
 
         public MediaObject(string filePath)
@@ -41,10 +41,12 @@ namespace DancePro.Models
             FilePath = filePath;
             FileName = Path.GetFileName(filePath);
             DateCreated = File.GetCreationTime(filePath);
-            Thumb = UIImage.FromBundle("Folder");
+            //Thumb = UIImage.FromBundle("Folder");
             SegueString = new NSString("Folder");
             MediaType = MediaTypes.Folder;
         }
+
+        public virtual UIImage GetThumb() { return UIImage.FromBundle("Folder"); }
 
         public virtual UIView GetDetailView(UIViewController mainController)
         {

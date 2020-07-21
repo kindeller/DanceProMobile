@@ -61,7 +61,7 @@ namespace DancePro.Services
                 // draw the image
                 context.DrawImage(imageRect, originalImage.CGImage);
 
-                UIKit.UIImage resizedImage = UIKit.UIImage.FromImage(context.ToImage());
+                UIImage resizedImage = UIKit.UIImage.FromImage(context.ToImage());
 
                 // save the image as a jpeg
                 return resizedImage;
@@ -78,17 +78,17 @@ namespace DancePro.Services
 
         }
 
-        public static UIKit.UIImage ImageFromByteArray(byte[] data)
+        public static UIImage ImageFromByteArray(byte[] data)
         {
             if (data == null)
             {
                 return null;
             }
 
-            UIKit.UIImage image;
+            UIImage image;
             try
             {
-                image = new UIKit.UIImage(Foundation.NSData.FromArray(data));
+                image = new UIImage(Foundation.NSData.FromArray(data));
             }
             catch (Exception e)
             {

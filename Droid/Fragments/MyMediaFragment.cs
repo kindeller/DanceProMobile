@@ -22,7 +22,7 @@ using Android.Support.V4.App;
 
 namespace DancePro.Droid
 {
-    public class MyMediaFragment : Android.Support.V4.App.Fragment, IFragmentVisible, iShowDetails
+    public class MyMediaFragment : Android.Support.V4.App.Fragment, IFragmentVisible, iShowDetails, IDialogInterfaceOnDismissListener
     {
         MediaFolder MediaFolder;
         MediaAdapter Adapter;
@@ -72,10 +72,13 @@ namespace DancePro.Droid
                     Alert = null;
                     RefreshMedia();
                 }));
+                Alert.SetOnDismissListener(this);
                 Alert.SetTitle("New Folder Name");
                 Alert.SetView(folderNameText);
                 Alert.Show();
             };
+
+            
 
             // Create Media / TODO: Get Media
             MediaFolder = new MediaFolder();
@@ -158,6 +161,7 @@ namespace DancePro.Droid
                     DetailsView.Visibility = ViewStates.Invisible;
 
                 }));
+                Alert.SetOnDismissListener(this);
                 Alert.SetTitle("Rename");
                 Alert.SetView(et);
                 Alert.Create().Show();
@@ -277,6 +281,12 @@ namespace DancePro.Droid
 
             return true;
 
+        }
+
+        //Catches lingering dialog boxes clearing alert interfaces.
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            Alert = null;
         }
     }
 }

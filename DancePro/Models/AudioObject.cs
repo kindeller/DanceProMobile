@@ -29,8 +29,10 @@ namespace DancePro.Models
                 Console.WriteLine("Failed to create audio file: " + FileName);
             }
             SegueString = new NSString("AudioSegue");
-            Thumb = UIImage.FromBundle("Audio");
+            
         }
+
+        public override UIImage GetThumb() { return UIImage.FromBundle("Audio"); }
 
         /*public override UIView GetDetailView(UIViewController mainController)
         {

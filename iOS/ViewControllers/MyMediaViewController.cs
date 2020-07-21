@@ -7,6 +7,10 @@ using DancePro.Models;
 using UIKit;
 using System.IO;
 using System.Net.NetworkInformation;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using System.Threading;
+using CoreFoundation;
 
 namespace DancePro.iOS.ViewControllers
 {
@@ -14,8 +18,8 @@ namespace DancePro.iOS.ViewControllers
     {
         List<MediaObject> MediaObjects = new List<MediaObject>();
         DirectoryInfo CurrentDirectory;
-        UIAlertController CurrentNetworkAlert;
-        NetworkServiceIOS NetworkService;
+        //UIAlertController CurrentNetworkAlert;
+        
 
         public MyMediaViewController(IntPtr intPtr) : base(intPtr)
         {
@@ -24,19 +28,20 @@ namespace DancePro.iOS.ViewControllers
 
         void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
         {
-            if (CurrentNetworkAlert != null)
-            {
-                if (NetworkService.isListening)
-                {
-                    CurrentNetworkAlert.Title = NetworkService.Address + ":" + NetworkService.Port;
-                    CurrentNetworkAlert.Message = "For Dance Pro kiosk use only.";
-                }
-                else
-                {
-                    CurrentNetworkAlert.DismissViewController(true, null);
-                    //ConnectSwitch.On = false;
-                }
-            }
+            Analytics.TrackEvent("[MyMedia] Network Address Changed");
+            //if (CurrentNetworkAlert != null)
+            //{
+            //    if (NetworkService.isListening)
+            //    {
+            //        CurrentNetworkAlert.Title = NetworkService.Address + ":" + NetworkService.Port;
+            //        CurrentNetworkAlert.Message = "For Dance Pro kiosk use only.";
+            //    }
+            //    else
+            //    {
+            //        CurrentNetworkAlert.DismissViewController(true, null);
+            //        //ConnectSwitch.On = false;
+            //    }
+            //}
         }
 
 
@@ -91,13 +96,15 @@ namespace DancePro.iOS.ViewControllers
             return alert;
         }
 
+        
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
             //MediaCollectionView.Delegate = new MyMediaViewDelegate();
-            NetworkService = AppDelegate.NetworkService;
-            GetMedia();
+            Analytics.TrackEvent("[MyMedia] Loading View");
+            
 
 
             //Attempting to change the Estimated size to allow dyamic sizing for cell in collection.
@@ -116,6 +123,7 @@ namespace DancePro.iOS.ViewControllers
             //NavigationController.NavigationBar.TopItem.RightBarButtonItem = new UIBarButtonItem(ConnectSwitch);
             var newFolderButton = new UIBarButtonItem("+", UIBarButtonItemStyle.Done, (sender, e) =>
             {
+                Analytics.TrackEvent("[MyMedia] Pressed Add Folder Button");
                 var alert = UIAlertController.Create("New Folder", "New folder name...", UIAlertControllerStyle.Alert);
                 var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
                 var actionOk = UIAlertAction.Create("Ok", UIAlertActionStyle.Default, (obj) =>
@@ -125,6 +133,11 @@ namespace DancePro.iOS.ViewControllers
                     {
                         App.MediaService.CreateFolder(folderName, CurrentDirectory.FullName);
                         GetMedia();
+                        Analytics.TrackEvent("[MyMedia] Created New Folder: ",new Dictionary<string, string>()
+                        {
+                            {"FolderName",folderName},
+                            {"DirectoryPath",CurrentDirectory.FullName}
+                        });
                     }
 
 
@@ -138,17 +151,26 @@ namespace DancePro.iOS.ViewControllers
                 TintColor = UIColor.DarkTextColor
             };
             NavigationController.NavigationBar.TopItem.LeftBarButtonItem = newFolderButton;
+            
+            
         }
 
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
+            DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
+            {
+                GetMedia();
+            });
+            Analytics.TrackEvent("[MyMedia] Appeared");
         }
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
+
+            Analytics.TrackEvent("[MyMedia] Recieved Memory Warning");
         }
         public void ChangeDirectory(string path)
         {
@@ -163,10 +185,13 @@ namespace DancePro.iOS.ViewControllers
                 CurrentDirectory = info;
                 //Title = CurrentDirectory.Name;
                 GetMedia();
+                Analytics.TrackEvent("[MyMedia] Changed Directory");
             }
             else
             {
-                throw new IOException("Failed to change directory, no such directory exists with path" + info.FullName);
+                IOException e = new IOException("Failed to change directory, no such directory exists with path" + info.FullName);
+                Crashes.TrackError(e);
+                throw e;
             }
 
         }
@@ -176,17 +201,25 @@ namespace DancePro.iOS.ViewControllers
         /// </summary>
         public void GetMedia()
         {
-            MediaObjects.Clear();
-            if (CurrentDirectory != null && CurrentDirectory.Exists)
+            
+            //ReloadMediaList();
+            DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
             {
+                MediaObjects.Clear();
+                if (CurrentDirectory != null && CurrentDirectory.Exists)
+                {
 
-                MediaObjects = App.MediaService.GetMediaFromFolder(CurrentDirectory.FullName);
-                ReloadMediaList();
-            }
-            else
-            {
-                ChangeDirectory(App.MediaService.GetMediaPathDirectory());
-            }
+                    MediaObjects = App.MediaService.GetMediaFromFolder(CurrentDirectory.FullName);
+                    DispatchQueue.MainQueue.DispatchAsync(() =>
+                    {
+                        InvokeOnMainThread(()=> ReloadMediaList());
+                    });
+                }
+                else
+                {
+                    ChangeDirectory(App.MediaService.GetMediaPathDirectory());
+                }
+            });
         }
 
         /// <summary>
@@ -194,7 +227,6 @@ namespace DancePro.iOS.ViewControllers
         /// </summary>
         private void ReloadMediaList()
         {
-
             //var currPath = Path.GetFullPath(CurrentDirectory.FullName);
             //var root = Path.GetFullPath(App.MediaService.GetMediaPath());
             //var result = string.Compare(currPath, root);
@@ -218,7 +250,9 @@ namespace DancePro.iOS.ViewControllers
                 MediaCollectionView.Source = source;
 
             }
-            MediaCollectionView.ReloadData();
+
+
+            InvokeOnMainThread(()=> MediaCollectionView.ReloadData());
         }
 
         /// <summary>
@@ -229,7 +263,7 @@ namespace DancePro.iOS.ViewControllers
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue(segue, sender);
-
+            
             //Open Media Object 
                 IMediaObjectController controller = segue.DestinationViewController as IMediaObjectController;
                 if (controller != null)
@@ -240,19 +274,25 @@ namespace DancePro.iOS.ViewControllers
                     switch (cell.MediaObject.MediaType)
                     {
                         case MediaTypes.Image:
+                            Analytics.TrackEvent("[MyMedia] Opening Image Media");
                             controller.MediaObject = (ImageObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
                             segue.DestinationViewController.Title = controller.MediaObject.FileName;
                             break;
                         case MediaTypes.Audio:
+                            Analytics.TrackEvent("[MyMedia] Opening Audio Media");
                             controller.MediaObject = (AudioObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
                             segue.DestinationViewController.Title = controller.MediaObject.FileName;
                             break;
                         case MediaTypes.Video:
+                            Analytics.TrackEvent("[MyMedia] Opening Video Media");
                             controller.MediaObject = (VideoObject)cell.MediaObject;
                             controller.MediaList.AddRange(MediaObjects);
                             segue.DestinationViewController.Title = controller.MediaObject.FileName;
+                            break;
+                        default:
+                            Analytics.TrackEvent("[MyMedia] Unknown Media Opened");
                             break;
                     }
 
@@ -270,7 +310,8 @@ namespace DancePro.iOS.ViewControllers
                     var cell = (MyMediaViewCell)sender;
                     if(cell != null)
                     {
-                        c.MediaObject = cell.MediaObject;
+                    Analytics.TrackEvent("[MyMedia] Opening Edit Menu",new Dictionary<string, string> { {"FileName",cell.MediaObject.FileName} });
+                    c.MediaObject = cell.MediaObject;
                         c.controller = this;
                     }
                 }
@@ -300,6 +341,7 @@ namespace DancePro.iOS.ViewControllers
             MyMediaViewCell cell = collectionView.CellForItem(indexPath) as MyMediaViewCell;
             if(cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
+                Analytics.TrackEvent("[MyMedia] Attempting Drag of Media Item");
                 NSItemProvider provider = new NSItemProvider(cell, "object");
                 UIDragItem item = new UIDragItem(provider);
                 item.LocalObject = cell;
@@ -329,7 +371,8 @@ namespace DancePro.iOS.ViewControllers
 
                     if(cell != null && (cell.MediaObject.MediaType == MediaTypes.Folder || cell.MediaObject.MediaType == MediaTypes.Other))
                     {
-                        foreach(var item in coordinator.Items)
+                        Analytics.TrackEvent("[MyMedia] Dropping Media Item");
+                        foreach (var item in coordinator.Items)
                         {
                             MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
                             if(mediaViewCell != null)

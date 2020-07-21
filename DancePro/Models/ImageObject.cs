@@ -16,21 +16,19 @@ namespace DancePro.Models
 
 
 #if __IOS__
-    public UIImage Image { get; set; }
         public ImageObject(string filePath) : base(filePath)
         {
             MediaType = MediaTypes.Image;
-            Image = UIImage.FromFile(filePath);
-            Thumb = Image?.Scale(new CGSize(Image.Size.Width/10,Image.Size.Height/10));
             SegueString = new NSString("ImageSegue");
         }
 
+        public override UIImage GetThumb() { return UIImage.FromFile(FilePath).Scale(new CGSize(UIImage.FromFile(FilePath).Size.Width / 5, UIImage.FromFile(FilePath).Size.Height / 5)); }
 
         public override UIView GetDetailView(UIViewController mainController)
         {
             CGRect rect = new CGRect(0, 0, mainController.View.Frame.Width, mainController.View.Frame.Height);
             UIImageView ImageView = new UIImageView(rect);
-            ImageView.Image = Image;
+            ImageView.Image = UIImage.FromFile(FilePath);
             UIScrollView ScrollView = new UIScrollView(rect);
             //ScrollView.AddSubview(ImageView);
             ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;

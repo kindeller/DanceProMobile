@@ -28,15 +28,7 @@ namespace DancePro.iOS.ViewControllers
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton MoveButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton RenameButton { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIButton SaveButton { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -54,17 +46,9 @@ namespace DancePro.iOS.ViewControllers
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Duplicate__TouchUpInside (UIKit.UIButton sender);
 
-        [Action ("Move_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void Move_TouchUpInside (UIKit.UIButton sender);
-
         [Action ("Rename_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Rename_TouchUpInside (UIKit.UIButton sender);
-
-        [Action ("Save_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void Save_TouchUpInside (UIKit.UIButton sender);
 
         [Action ("Share_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -87,19 +71,9 @@ namespace DancePro.iOS.ViewControllers
                 DuplicateButton = null;
             }
 
-            if (MoveButton != null) {
-                MoveButton.Dispose ();
-                MoveButton = null;
-            }
-
             if (RenameButton != null) {
                 RenameButton.Dispose ();
                 RenameButton = null;
-            }
-
-            if (SaveButton != null) {
-                SaveButton.Dispose ();
-                SaveButton = null;
             }
 
             if (ShareButton != null) {

@@ -108,7 +108,7 @@ namespace DancePro.ViewModels
 
         public void Connect()
         {
-           NetworkService.Connect();
+            NetworkService.Connect();
         }
 
         public void Disconnect()
@@ -143,18 +143,17 @@ namespace DancePro.ViewModels
             NetworkService = service;
         }
 
-        public void ConnectToWifi()
+        public void ConnectToWifi(Action<string> callback)
         {
             if (!NetworkService.isOnWifi())
             {
-                NetworkService.ConnectToWifi();
+                NetworkService.ConnectToWifi(callback);
             }
-
         }
 
         public string GetDeviceText()
         {
-            string text = "Not Connected!";
+            string text = "";
 
             if (isNetworkListening())
             {

@@ -14,5 +14,8 @@ namespace DancePro.iOS
     [Register ("MediaUICollectionView")]
     partial class MediaUICollectionView
     {
+        void ReleaseDesignerOutlets ()
+        {
+        }
     }
 }

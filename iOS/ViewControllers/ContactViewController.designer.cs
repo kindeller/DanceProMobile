@@ -30,6 +30,10 @@ namespace DancePro.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIButton WebsiteButton { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton websitelink { get; set; }
+
         [Action ("Facebook_TouchUpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Facebook_TouchUpInside (UIKit.UIButton sender);
@@ -45,6 +49,10 @@ namespace DancePro.iOS
         [Action ("Website_UpInside:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void Website_UpInside (UIKit.UIButton sender);
+
+        [Action ("WebsiteLink_UpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void WebsiteLink_UpInside (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
@@ -66,6 +74,11 @@ namespace DancePro.iOS
             if (WebsiteButton != null) {
                 WebsiteButton.Dispose ();
                 WebsiteButton = null;
+            }
+
+            if (websitelink != null) {
+                websitelink.Dispose ();
+                websitelink = null;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace DancePro
         MediaTypes MediaType { get; set; }
 
 #if __IOS__
-        UIImage Thumb { get; set; }
+        UIImage GetThumb();
         UIView GetDetailView(UIViewController mainController);
         bool SaveToCameraRoll();
 #endif

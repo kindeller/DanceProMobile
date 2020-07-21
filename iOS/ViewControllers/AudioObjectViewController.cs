@@ -33,6 +33,8 @@ namespace DancePro.iOS.ViewControllers
         {
             base.ViewDidLoad();
             // Perform any additional setup after loading the view, typically from a nib.
+            DurationBar.ThumbTintColor = AppDelegate.DanceProBlue;
+            VolumeBar.ThumbTintColor = AppDelegate.DanceProBlue;
             InitAudio();
             InitPlayer();
             Play(null);

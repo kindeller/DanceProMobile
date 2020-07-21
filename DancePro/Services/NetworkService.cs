@@ -15,6 +15,7 @@ namespace DancePro.Services
     {
         //public event EventHandler isListeningChanged;
         public event EventHandler OnStoppedListening;
+        public event EventHandler OnFailedWifiConnect;
         public HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
         public int Port { get; private set; }
@@ -45,6 +46,11 @@ namespace DancePro.Services
         {
             SetIsListening(false);
             OnStoppedListening?.Invoke(this, null);
+        }
+
+        protected void OnWifiConnectFailed(object sender,EventArgs e)
+        {
+            OnFailedWifiConnect?.Invoke(sender, e);
         }
 
 
@@ -86,8 +92,6 @@ namespace DancePro.Services
         public void Connect()
         {
             Initialise();
-            ConnectToWifi();
-
             if (ValidateNetwork())
             {
                 try
@@ -95,8 +99,9 @@ namespace DancePro.Services
                     SetIsListening(true);
                     handler.ListenAsynchronously(prefixes);
                 }
-                catch
+                catch(Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     SetIsListening(false);
                 }
 
@@ -111,7 +116,7 @@ namespace DancePro.Services
         {
             SetIsListening(false);
             handler.StopListening();
-            //DisconnectFromWifi();
+            DisconnectFromWifi();
         }
 
 
@@ -124,7 +129,7 @@ namespace DancePro.Services
 
         public abstract bool isOnWifi();
 
-        public abstract void ConnectToWifi();
+        public abstract void ConnectToWifi(Action<string> callback);
 
         public string GetDeviceID()
         {

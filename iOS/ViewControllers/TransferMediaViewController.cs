@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CoreFoundation;
 using DancePro.Services;
 using DancePro.ViewModels;
+using Microsoft.AppCenter.Analytics;
 using UIKit;
 
 
@@ -11,6 +13,7 @@ namespace DancePro.iOS.ViewControllers
     public partial class TransferMediaViewController : UIViewController
     {
         TransferViewModel Model;
+        bool cancelUIUpdate = false;
 
         public TransferMediaViewController(IntPtr intPtr) : base(intPtr)
         {
@@ -21,8 +24,13 @@ namespace DancePro.iOS.ViewControllers
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
+            Analytics.TrackEvent("[Transfer] Loaded Page");
             // Perform any additional setup after loading the view, typically from a nib.
-
+            //TODO: Remove temp fix for darkmode issues and add dark mode support
+            //if (AppDelegate.CheckVersion(13))
+            //{
+            //    OverrideUserInterfaceStyle = UIUserInterfaceStyle.Light;
+            //}
             Model.DownloadsUpdated += Model_DownloadsUpdated;
             InitTransfer();
             UIApplication.SharedApplication.IdleTimerDisabled = true;
@@ -58,7 +66,16 @@ namespace DancePro.iOS.ViewControllers
                 var completed = Model.GetCompletedCount();
                 var downloading = Model.GetDownloadCount();
                 TotalLabel.Text = $"({completed} / {downloading})";
-                TotalLabel.TextColor = (completed == downloading) ? AppDelegate.DanceProBlue : UIColor.Black;
+
+                if (completed == downloading)
+                {
+                    TotalLabel.TextColor = AppDelegate.DanceProBlue;
+                    Analytics.TrackEvent("[Transfer] Transfer Complete");
+                }
+                else
+                {
+                    TotalLabel.TextColor = UIColor.Black;
+                }
             });
 
         }
@@ -68,15 +85,20 @@ namespace DancePro.iOS.ViewControllers
 
             if (Model.isNetworkListening())
             {
+                Analytics.TrackEvent("[Transfer] Disabling Server Listening");
                 ToggleButton.Enabled = false;
-                Model.ToggleConnection();
+                SetDeviceText("Not Connected");
+                Model.Disconnect();
             }
             else
             {
-                Model.ToggleConnection();
-                ToggleButtonText();
+                Analytics.TrackEvent("[Transfer] Enabling Server Listening");
+                DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
+                {
+                    BackgroundConnectAsync();
+                });
             }
-            SetDeviceText();
+            
         }
 
 
@@ -91,39 +113,79 @@ namespace DancePro.iOS.ViewControllers
             DownloadsCollectionView.Source = source;
             DownloadsCollectionView.ReloadData();
             //AddressLabel.Text = $"{NetworkService.Address}:{NetworkService.Port}";
-            SetDeviceText();
-            ToggleButtonText();
         }
+
+        private async void BackgroundConnectAsync()
+        {
+            Model.ConnectToWifi(SetDeviceText);
+            //Check if failed to connect to wifi
+            Console.WriteLine("Connecting...");
+            InvokeOnMainThread(() =>
+            {
+                SetDeviceText("Connecting");
+            }); 
+            while (!cancelUIUpdate && !Model.isNetworkListening())
+            {
+                //Console.WriteLine(Model.isNetworkListening());
+                Model.Connect();
+                await Task.Delay(1000);
+                InvokeOnMainThread(() =>
+                {
+                    Console.WriteLine("Updating UI...");
+                    SetDeviceText();
+                    ToggleButtonText();
+                    return;
+                });
+            }
+            cancelUIUpdate = false;
+        }
+
 
         public override void DidReceiveMemoryWarning()
         {
             base.DidReceiveMemoryWarning();
             // Release any cached data, images, etc that aren't in use.
+            Analytics.TrackEvent("[Transfer] Recieved Memory Warning");
         }
 
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            Model.ConnectToWifi();
-            SetDeviceText();
             UIApplication.SharedApplication.IdleTimerDisabled = true;
+            SetDeviceText("Not Connected");
+            DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
+            {
+                BackgroundConnectAsync();
+            });
         }
 
         public override void ViewWillDisappear(bool animated)
         {
             base.ViewWillDisappear(animated);
             UIApplication.SharedApplication.IdleTimerDisabled = false;
+            Model.Disconnect();
         }
 
         private void SetDeviceText()
         {
-            AddressLabel.Text = Model.GetDeviceText();
+            string result = Model.GetDeviceText();
+            if (!string.IsNullOrEmpty(result)) AddressLabel.Text = result;
+        }
+
+        private void SetDeviceText(string text)
+        {
+            if(text == "Wifi Declined")
+            {
+                cancelUIUpdate = true;
+            }
+            AddressLabel.Text = text;
         }
 
         private void ToggleButtonText()
         { 
             ToggleButton.SetTitle(Model.GetButtonText(), UIControlState.Normal);
         }
+
     }
 }
 
