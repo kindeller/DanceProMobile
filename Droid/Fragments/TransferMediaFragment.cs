@@ -15,6 +15,7 @@ using Android.Widget;
 using DancePro.ViewModels;
 using DancePro.Models;
 using Android.Support.V7.Widget;
+using System.Threading.Tasks;
 
 namespace DancePro.Droid
 {
@@ -28,11 +29,11 @@ namespace DancePro.Droid
         RecyclerView TransferItemsView;
         TransferMediaAdapter Adapter;
         RecyclerView.LayoutManager LayoutManager;
-
+        private bool cancelUIUpdate = false;
 
         public void BecameVisible()
         {
-            
+         
         }
 
         public static TransferMediaFragment NewInstance() => new TransferMediaFragment { Arguments = new Bundle() };
@@ -55,10 +56,18 @@ namespace DancePro.Droid
             GetDeviceID();
             btnEnable = view.FindViewById<Button>(Resource.Id.btnEnable);
             btnEnable.Click += (sender, e) => {
-
-                ViewModel.ToggleConnection();
-                ToggleButtonText();
-                GetDeviceID();
+                if (ViewModel.isNetworkListening())
+                {
+                    ViewModel.Disconnect();
+                    SetDeviceText("Disconnected");
+                    ToggleButtonText();
+                    
+                }
+                else
+                {
+                    BackgroundConnectAsync();
+                }
+                
             };
             btnClear = view.FindViewById<Button>(Resource.Id.btnClear);
             btnClear.Click += (sender, e) =>
@@ -76,9 +85,19 @@ namespace DancePro.Droid
             TransferItemsView.SetAdapter(Adapter);
             //Set Layout
             TransferItemsView.SetLayoutManager(LayoutManager);
-
-
             return view;
+        }
+
+        public override bool UserVisibleHint {
+            get => base.UserVisibleHint;
+            set
+            {
+                base.UserVisibleHint = value;
+                if (value)
+                {
+                    BackgroundConnectAsync();
+                }
+            }
         }
 
         private void ViewModel_DownloadsUpdated(List<NewDownloadModel> mediaList)
@@ -106,13 +125,78 @@ namespace DancePro.Droid
 
         private void ToggleButtonText()
         {
-            var text = ViewModel.isNetworkListening() ? "Disable" : "Enable";
-            btnEnable.Text = text;
+            Activity.RunOnUiThread(() =>
+            {
+                var text = ViewModel.isNetworkListening() ? "Disable" : "Enable";
+                btnEnable.Text = text;
+            });
         }
 
         private void GetDeviceID()
         {
             connectedText.Text = ViewModel.GetDeviceText();
+        }
+
+        private async void BackgroundConnectAsync()
+        {
+
+            Console.WriteLine("Background Async Started");
+            ViewModel.ConnectToWifi(SetDeviceText);
+            //Check if failed to connect to wifi
+            Console.WriteLine("Connecting...");
+            Activity.RunOnUiThread(() =>
+            {
+                SetDeviceText("Connecting");
+            });
+            if (Build.VERSION.SdkInt < BuildVersionCodes.Q)
+            {
+                while (!cancelUIUpdate || !ViewModel.isNetworkListening())
+                {
+                    ViewModel.Connect();
+                    await Task.Delay(1000);
+                    Activity.RunOnUiThread(() =>
+                    {
+                        Console.WriteLine("Updating UI...");
+                        SetDeviceText();
+                        ToggleButtonText();
+                        return;
+                    });
+                }
+                cancelUIUpdate = false;
+            }
+        }
+
+        private void SetDeviceText()
+        { 
+            string result = ViewModel.GetDeviceText();
+            if (!string.IsNullOrEmpty(result)) connectedText.Text = result;
+        }
+
+
+        /// <summary>
+        /// This method needs reworked to represent what it is
+        /// </summary>
+        /// <param name="text"></param>
+        private void SetDeviceText(string text)
+        {
+            Console.WriteLine("Updating Text: " + text);
+            switch (text)
+            {
+                case "Wifi Declined":
+                    cancelUIUpdate = true;
+                    connectedText.Text = text;
+                    break;
+                case "Enabling Network":
+                    connectedText.Text = text;
+                    SetDeviceText();
+                    break;
+                default:
+                    connectedText.Text = text;
+                    break;
+
+            }
+            ToggleButtonText();
+
         }
     }
 }

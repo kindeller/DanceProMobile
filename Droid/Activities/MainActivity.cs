@@ -26,6 +26,8 @@ namespace DancePro.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
             //Check if Intent is Zip origin
 
             if (Intent.GetType().Equals("application/zip"))

@@ -146,9 +146,17 @@ namespace DancePro.Services
 
                     if (n == 1)
                     {
-                        // stopEvent was signalled 
-                        callbackState.Listener.Stop();
-                        ListenerStoppedEvent?.Invoke(this,null);
+                    // stopEvent was signalled
+                    try
+                    {
+                        callbackState?.Listener?.Stop();
+                        ListenerStoppedEvent?.Invoke(this, null);
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+
                         break;
                     }
                 }

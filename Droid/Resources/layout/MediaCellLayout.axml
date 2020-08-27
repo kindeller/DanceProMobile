@@ -20,7 +20,7 @@
 	<TextView
 		android:text="Medium Text"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="match_parent"
+		android:layout_width="fill_parent"
 		android:layout_height="30dp"
 		android:id="@+id/MediaCellTitle"
 		android:textAlignment="center"

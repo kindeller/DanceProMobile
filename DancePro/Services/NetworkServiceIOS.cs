@@ -18,8 +18,7 @@ namespace DancePro.Services
     {
 
         NEHotspotConfigurationManager WifiManager = new NEHotspotConfigurationManager();
-        //NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
-        NEHotspotConfiguration config = new NEHotspotConfiguration("BudiiLite-primary64C38C-5G", "826f9cb1", false);
+        NEHotspotConfiguration config = new NEHotspotConfiguration("DPPV", "DPPV3778", false);
 
         public NetworkServiceIOS()
         {
@@ -50,31 +49,6 @@ namespace DancePro.Services
             return null;
         }
 
-        public override bool ValidateNetwork()
-        {
-            if (isOnWifi())
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public override bool isOnWifi()
-        {
-
-            var profiles = Connectivity.ConnectionProfiles;
-
-            foreach (var profile in profiles)
-            {
-                if (profile == ConnectionProfile.WiFi)
-                {
-
-                    return true;
-                }
-
-            }
-            return false;
-        }
 
         public override void ConnectToWifi(Action<string> callback)
         {

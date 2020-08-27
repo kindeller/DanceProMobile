@@ -5,6 +5,7 @@ using System;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.IO;
+using Xamarin.Essentials;
 #if __ANDROID__
 using Android.App;
 #endif
@@ -44,6 +45,7 @@ namespace DancePro.Services
 
         void Handler_ListenerStoppedEvent(object sender, EventArgs e)
         {
+            Console.WriteLine("Listener Stopped Event.");
             SetIsListening(false);
             OnStoppedListening?.Invoke(this, null);
         }
@@ -91,6 +93,8 @@ namespace DancePro.Services
         /// </summary>
         public void Connect()
         {
+            
+            if (isListening) return;
             Initialise();
             if (ValidateNetwork())
             {
@@ -114,20 +118,41 @@ namespace DancePro.Services
         /// </summary>
         public void Disconnect()
         {
-            SetIsListening(false);
+            Console.WriteLine("Disconnecting...");
             handler.StopListening();
+            SetIsListening(false);
             DisconnectFromWifi();
         }
 
+        public bool ValidateNetwork()
+        {
+            if (isOnWifi())
+            {
+                return true;
+            }
+            return false;
+        }
 
+        public bool isOnWifi()
+        {
+
+            var profiles = Connectivity.ConnectionProfiles;
+
+            foreach (var profile in profiles)
+            {
+                if (profile == ConnectionProfile.WiFi)
+                {
+
+                    return true;
+                }
+
+            }
+            return false;
+        }
 
         public abstract void DisconnectFromWifi();
 
         public abstract IPAddress GetIP();
-
-        public abstract bool ValidateNetwork();
-
-        public abstract bool isOnWifi();
 
         public abstract void ConnectToWifi(Action<string> callback);
 

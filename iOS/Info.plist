@@ -49,9 +49,9 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Photo Library access is required to save your images and videos to the camera roll.</string>
 	<key>CFBundleVersion</key>
-	<string>1.2.2</string>
+	<string>1.2.5</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2.2</string>
+	<string>1.2.5</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -61,6 +61,8 @@
 			<array>
 				<string>com.pkware.zip-archive</string>
 			</array>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
 		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
@@ -68,5 +70,7 @@
 		<string>fb</string>
 		<string>instagram</string>
 	</array>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 </dict>
 </plist>

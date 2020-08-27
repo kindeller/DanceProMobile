@@ -46,7 +46,7 @@ Global
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
-		version = 1.2.2
-		description = @iOS 1.2.2 / Android 1.4.1\n
+		version = 1.2.5
+		description = @iOS 1.2.5 / Android 1.4.3\n
 	EndGlobalSection
 EndGlobal
