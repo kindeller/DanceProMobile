@@ -69,6 +69,7 @@ namespace DancePro.Droid
             if (activity == null) return;
             Intent intent = new Intent(context, activity);
             intent.PutExtra("filepath", mediaobject.FilePath);
+            Console.WriteLine(mediaobject.FilePath);
             //Adjust for Added Media back button
             if (MediaFolder.GetItem(0).MediaType == Models.MediaTypes.Other) position--;
             intent.PutExtra("position", position);

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DancePro.iOS", "iOS\DancePr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DancePro.Droid", "Droid\DancePro.Droid.csproj", "{5A8D3944-5192-474B-8503-2B27FA66F218}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83BC8477-3B6D-4715-A470-1C2E5D3F15F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -46,7 +48,7 @@ Global
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
-		version = 1.2.5
-		description = @iOS 1.2.5 / Android 1.4.3\n
+		version = 1.2.6
+		description = @iOS 1.2.6 / Android 1.4.4\n
 	EndGlobalSection
 EndGlobal

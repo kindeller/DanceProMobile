@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using DancePro.Models;
 using System.IO.Compression;
+using System.Threading.Tasks;
 
 #if __IOS__
 using Foundation;
@@ -45,7 +46,9 @@ namespace DancePro.Services
             {".mp4",MediaTypes.Video},
             {".mp3",MediaTypes.Audio},
             {".wav",MediaTypes.Audio},
-            {".m4a",MediaTypes.Audio}
+            {".m4a",MediaTypes.Audio},
+            {".mov",MediaTypes.Video},
+            {".m4v",MediaTypes.Video},
 
         };
 
@@ -60,7 +63,8 @@ namespace DancePro.Services
             ".m4a",
             ".mpg",
             ".png",
-            ".mp4"
+            ".mp4",
+            ".m4v"
             //TODO: Enable Zip extension support once Zip can be unzipped in app.
             //".zip"
 
@@ -156,6 +160,13 @@ namespace DancePro.Services
                     }
 
                     string fileName = fullPath + Filename;
+                    if (File.Exists(fileName))
+                    {
+                        //append copy to the end when copying a file that has the same name.
+                        var name = Path.GetFileNameWithoutExtension(Filename);
+                        var ext = Path.GetExtension(Filename);
+                        fileName = fullPath + name + "Copy" + ext;
+                    }
                     File.WriteAllBytes(fileName, FileData);
                     model.Status = NewDownloadModel.DownloadStatus.Completed;
                     model.Message = "Complete";
@@ -182,6 +193,37 @@ namespace DancePro.Services
             }
         }
 
+        public async Task<List<MediaObject>> SearchAsync(string folderName, string searchParam)
+        {
+            if (string.IsNullOrWhiteSpace(searchParam) || !Directory.Exists(folderName)) return null;
+
+            List<MediaObject> results = new List<MediaObject>();
+
+            await Task.Run(() =>
+            {
+                //get a list of all files
+                List<string> Directories = new List<string>();
+                Directories.AddRange(Directory.GetDirectories(folderName));
+                List<string> files = new List<string>();
+                files.AddRange(Directory.GetFiles(folderName));
+                foreach (var directory in Directories)
+                {
+                    files.AddRange(Directory.GetFiles(directory));
+                }
+
+                //search all files
+                foreach (var file in files)
+                {
+                    if (System.IO.Path.GetFileName(file.ToLower()).Contains(searchParam.ToLower()))
+                    {
+                        results.Add(App.MediaService.GetMediaObject(file));
+                    }
+                }
+
+            });
+
+            return results;
+        }
 
         public List<MediaObject> GetMediaFromFolder() {
 

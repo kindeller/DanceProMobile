@@ -143,7 +143,7 @@ namespace DancePro.ViewModels
             NetworkService = service;
         }
 
-        public void ConnectToWifi(Action<string> callback)
+        public async void ConnectToWifi(Action<string> callback)
         {
             if (!NetworkService.isOnWifi())
             {
@@ -170,5 +170,7 @@ namespace DancePro.ViewModels
         {
             return isNetworkListening() ? "Disable" : "Enable";
         }
+        
+
     }
 }

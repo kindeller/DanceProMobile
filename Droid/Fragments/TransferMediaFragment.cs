@@ -65,6 +65,7 @@ namespace DancePro.Droid
                 }
                 else
                 {
+                    if (ViewModel.GetIsConnecting()) return;
                     BackgroundConnectAsync();
                 }
                 
@@ -136,6 +137,7 @@ namespace DancePro.Droid
         {
             connectedText.Text = ViewModel.GetDeviceText();
         }
+
 
         private async void BackgroundConnectAsync()
         {

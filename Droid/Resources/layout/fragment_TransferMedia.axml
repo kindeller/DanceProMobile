@@ -5,35 +5,15 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:minWidth="25px"
-	android:minHeight="25px">
-	<TextView
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/textView1"
-		android:text="To transfer media onto your device:"
-		android:gravity="center" />
-	<TextView
-		android:text="1. Connect to DPPV Wifi Network"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/textView2"
-		android:gravity="center" />
-	<TextView
-		android:text="2. Present phone to kiosk member"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/textView3"
-		android:gravity="center" />
+	android:minHeight="25px"
+	android:keepScreenOn="true">
 	<TextView
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/textConnected"
+		android:id="@id/textConnected"
 		android:layout_weight="0.5"
-		android:text="Not Connected!"
+		android:text="Device ID: -"
 		android:gravity="center"
 		android:minHeight="40dp" />
 	<TextView

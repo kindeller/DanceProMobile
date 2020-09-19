@@ -27,6 +27,12 @@
 			android:maxHeight="50dp"
 			android:adjustViewBounds="true"
 			android:background="#ffffff" />
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:id="@+id/SearchText"
+			android:layout_weight="1"
+			android:singleLine="true"/>
         </LinearLayout>
 	<android.support.v7.widget.RecyclerView
 		android:minWidth="25px"
@@ -35,7 +41,7 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/MyMediaRecycleView"
         android:translationZ="-1dp"
-        android:translationY="25dp"/>
+        android:translationY="50dp"/>
 	<LinearLayout
 		android:orientation="vertical"
 		android:minWidth="25px"

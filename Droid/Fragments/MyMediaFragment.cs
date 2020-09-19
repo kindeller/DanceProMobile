@@ -48,6 +48,7 @@ namespace DancePro.Droid
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.fragment_mymedia, container, false);
+
             view.Click += (object o, EventArgs e) =>
             {
                 if (DetailsView.Enabled) DetailsView.Enabled = false;
@@ -122,8 +123,10 @@ namespace DancePro.Droid
                     return;
                 }
                 //TODO context menu for sharing media objects ... make it save for now?
-                ShareFile sf = new ShareFile(Path.GetFullPath(DetailsViewObject.FilePath));
+                var path = Path.GetFullPath(DetailsViewObject.FilePath);
+                ShareFile sf = new ShareFile(path);
                 string mime;
+                
                 Services.HttpRequestHandler.mimeTypes.TryGetValue(Path.GetExtension(DetailsViewObject.FilePath), out mime);
                 sf.ContentType = mime;
                 Share.RequestAsync(new ShareFileRequest
@@ -175,9 +178,29 @@ namespace DancePro.Droid
                 DetailsView.Visibility = ViewStates.Invisible;
             };
 
+            view.FindViewById<EditText>(Resource.Id.SearchText).TextChanged += MyMediaFragment_OnSearchTextChanged;
+
             return view;
 
         }
+
+        public void MyMediaFragment_OnSearchTextChanged(object sender, EventArgs e)
+        {
+            EditText editText = (EditText)sender;
+            string searchText = editText?.Text;
+            //TODO: FilterText for weird characters and emojis
+
+            SearchMediaAsync(searchText);
+
+        }
+
+        private async void SearchMediaAsync(string searchParam)
+        {
+            await MediaFolder.SearchMedia(searchParam);
+            Adapter.NotifyDataSetChanged();
+
+        }
+
 
         public void ShowDetailsLayoutFor(MediaObject mediaObject)
         {

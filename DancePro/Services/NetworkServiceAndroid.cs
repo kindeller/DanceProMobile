@@ -27,6 +27,8 @@ namespace DancePro.Services
         private const string _ssid = "DPPV";
         private const string _passphrase = "DPPV3778";
 
+        public bool isConnecting { get; set; } = false;
+
         //private const string ssid = "BudiiLite-primary64C38C-5G";
         //private const string passphrase = "826f9cb1";
 
@@ -88,11 +90,13 @@ namespace DancePro.Services
             wifiManager.EnableNetwork(wifiID, true);
             var _wifiConfiguration = wifiManager.ConfiguredNetworks
                  .FirstOrDefault(n => n.Ssid == _ssid);
+            isConnecting = false;
 
             if (_wifiConfiguration == null)
             {
                 Console.WriteLine($"Cannot connect to network: {_ssid}");
                 callback("Wifi Declined");
+                isConnecting = false;
                 return;
             }
 
@@ -108,6 +112,7 @@ namespace DancePro.Services
         /// <param name="callback"></param>
         public override void ConnectToWifi(Action<string> callback)
         {
+            isConnecting = true;
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Q)
             {
                 LegacyConnectToWifi(callback);
@@ -123,13 +128,14 @@ namespace DancePro.Services
                         // we are connected!
                         Connect();
                         callback("Enabling Network");
+                        isConnecting = false;
                         
                     },
                     NetworkUnavailable = () =>
                     {
                         Console.WriteLine("Failed to Connect to WIFI");
                         callback("Wifi Declined");
-                        
+                        isConnecting = false;
                     }
                 };
 

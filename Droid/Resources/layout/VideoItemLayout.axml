@@ -1,20 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="#ff000000"
-    android:gravity="center_vertical">
+	android:gravity="fill_vertical">
 	<Button
-		android:text="Close"
+		android:text="@string/back"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:id="@+id/VideoCloseButton" />
-	<VideoView
+	<LibVLCSharp.Platforms.Android.VideoView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/videoView1"
-		android:layout_gravity="center"/>
-
-</LinearLayout>
+		android:layout_centerInParent="true"/>
+	<LinearLayout
+		android:orientation="vertical"
+		android:minWidth="25px"
+		android:minHeight="25px"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/linearLayout1"
+		android:layout_alignParentBottom="true">
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:orientation="horizontal">
+		<TextView
+			android:text="00:00"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/textVideoCurrentTime"
+			android:textColor="@android:color/white"
+			android:layout_weight="0"/>
+		<SeekBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/seekBar1"
+			android:layout_weight="1"/>
+		<TextView
+			android:text="00:00"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/textVideoTotalTime"
+			android:textColor="@android:color/white"
+			android:layout_weight="0"/>
+		</LinearLayout>
+		<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true">
+		<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+			android:text="@string/pause"
+			android:layout_alignParentLeft="true"
+			android:id="@+id/VideoPlayButton"/>
+		<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+			android:text="@string/stop"
+			android:layout_alignParentRight="true"
+			android:id="@+id/VideoStopButton"/>
+		</RelativeLayout>
+	</LinearLayout>
+</RelativeLayout>

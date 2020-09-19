@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
 using DancePro.Models;
@@ -11,18 +12,18 @@ namespace DancePro.Droid
 
     public class MediaFolder
     {
-        private DirectoryInfo Directory;
+        private DirectoryInfo CurrentDirectory;
         private List<MediaObject> MediaObjects;
 
         public MediaFolder()
         {
-            Directory = App.MediaService.GetMediaPathDirectory();
+            CurrentDirectory = App.MediaService.GetMediaPathDirectory();
             RefreshMedia();
         }
 
         public MediaFolder(DirectoryInfo directory)
         {
-            Directory = directory;
+            CurrentDirectory = directory;
             RefreshMedia();
             
         }
@@ -69,7 +70,12 @@ namespace DancePro.Droid
                     {
                         return Bitmap.CreateScaledBitmap(imageBitmap, 150, 150, false);
                     }
-                        
+                case MediaTypes.Video:
+                    //TODO: Fix proper VLC Icon
+                    using (var defaultLogo = BitmapFactory.DecodeResource(c.Resources, Resource.Drawable.logo))
+                    {
+                        return Bitmap.CreateScaledBitmap(defaultLogo, 150, 150, false);
+                    }
                 case MediaTypes.Audio:
                     using (var audioBitmap = BitmapFactory.DecodeResource(c.Resources, Resource.Drawable.speaker))
                     {
@@ -125,7 +131,7 @@ namespace DancePro.Droid
         public void RefreshMedia()
         {
             MediaObjects = new List<MediaObject>();
-            MediaObjects = App.MediaService.GetMediaFromFolder(Directory.ToString());
+            MediaObjects = App.MediaService.GetMediaFromFolder(CurrentDirectory.ToString());
         }
 
         public void ChangeDirectory(string path)
@@ -136,7 +142,7 @@ namespace DancePro.Droid
             TargetDir = new DirectoryInfo(path);
             if (TargetDir.Exists)
             {
-                Directory = TargetDir;
+                CurrentDirectory = TargetDir;
                 RefreshMedia();
                 return;
             }
@@ -158,7 +164,24 @@ namespace DancePro.Droid
 
         public void AddFolder(string folderName)
         {
-            App.MediaService.CreateFolder(folderName, Directory.FullName);
+            App.MediaService.CreateFolder(folderName, CurrentDirectory.FullName);
         }
+
+        public async Task SearchMedia(string searchParam)
+        {
+            if (string.IsNullOrWhiteSpace(searchParam))
+            {
+                RefreshMedia();
+                return;
+            }
+           var result = await App.MediaService.SearchAsync(CurrentDirectory.FullName, searchParam);
+
+            if(result != null)
+            {
+                MediaObjects = result;
+            }
+        }
+
+
     }
 }

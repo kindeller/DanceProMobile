@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DancePro.Services;
 
+
 namespace DancePro
 {
     public class App
@@ -16,7 +17,6 @@ namespace DancePro
         {
             MediaService = new MediaService();
             ErrorService = new ErrorService(System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
-
 #if __IOS__
             NetworkService = new NetworkServiceIOS();
 #endif
