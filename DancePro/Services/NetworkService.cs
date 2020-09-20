@@ -16,7 +16,11 @@ namespace DancePro.Services
     {
         //public event EventHandler isListeningChanged;
         public event EventHandler OnStoppedListening;
-        public event EventHandler OnFailedWifiConnect;
+        public event EventHandler OnWifiConnectSuccess;
+        public event EventHandler OnWifiConnectFail;
+        public event EventHandler OnServerConnected;
+        public event EventHandler OnWifiDisconnected;
+
         public HttpRequestHandler handler;
         List<string> prefixes = new List<string>();
         public int Port { get; private set; }
@@ -49,12 +53,6 @@ namespace DancePro.Services
             SetIsListening(false);
             OnStoppedListening?.Invoke(this, null);
         }
-
-        protected void OnWifiConnectFailed(object sender,EventArgs e)
-        {
-            OnFailedWifiConnect?.Invoke(sender, e);
-        }
-
 
         private void SetIsListening(bool b)
         {
@@ -102,6 +100,7 @@ namespace DancePro.Services
                 {
                     SetIsListening(true);
                     handler.ListenAsynchronously(prefixes);
+                    OnServerConnected.Invoke(this,null);
                 }
                 catch(Exception e)
                 {
@@ -154,12 +153,27 @@ namespace DancePro.Services
 
         public abstract IPAddress GetIP();
 
-        public abstract void ConnectToWifi(Action<string> callback);
+        public abstract void ConnectToWifi();
 
         public string GetDeviceID()
         {
             var id = GetIP()?.ToString()?.Split('.')?[3].Split(':')?[0];
-            return id ?? "";
+            return id ?? "-";
+        }
+
+        protected void WifiConnectSuccess()
+        {
+            OnWifiConnectSuccess?.Invoke(this,null);
+        }
+
+        protected void WifiConnectFail()
+        {
+            OnWifiConnectFail?.Invoke(this, null);
+        }
+
+        protected void WifiDisconnected()
+        {
+            OnWifiDisconnected?.Invoke(this, null);
         }
         
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Net;
@@ -27,24 +28,15 @@ namespace DancePro.Services
         private const string _ssid = "DPPV";
         private const string _passphrase = "DPPV3778";
 
-        public bool isConnecting { get; set; } = false;
+        private string _legacySsid = $"\"{_ssid}\"";
+        private string _legacyPassphrase = $"\"{_passphrase}\"";
 
-        //private const string ssid = "BudiiLite-primary64C38C-5G";
-        //private const string passphrase = "826f9cb1";
+        //private const string _ssid = "BudiiLite-primary64C38C-5G";
+        //private const string _passphrase = "826f9cb1";
+
 
         public NetworkServiceAndroid()
         {
-
-            //Manager = Application.Context.GetSystemService(Context.ConnectivityService) as ConnectivityManager;
-            //wifiManager = (WifiManager)Application.Context.GetSystemService(Context.WifiService);
-            //wifiConfiguration = new WifiConfiguration()
-            //{
-            //    Ssid = ssid,
-            //    PreSharedKey = passphrase,
-            //};
-
-            
-
         }
 
         public override IPAddress GetIP()
@@ -76,33 +68,35 @@ namespace DancePro.Services
         /// </summary>
         /// <param name="callback"></param>
         [Obsolete]
-        private void LegacyConnectToWifi(Action<string> callback)
+        private void LegacyConnectToWifi()
         {
             Console.WriteLine("Legacy Wifi Connect...");
             wifiManager = (WifiManager)Application.Context.GetSystemService(Context.WifiService);
-
+            
             wifiConfiguration = new WifiConfiguration()
             {
-                Ssid = $"\"{_ssid}\"",
-                PreSharedKey = $"\"{_passphrase}\""
+                Ssid = _legacySsid,
+                PreSharedKey = _legacyPassphrase
             };
             wifiID = wifiManager.AddNetwork(wifiConfiguration);
             wifiManager.EnableNetwork(wifiID, true);
-            var _wifiConfiguration = wifiManager.ConfiguredNetworks
-                 .FirstOrDefault(n => n.Ssid == _ssid);
-            isConnecting = false;
-
-            if (_wifiConfiguration == null)
+            WifiConfiguration _wifiConfiguration = new WifiConfiguration();
+            foreach (var item in wifiManager.ConfiguredNetworks)
             {
-                Console.WriteLine($"Cannot connect to network: {_ssid}");
-                callback("Wifi Declined");
-                isConnecting = false;
-                return;
+                 if(item.Ssid == _legacySsid)
+                {
+                    _wifiConfiguration = item;
+                }
             }
 
+            if (_wifiConfiguration.Ssid == null)
+            {
+                Console.WriteLine($"Cannot connect to network: {_ssid}");
+                WifiConnectFail();
+                return;
+            }
             //wifiManager.Disconnect();
-            //var enableNetwork = wifiManager.EnableNetwork(wifiConfiguration.NetworkId, true);
-
+            //var enableNetwork = wifiManager.EnableNetwork(_wifiConfiguration.NetworkId, true);
 
         }
 
@@ -110,12 +104,30 @@ namespace DancePro.Services
         /// This method validates the API level and connects to wifi using the AndroidX API.
         /// </summary>
         /// <param name="callback"></param>
-        public override void ConnectToWifi(Action<string> callback)
+        public override void ConnectToWifi()
         {
-            isConnecting = true;
+
+
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Q)
             {
-                LegacyConnectToWifi(callback);
+                Manager = Application.Context.GetSystemService(Context.ConnectivityService) as ConnectivityManager;
+                _networkCallback = new LegacyNetworkCallback(Manager)
+                {
+                    NetworkAvailable = network =>
+                    {
+                        // we are connected!
+                        Console.WriteLine("Connected to Wifi");
+                        WifiConnectSuccess();
+
+                    },
+                    NetworkUnavailable = () =>
+                    {
+                        Console.WriteLine("Failed to Connect to WIFI");
+                        WifiConnectFail();
+                    }
+                };
+                Manager.RegisterDefaultNetworkCallback(_networkCallback);
+                LegacyConnectToWifi();
                 return;
             }
             else
@@ -126,19 +138,16 @@ namespace DancePro.Services
                     NetworkAvailable = network =>
                     {
                         // we are connected!
-                        Connect();
-                        callback("Enabling Network");
-                        isConnecting = false;
-                        
+                        Console.WriteLine("Connected to Wifi");
+                        WifiConnectSuccess();
+
                     },
                     NetworkUnavailable = () =>
                     {
                         Console.WriteLine("Failed to Connect to WIFI");
-                        callback("Wifi Declined");
-                        isConnecting = false;
+                        WifiConnectFail();
                     }
                 };
-
                 var wifiSpecifier = new WifiNetworkSpecifier.Builder()
                    .SetSsid(_ssid)
                    .SetWpa2Passphrase(_passphrase)
@@ -152,8 +161,6 @@ namespace DancePro.Services
 
                 Manager.RequestNetwork(request, _networkCallback);
             }
-
-            
 
         }
 
@@ -174,6 +181,7 @@ namespace DancePro.Services
                 //the UnregisterNetworkCallback releases the wifi connectivity but does not release the binding
                 // so your default wifi and/or mobile data is active but your app has no network connectivity.
                 Manager.UnregisterNetworkCallback(_networkCallback);
+                WifiDisconnected();
             }
             
         }
@@ -183,12 +191,13 @@ namespace DancePro.Services
         {
             Console.WriteLine("Legacy Wifi Disconnect...");
             wifiManager = (WifiManager)Application.Context.GetSystemService(Context.WifiService);
+            wifiManager.Disconnect();
             foreach (WifiConfiguration config in wifiManager.ConfiguredNetworks)
             {
-                if (config.Ssid == _ssid)
+                if (config.Ssid == _legacySsid)
                 {
-                    wifiManager.Disconnect();
                     wifiManager.RemoveNetwork(config.NetworkId);
+                    WifiDisconnected();
                 }
             }
 
@@ -216,6 +225,27 @@ namespace DancePro.Services
             _conn.BindProcessToNetwork(network);
             NetworkAvailable?.Invoke(network);
             
+        }
+
+        public override void OnUnavailable()
+        {
+            base.OnUnavailable();
+            NetworkUnavailable?.Invoke();
+        }
+
+    }
+
+    class LegacyNetworkCallback : NetworkCallback
+    {
+        public LegacyNetworkCallback(ConnectivityManager connectivityManager) : base(connectivityManager)
+        {
+        }
+
+        public override void OnAvailable(Network network)
+        {
+            base.OnAvailable(network);
+            NetworkAvailable?.Invoke(network);
+
         }
 
         public override void OnUnavailable()

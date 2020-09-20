@@ -11,7 +11,16 @@
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@id/textConnected"
+		android:id="@+id/textStatus"
+		android:layout_weight="0.5"
+		android:text="Status: Not Connected"
+		android:gravity="center"
+		android:minHeight="40dp"/>
+	<TextView
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/textID"
 		android:layout_weight="0.5"
 		android:text="Device ID: -"
 		android:gravity="center"

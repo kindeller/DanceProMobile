@@ -355,7 +355,9 @@
     <Compile Include="Helpers\BaseRecycleViewAdapter.cs" />
     <Compile Include="Helpers\RecyclerClickEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Resources\Resource.designer.cs">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </Compile>
     <Compile Include="Fragments\MenuFragment.cs" />
     <Compile Include="Fragments\MyMediaFragment.cs" />
     <Compile Include="Fragments\ContactFragment.cs" />
