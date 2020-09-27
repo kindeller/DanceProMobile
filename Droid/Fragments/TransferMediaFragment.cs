@@ -223,7 +223,7 @@ namespace DancePro.Droid
         public override void OnStop()
         {
             base.OnStop();
-            ViewModel.Disconnect();
+            if(IsVisible) ViewModel.Disconnect();
         }
     }
 }

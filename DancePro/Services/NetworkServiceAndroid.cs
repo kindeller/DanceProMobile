@@ -177,10 +177,10 @@ namespace DancePro.Services
             if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.Q)
             {
                 // need this line to release the binding.  
-                Manager.BindProcessToNetwork(null);
+                Manager?.BindProcessToNetwork(null);
                 //the UnregisterNetworkCallback releases the wifi connectivity but does not release the binding
                 // so your default wifi and/or mobile data is active but your app has no network connectivity.
-                Manager.UnregisterNetworkCallback(_networkCallback);
+                Manager?.UnregisterNetworkCallback(_networkCallback);
                 WifiDisconnected();
             }
             

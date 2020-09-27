@@ -158,7 +158,31 @@ namespace DancePro.Droid
                 et.Text = Path.GetFileNameWithoutExtension(DetailsViewObject.FilePath);
                 Alert = new AlertDialog.Builder(Context);
                 Alert.SetPositiveButton("Done", new EventHandler<DialogClickEventArgs>((object obj, DialogClickEventArgs ea) => {
-                    if (App.MediaService.RenameMediaObject(DetailsViewObject, et.Text.ToString())) DetailsView.Visibility = ViewStates.Invisible;
+                    switch (DetailsViewObject.MediaType)
+                    {
+                        case MediaTypes.Folder:
+                            if (App.MediaService.RenameFolder(DetailsViewObject, et.Text.ToString()))
+                            {
+                                DetailsView.Visibility = ViewStates.Invisible;
+                            }
+                            else
+                            {
+                                Toast.MakeText(Application.Context, $"Cannot rename to {et.Text}", ToastLength.Short);
+                            }
+                            break;
+                        case MediaTypes.Other:
+                            return;
+                        default:
+                            if (App.MediaService.RenameMediaObject(DetailsViewObject, et.Text.ToString()))
+                            {
+                                DetailsView.Visibility = ViewStates.Invisible;
+                            }
+                            else
+                            {
+                                Toast.MakeText(Application.Context, $"Cannot rename to {et.Text}", ToastLength.Short);
+                            }
+                            break;
+                    }
                     RefreshMedia();
                     Alert = null;
                     DetailsView.Visibility = ViewStates.Invisible;
@@ -183,6 +207,8 @@ namespace DancePro.Droid
             return view;
 
         }
+
+
 
         public void MyMediaFragment_OnSearchTextChanged(object sender, EventArgs e)
         {

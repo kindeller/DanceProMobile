@@ -48,27 +48,27 @@ namespace DancePro.Droid
 
             //View Setup
             //TODO: Fix this 
-            //ImageButton fb = V.FindViewById<ImageButton>(Resource.Id.facebookButton);
-            //fb.Click += (sender, e) =>
-            //{
-            //    TryOpenContact("com.facebook.katana", "fb://profile/217475155027428", "http://www.facebook.com/DanceProPhotoVideo/");
-            //};
+            ImageButton fb = V.FindViewById<ImageButton>(Resource.Id.facebookButton);
+            fb.Click += (sender, e) =>
+            {
+                TryOpenContact("com.facebook.katana", "fb://profile/217475155027428", "http://www.facebook.com/DanceProPhotoVideo/");
+            };
 
-            //ImageButton insta = V.FindViewById<ImageButton>(Resource.Id.instaButton);
-            //insta.Click += (sender, e) =>
-            //{
-            //    TryOpenContact("com.instagram.android", "instagram://user?username=danceprophoto", "https://instagram.com/danceprophoto");
-            //};
+            ImageButton insta = V.FindViewById<ImageButton>(Resource.Id.instaButton);
+            insta.Click += (sender, e) =>
+            {
+                TryOpenContact("com.instagram.android", "instagram://user?username=danceprophoto", "https://instagram.com/danceprophoto");
+            };
 
-            //ImageButton email = V.FindViewById<ImageButton>(Resource.Id.emailButton);
-            //insta.Click += (sender, e) =>
-            //{
-            //    Intent intent = new Intent(Intent.ActionSend);
-            //    intent.SetType("text/html");
-            //    intent.PutExtra(Intent.ExtraEmail, "info@dancepro.com.au");
-            //    Activity.StartActivity(intent);
+            ImageButton email = V.FindViewById<ImageButton>(Resource.Id.emailButton);
+            email.Click += (sender, e) =>
+            {
+                Intent intent = new Intent(Intent.ActionSend);
+                intent.SetType("text/html");
+                intent.PutExtra(Intent.ExtraEmail, "info@dancepro.com.au");
+                Activity.StartActivity(intent);
 
-            //};
+            };
 
             ImageButton website = V.FindViewById<ImageButton>(Resource.Id.websiteButton);
             website.Click += (sender, e) =>
@@ -86,9 +86,10 @@ namespace DancePro.Droid
             try
             {
                 //try open FB App
-                //PackageInfo info = Context.PackageManager.GetPackageInfo(PackageString, 0);
+                PackageInfo info = Context.PackageManager.GetPackageInfo(PackageString, 0);
                 uri = new Android.Net.Uri.Builder().EncodedPath(AppLink).Build();
                 intent = new Intent(Intent.ActionView, uri);
+                intent.AddFlags(ActivityFlags.NewTask);
                 Context.ApplicationContext.StartActivity(intent);
                 //Context.StartActivity(intent);
             }
