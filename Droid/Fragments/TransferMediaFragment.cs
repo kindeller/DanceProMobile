@@ -24,12 +24,12 @@ namespace DancePro.Droid
         TransferViewModel ViewModel;
         Button btnEnable;
         Button btnClear;
-        TextView connectedText;
+        TextView textID;
+        TextView textStatus;
         TextView TotalCompletedTextView;
         RecyclerView TransferItemsView;
         TransferMediaAdapter Adapter;
         RecyclerView.LayoutManager LayoutManager;
-        private bool cancelUIUpdate = false;
 
         public void BecameVisible()
         {
@@ -52,31 +52,22 @@ namespace DancePro.Droid
             View view = inflater.Inflate(Resource.Layout.fragment_TransferMedia, container, false);
             TotalCompletedTextView = view.FindViewById<TextView>(Resource.Id.transfertotaltextview);
             TransferItemsView = view.FindViewById<RecyclerView>(Resource.Id.TransferItemsView);
-            connectedText = view.FindViewById<TextView>(Resource.Id.textConnected);
+            textID = view.FindViewById<TextView>(Resource.Id.textID);
+            textStatus = view.FindViewById<TextView>(Resource.Id.textStatus);
             GetDeviceID();
             btnEnable = view.FindViewById<Button>(Resource.Id.btnEnable);
-            btnEnable.Click += (sender, e) => {
-                if (ViewModel.isNetworkListening())
-                {
-                    ViewModel.Disconnect();
-                    SetDeviceText("Disconnected");
-                    ToggleButtonText();
-                    
-                }
-                else
-                {
-                    if (ViewModel.GetIsConnecting()) return;
-                    BackgroundConnectAsync();
-                }
-                
-            };
+            btnEnable.Click += BtnEnable_Click;
             btnClear = view.FindViewById<Button>(Resource.Id.btnClear);
             btnClear.Click += (sender, e) =>
             {
                 ViewModel.ClearDownloads();
             };
-
+            ViewModel.OnStoppedListening += ViewModel_OnStoppedListening;
             ViewModel.DownloadsUpdated += ViewModel_DownloadsUpdated;
+            ViewModel.OnServerConnected += ViewModel_OnServerConnected;
+            ViewModel.OnWifiConnectFail += ViewModel_OnWifiConnectFail;
+            ViewModel.OnWifiConnectSuccess += ViewModel_OnWifiConnectSuccess;
+            ViewModel.OnWifiDisconnected += ViewModel_OnWifiDisconnected;
 
             //Create Adapter
             Adapter = new TransferMediaAdapter();
@@ -89,6 +80,61 @@ namespace DancePro.Droid
             return view;
         }
 
+        private void ViewModel_OnServerConnected(object sender, EventArgs e)
+        {
+            textStatus.Text = "Status: Connected.";
+            UpdateUI();
+        }
+
+        private void ViewModel_OnWifiDisconnected(object sender, EventArgs e)
+        {
+            textStatus.Text = "Status: Wifi Disconnected.";
+            UpdateUI();
+        }
+
+        private void ViewModel_OnWifiConnectSuccess(object sender, EventArgs e)
+        {
+            if (!ViewModel.isNetworkListening())
+            {
+                textStatus.Text = "Status: Wifi Connected!";
+                Connect();
+                UpdateUI();
+            }
+
+        }
+
+        private void ViewModel_OnWifiConnectFail(object sender, EventArgs e)
+        {
+            textStatus.Text = "Status: Wifi Connect Failed.";
+            UpdateUI();
+        }
+
+        private void ViewModel_OnStoppedListening(object sender, EventArgs e)
+        {
+            ViewModel.UpdateNetworkService(new Services.NetworkServiceAndroid());
+            textStatus.Text = "Status: Disconnected.";
+            UpdateUI();
+        }
+
+        /// <summary>
+        /// Toggles between connecting and disconnecting depending on if its currently listening.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEnable_Click(object sender, EventArgs e)
+        {
+            textStatus.Text = "Status: Connecting...";
+            if (ViewModel.isNetworkListening())
+            {
+                ViewModel.Disconnect();
+            }
+            else
+            {
+                Connect();
+            }
+            
+        }
+
         public override bool UserVisibleHint {
             get => base.UserVisibleHint;
             set
@@ -96,7 +142,8 @@ namespace DancePro.Droid
                 base.UserVisibleHint = value;
                 if (value)
                 {
-                    BackgroundConnectAsync();
+                    textStatus.Text = "Status: Connecting...";
+                    Connect();
                 }
             }
         }
@@ -135,70 +182,48 @@ namespace DancePro.Droid
 
         private void GetDeviceID()
         {
-            connectedText.Text = ViewModel.GetDeviceText();
-        }
-
-
-        private async void BackgroundConnectAsync()
-        {
-
-            Console.WriteLine("Background Async Started");
-            ViewModel.ConnectToWifi(SetDeviceText);
-            //Check if failed to connect to wifi
-            Console.WriteLine("Connecting...");
-            Activity.RunOnUiThread(() =>
-            {
-                SetDeviceText("Connecting");
-            });
-            if (Build.VERSION.SdkInt < BuildVersionCodes.Q)
-            {
-                while (!cancelUIUpdate || !ViewModel.isNetworkListening())
-                {
-                    ViewModel.Connect();
-                    await Task.Delay(1000);
-                    Activity.RunOnUiThread(() =>
-                    {
-                        Console.WriteLine("Updating UI...");
-                        SetDeviceText();
-                        ToggleButtonText();
-                        return;
-                    });
-                }
-                cancelUIUpdate = false;
-            }
+            textID.Text = ViewModel.GetDeviceText();
         }
 
         private void SetDeviceText()
         { 
             string result = ViewModel.GetDeviceText();
-            if (!string.IsNullOrEmpty(result)) connectedText.Text = result;
+            if (!string.IsNullOrEmpty(result))
+            {
+                textID.Text = result;
+            }
+            else
+            {
+                textID.Text = "Device ID: -";
+            }
         }
 
 
         /// <summary>
-        /// This method needs reworked to represent what it is
+        /// Handles Connecting to the server. Checks first if on wifi and connects if not attempts to connect.
         /// </summary>
-        /// <param name="text"></param>
-        private void SetDeviceText(string text)
+        private void Connect()
         {
-            Console.WriteLine("Updating Text: " + text);
-            switch (text)
+            if (ViewModel.isOnWifi())
             {
-                case "Wifi Declined":
-                    cancelUIUpdate = true;
-                    connectedText.Text = text;
-                    break;
-                case "Enabling Network":
-                    connectedText.Text = text;
-                    SetDeviceText();
-                    break;
-                default:
-                    connectedText.Text = text;
-                    break;
-
+                ViewModel.Connect();
             }
-            ToggleButtonText();
+            else
+            {
+                ViewModel.ConnectToWifi();
+            }
+        }
 
+        private void UpdateUI()
+        {
+            SetDeviceText();
+            ToggleButtonText();
+        }
+
+        public override void OnStop()
+        {
+            base.OnStop();
+            if(IsVisible) ViewModel.Disconnect();
         }
     }
 }

@@ -8,9 +8,16 @@ namespace DancePro.ViewModels
 {
     public class TransferViewModel : BaseViewModel
     {
-        NetworkService NetworkService;
+        NetworkService _NetworkService;
         List<NewDownloadModel> DownloadingMedia;
         public int CompletedCount { get; private set; }
+
+        public event EventHandler OnStoppedListening;
+        public event EventHandler OnServerConnected;
+        public event EventHandler OnWifiConnectSuccess;
+        public event EventHandler OnWifiConnectFail;
+        public event EventHandler OnWifiDisconnected;
+        
 
         public delegate void DownloadMediaChanged(List<NewDownloadModel> mediaList);
 
@@ -26,16 +33,38 @@ namespace DancePro.ViewModels
 
         public TransferViewModel(NetworkService networkService)
         {
-            NetworkService = networkService;
-            //NetworkService.Connect();
-            NetworkService.OnStoppedListening += NetworkService_OnStoppedListening;
+            _NetworkService = networkService;
+
+            SetUpEventListeners();
             App.MediaService.startedEventHandler += MediaService_StartedEventHandler;
             App.MediaService.DownloadUpdate += MediaService_DownloadUpdate;
             DownloadingMedia = new List<NewDownloadModel>();
         }
 
+        private void _NetworkService_OnServerConnected(object sender, EventArgs e)
+        {
+            OnServerConnected?.Invoke(sender, e);
+        }
+
+        private void _NetworkService_OnWifiDisconnected(object sender, EventArgs e)
+        {
+            OnWifiDisconnected?.Invoke(sender, e);
+        }
+
+        private void _NetworkService_OnWifiConnectFail(object sender, EventArgs e)
+        {
+            OnWifiConnectFail?.Invoke(sender, e);
+        }
+
+        private void _NetworkService_OnWifiConnectSuccess(object sender, EventArgs e)
+        {
+            OnWifiConnectSuccess?.Invoke(sender, e);
+        }
+
         void NetworkService_OnStoppedListening(object sender, EventArgs e)
         {
+            OnStoppedListening?.Invoke(sender, e);
+            SetUpEventListeners();
         }
 
         void MediaService_DownloadUpdate(object sender, NewDownloadModel model)
@@ -108,47 +137,27 @@ namespace DancePro.ViewModels
 
         public void Connect()
         {
-            NetworkService.Connect();
+            _NetworkService.Connect();
         }
 
         public void Disconnect()
         {
-            NetworkService.Disconnect();
-        }
-
-        public void ToggleConnection()
-        {
-            if (NetworkService.isListening)
-            {
-                Disconnect();
-            }
-            else
-            {
-                Connect();
-            }
+            _NetworkService.Disconnect();
         }
 
         public bool isNetworkListening()
         {
-           return NetworkService.isListening;
+           return _NetworkService.isListening;
         }
 
         public string GetDeviceID()
         {
-            return NetworkService.GetDeviceID();
+            return _NetworkService.GetDeviceID();
         }
 
         public void UpdateNetworkService(NetworkService service)
         {
-            NetworkService = service;
-        }
-
-        public async void ConnectToWifi(Action<string> callback)
-        {
-            if (!NetworkService.isOnWifi())
-            {
-                NetworkService.ConnectToWifi(callback);
-            }
+            _NetworkService = service;
         }
 
         public string GetDeviceText()
@@ -170,7 +179,24 @@ namespace DancePro.ViewModels
         {
             return isNetworkListening() ? "Disable" : "Enable";
         }
-        
 
+        public bool isOnWifi()
+        {
+            return _NetworkService.isOnWifi();
+        }
+
+        private void SetUpEventListeners()
+        {
+            _NetworkService.OnStoppedListening += NetworkService_OnStoppedListening;
+            _NetworkService.OnServerConnected += _NetworkService_OnServerConnected;
+            _NetworkService.OnWifiConnectSuccess += _NetworkService_OnWifiConnectSuccess;
+            _NetworkService.OnWifiConnectFail += _NetworkService_OnWifiConnectFail;
+            _NetworkService.OnWifiDisconnected += _NetworkService_OnWifiDisconnected;
+        }
+
+        public void ConnectToWifi()
+        {
+            _NetworkService.ConnectToWifi();
+        }
     }
 }
