@@ -64,7 +64,6 @@ namespace DancePro.ViewModels
         void NetworkService_OnStoppedListening(object sender, EventArgs e)
         {
             OnStoppedListening?.Invoke(sender, e);
-            SetUpEventListeners();
         }
 
         void MediaService_DownloadUpdate(object sender, NewDownloadModel model)
@@ -158,6 +157,7 @@ namespace DancePro.ViewModels
         public void UpdateNetworkService(NetworkService service)
         {
             _NetworkService = service;
+            SetUpEventListeners();
         }
 
         public string GetDeviceText()

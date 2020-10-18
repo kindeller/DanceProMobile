@@ -48,5 +48,10 @@ namespace DancePro.iOS
                     break;
             }
         }
+
+        public string GetMediaObjectPath()
+        {
+            return Model.FilePath;
+        }
     }
 }

@@ -24,6 +24,10 @@ namespace DancePro.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel optionalLabel { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView ThumbImage { get; set; }
 
         [Outlet]
@@ -44,6 +48,11 @@ namespace DancePro.iOS
             if (MenuButton != null) {
                 MenuButton.Dispose ();
                 MenuButton = null;
+            }
+
+            if (optionalLabel != null) {
+                optionalLabel.Dispose ();
+                optionalLabel = null;
             }
 
             if (ThumbImage != null) {

@@ -287,7 +287,7 @@ namespace DancePro.Services
             MediaService MediaService = App.MediaService;
             MediaService.NewDownload(id);
 
-            MultipartParser parser = new MultipartParser(context.Request.InputStream, context.Request.ContentEncoding);
+            MultipartParser parser = new MultipartParser(context.Request.InputStream, Encoding.UTF8);
 
             if (parser.Success)
             {
@@ -304,6 +304,7 @@ namespace DancePro.Services
                 }
             }
         }
+
 
     }
 

@@ -22,7 +22,23 @@ namespace DancePro.Models
             SegueString = new NSString("ImageSegue");
         }
 
-        public override UIImage GetThumb() { return UIImage.FromFile(FilePath).Scale(new CGSize(UIImage.FromFile(FilePath).Size.Width / 5, UIImage.FromFile(FilePath).Size.Height / 5)); }
+        public override UIImage GetThumb() {
+
+            bool exists = File.Exists(FilePath);
+            DirectoryInfo d = new DirectoryInfo(FilePath);
+            UIImage image = UIImage.FromFile(FilePath);
+            
+            if(image != null)
+            {
+                CGSize size = new CGSize(UIImage.FromFile(FilePath).Size.Width / 5, UIImage.FromFile(FilePath).Size.Height / 5);
+                return UIImage.FromFile(FilePath)?.Scale(size);
+            }
+            else
+            {
+                return UIImage.FromBundle("Error");
+            }
+            
+        }
 
         public override UIView GetDetailView(UIViewController mainController)
         {

@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -28,7 +29,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-59" y="159"/>
+            <point key="canvasLocation" x="-586" y="-67"/>
         </scene>
         <!--Home-->
         <scene sceneID="3092">
@@ -42,20 +43,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3098">
-                                <rect key="frame" x="46" y="487" width="300" height="120"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="My Media">
-                                    <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="MediaButton_TouchUpInside:" destination="3093" eventType="touchUpInside" id="68025"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3099">
-                                <rect key="frame" x="38" y="359" width="300" height="120"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3099">
+                                <rect key="frame" x="0.0" y="349" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="xHb-34-lOG"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Transfer Media">
                                     <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -64,9 +56,11 @@
                                     <action selector="TransferButton_TouchUpInside:" destination="3093" eventType="touchUpInside" id="90251"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3100">
-                                <rect key="frame" x="46" y="615" width="300" height="112"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3100">
+                                <rect key="frame" x="0.0" y="587" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="RhJ-vy-rxB"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Website">
                                     <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -75,30 +69,41 @@
                                     <action selector="WebsiteButton_TouchUpInside:" destination="3093" eventType="touchUpInside" id="90250"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DanceProLogoIcon" translatesAutoresizingMaskIntoConstraints="NO" id="82569">
-                                <rect key="frame" x="55" y="-187" width="521" height="591"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DanceProLogo" translatesAutoresizingMaskIntoConstraints="NO" id="82569">
+                                <rect key="frame" x="0.0" y="174" width="375" height="167"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="167" id="wBl-UH-cAk"/>
+                                </constraints>
                             </imageView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View and manage your personal DancePro media gallery." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130617">
-                                <rect key="frame" x="83" y="478" width="211" height="62"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Transfer media from an event captured by DancePro." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130793">
-                                <rect key="frame" x="90" y="366" width="211" height="61"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Visit our Website for other competitions and events." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="130794">
-                                <rect key="frame" x="91" y="632" width="211" height="62"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3098">
+                                <rect key="frame" x="0.0" y="474" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hFv-Oz-L0e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="My Media">
+                                    <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="MediaButton_TouchUpInside:" destination="3093" eventType="touchUpInside" id="68025"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="82569" firstAttribute="centerX" secondItem="3099" secondAttribute="centerX" id="0IP-eG-x8z"/>
+                            <constraint firstItem="3098" firstAttribute="top" secondItem="3099" secondAttribute="bottom" constant="74" id="3JA-Pd-w0z"/>
+                            <constraint firstItem="3099" firstAttribute="trailing" secondItem="3100" secondAttribute="trailing" id="GHt-wg-mpW"/>
+                            <constraint firstItem="3100" firstAttribute="top" secondItem="3098" secondAttribute="bottom" constant="73" id="K1Y-Gg-eHm"/>
+                            <constraint firstItem="3099" firstAttribute="trailing" secondItem="3098" secondAttribute="trailing" id="RZy-Wl-KjY"/>
+                            <constraint firstItem="3099" firstAttribute="leading" secondItem="3098" secondAttribute="leading" id="V8m-7g-S9A"/>
+                            <constraint firstItem="3099" firstAttribute="top" secondItem="82569" secondAttribute="bottom" constant="19" id="bro-jG-cJj"/>
+                            <constraint firstItem="82569" firstAttribute="top" secondItem="3090" secondAttribute="bottom" constant="86" id="gYH-gZ-ZUG"/>
+                            <constraint firstItem="82569" firstAttribute="leading" secondItem="3094" secondAttribute="leading" id="grJ-gT-ian"/>
+                            <constraint firstItem="3099" firstAttribute="leading" secondItem="3100" secondAttribute="leading" id="jmD-Pj-upf"/>
+                            <constraint firstAttribute="trailing" secondItem="82569" secondAttribute="trailing" id="p1f-1M-z4c"/>
+                            <constraint firstItem="82569" firstAttribute="leading" secondItem="3099" secondAttribute="leading" id="tss-pI-F6J"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="4058"/>
                     <navigationItem key="navigationItem" title="Home" id="4462"/>
@@ -106,16 +111,13 @@
                     <connections>
                         <outlet property="MainView" destination="3094" id="name-outlet-3094"/>
                         <outlet property="MediaButton" destination="3098" id="name-outlet-3098"/>
-                        <outlet property="MyMediaSubtitle" destination="130617" id="name-outlet-130617"/>
                         <outlet property="TransferButton" destination="3099" id="name-outlet-3099"/>
-                        <outlet property="TransferMediaSubtitle" destination="130793" id="name-outlet-130793"/>
                         <outlet property="WebsiteButton" destination="3100" id="name-outlet-3100"/>
-                        <outlet property="WebsiteSubtitle" destination="130794" id="name-outlet-130794"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3095" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1355" y="-539"/>
+            <point key="canvasLocation" x="1688.8" y="-602.21674876847294"/>
         </scene>
         <!--Home-->
         <scene sceneID="4366">
@@ -124,9 +126,8 @@
                     <tabBarItem key="tabBarItem" title="Home" image="Home" id="4552"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4369">
-                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.33333333333333298" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -137,7 +138,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4370" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="788" y="-545"/>
+            <point key="canvasLocation" x="673" y="-602"/>
         </scene>
         <!--My Media-->
         <scene sceneID="6340">
@@ -146,41 +147,41 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="14650">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" systemColor="labelColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="14652">
-                            <size key="itemSize" width="113" height="134"/>
+                            <size key="itemSize" width="352" height="99"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="7.5" minY="5" maxX="7.5" maxY="5"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyMediaViewCell" id="14906" customClass="MyMediaViewCell">
-                                <rect key="frame" x="8" y="5" width="113" height="134"/>
+                                <rect key="frame" x="11.666666666666666" y="5" width="352" height="99"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="113" height="134"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="352" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="14907">
-                                            <rect key="frame" x="8" y="98" width="96" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="14907">
+                                            <rect key="frame" x="146" y="8" width="159" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14908">
+                                            <rect key="frame" x="0.0" y="0.0" width="138" height="99"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18549">
+                                            <rect key="frame" x="146" y="58" width="84" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14908">
-                                            <rect key="frame" x="6" y="0.0" width="100" height="97"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18549">
-                                            <rect key="frame" x="8" y="116" width="51" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61404">
-                                            <rect key="frame" x="88" y="0.0" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61404">
+                                            <rect key="frame" x="313" y="8" width="31" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="AcademyEngravedLetPlain" family="Academy Engraved LET" pointSize="50"/>
                                             <state key="normal" backgroundImage="Button_More">
                                                 <color key="titleColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
@@ -189,6 +190,13 @@
                                                 <action selector="MediaCellMenu_UpInside:" destination="14906" eventType="touchUpInside" id="61406"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Optional" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="136903">
+                                            <rect key="frame" x="285" y="57" width="59" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" name="CellBgColor"/>
@@ -197,6 +205,7 @@
                                     <outlet property="MenuButton" destination="61404" id="name-outlet-61404"/>
                                     <outlet property="ThumbImage" destination="14908" id="name-outlet-14908"/>
                                     <outlet property="Title" destination="14907" id="name-outlet-14907"/>
+                                    <outlet property="optionalLabel" destination="136903" id="name-outlet-136903"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -216,7 +225,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6347" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1993" y="-206"/>
+            <point key="canvasLocation" x="2542" y="94"/>
         </scene>
         <!--Media Object View Controller-->
         <scene sceneID="26555">
@@ -224,7 +233,7 @@
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="26556" customClass="MediaObjectViewController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="26558" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3177" y="-927"/>
+            <point key="canvasLocation" x="3406" y="-457"/>
         </scene>
         <!--Audio Object View Controller-->
         <scene sceneID="42174">
@@ -238,21 +247,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42180">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42180">
                                 <rect key="frame" x="56" y="452" width="67" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <state key="normal" title="Play">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="Play:" destination="42175" eventType="touchUpInside" id="46294"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42181">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42181">
                                 <rect key="frame" x="263" y="452" width="67" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <state key="normal" title="Stop">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
                                     <action selector="Stop:" destination="42175" eventType="touchUpInside" id="46295"/>
@@ -276,7 +285,7 @@
                                 <rect key="frame" x="41" y="310" width="289" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="tintColor" white="0.33333333333333298" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="thumbTintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="thumbTintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="DurationSliderChanged:" destination="42175" eventType="valueChanged" id="53493"/>
                                 </connections>
@@ -285,13 +294,13 @@
                                 <rect key="frame" x="41" y="523" width="289" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="tintColor" white="0.33333333333333298" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="thumbTintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="thumbTintColor" systemColor="labelColor"/>
                                 <connections>
                                     <action selector="VolumeBar_Changed:" destination="42175" eventType="valueChanged" id="59617"/>
                                 </connections>
                             </slider>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
                         <outlet property="DurationBar" destination="52776" id="name-outlet-52776"/>
@@ -304,7 +313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42177" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-66"/>
+            <point key="canvasLocation" x="4218" y="94"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="42440">
@@ -312,7 +321,7 @@
                 <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="42441" customClass="VideoObjectViewController" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42442" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3185" y="774"/>
+            <point key="canvasLocation" x="3406" y="650"/>
         </scene>
         <!--Edit-->
         <scene sceneID="63441">
@@ -330,58 +339,58 @@
                                 <rect key="frame" x="12" y="498" width="350" height="250"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63467">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63467">
                                         <rect key="frame" x="14" y="9" width="99" height="80"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Share">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Share_TouchUpInside:" destination="63442" eventType="touchUpInside" id="131281"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63468">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63468">
                                         <rect key="frame" x="232" y="9" width="103" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Delete">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Delete__TouchUpInside:" destination="63442" eventType="touchUpInside" id="63486"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63475">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63475">
                                         <rect key="frame" x="14" y="124" width="97" height="80"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <state key="normal" title="Duplicate">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Duplicate__TouchUpInside:" destination="63442" eventType="touchUpInside" id="63487"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63477">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63477">
                                         <rect key="frame" x="232" y="124" width="103" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Rename">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Rename_TouchUpInside:" destination="63442" eventType="touchUpInside" id="63485"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63483">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="63483">
                                         <rect key="frame" x="8" y="212" width="334" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <state key="normal" title="Cancel">
-                                            <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" systemColor="labelColor"/>
                                         </state>
                                         <connections>
                                             <action selector="Cancel_TouchUpInside:" destination="63442" eventType="touchUpInside" id="63484"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -398,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63444" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2186" y="703"/>
+            <point key="canvasLocation" x="2542" y="831"/>
         </scene>
         <!--Contact-->
         <scene sceneID="68904">
@@ -432,7 +441,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96862">
+                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96862">
                                 <rect key="frame" x="32" y="186" width="100" height="100"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" image="YES"/>
@@ -445,7 +454,7 @@
                                     <action selector="Facebook_TouchUpInside:" destination="68905" eventType="touchUpInside" id="96863"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="0.0" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99111">
+                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="0.0" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99111">
                                 <rect key="frame" x="156" y="186" width="100" height="100"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" image="YES"/>
@@ -458,7 +467,7 @@
                                     <action selector="Mail_UpInside:" destination="68905" eventType="touchUpInside" id="99114"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99108">
+                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99108">
                                 <rect key="frame" x="281" y="186" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="99108" secondAttribute="height" multiplier="1:1" id="118460"/>
@@ -468,7 +477,7 @@
                                     <action selector="Instagram_UpInside:" destination="68905" eventType="touchUpInside" id="99115"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99708">
+                            <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99708">
                                 <rect key="frame" x="156" y="360" width="100" height="100"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" image="YES"/>
@@ -481,18 +490,18 @@
                                     <action selector="Website_UpInside:" destination="68905" eventType="touchUpInside" id="100680"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="135697" translatesAutoresizingMaskIntoConstraints="NO" misplaced="YES">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="135697">
                                 <rect key="frame" x="6" y="536" width="375" height="47"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30" weight="heavy"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                 <state key="normal" title="www.DancePro.com.au">
-                                    <color key="titleColor" cocoaTouchSystemColor="labelColor"/>
+                                    <color key="titleColor" systemColor="labelColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="WebsiteLink_UpInside:" destination="68905" id="135867" eventType="touchUpInside"/>
+                                    <action selector="WebsiteLink_UpInside:" destination="68905" eventType="touchUpInside" id="135867"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="101003" firstAttribute="trailing" secondItem="68907" secondAttribute="trailingMargin" id="118367"/>
                             <constraint firstItem="101003" firstAttribute="leading" secondItem="68907" secondAttribute="leadingMargin" id="118368"/>
@@ -520,9 +529,9 @@
                             <constraint firstItem="101002" firstAttribute="leading" secondItem="68907" secondAttribute="leadingMargin" id="119194"/>
                             <constraint firstItem="99708" firstAttribute="centerX" secondItem="101003" secondAttribute="centerX" id="119935"/>
                             <constraint firstItem="99708" firstAttribute="top" secondItem="101002" secondAttribute="bottom" constant="19" id="126061"/>
-                            <constraint id="136234" firstItem="135697" firstAttribute="top" secondItem="101003" secondAttribute="bottom" constant="34"/>
-                            <constraint id="136235" firstAttribute="leadingMargin" secondItem="135697" secondAttribute="leading"/>
-                            <constraint id="136236" firstItem="135697" firstAttribute="trailing" secondItem="68907" secondAttribute="trailingMargin"/>
+                            <constraint firstItem="135697" firstAttribute="top" secondItem="101003" secondAttribute="bottom" constant="34" id="136234"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="135697" secondAttribute="leading" id="136235"/>
+                            <constraint firstItem="135697" firstAttribute="trailing" secondItem="68907" secondAttribute="trailingMargin" id="136236"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Contact" id="68906"/>
@@ -536,9 +545,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="68910" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1353.516" y="-1384.48"/>
+            <point key="canvasLocation" x="1689" y="-1357"/>
         </scene>
-        <!--Media Transfer-->
+        <!--Transfer Media-->
         <scene sceneID="87282">
             <objects>
                 <viewController id="87283" customClass="TransferMediaViewController" sceneMemberID="viewController">
@@ -547,31 +556,31 @@
                         <viewControllerLayoutGuide type="bottom" id="87281"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="87284">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Downloads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="91006">
-                                <rect key="frame" x="50" y="154" width="282" height="30"/>
+                                <rect key="frame" x="50" y="54" width="282" height="29"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="91300">
-                                <rect key="frame" x="47" y="192" width="282" height="484"/>
+                                <rect key="frame" x="47" y="106" width="282" height="479"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="91302">
-                                    <size key="itemSize" width="150" height="61"/>
+                                    <size key="itemSize" width="149" height="61"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TransferCollectionViewCell" id="91301" customClass="TransferCollectionViewCell">
-                                        <rect key="frame" x="66" y="0.0" width="150" height="61"/>
+                                        <rect key="frame" x="66.666666666666671" y="0.0" width="149" height="61"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="61"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="149" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91305">
@@ -592,12 +601,12 @@
                                                     <rect key="frame" x="8" y="33" width="90" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="12"/>
-                                                    <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
                                         <connections>
                                             <outlet property="ActivityIndicator" destination="91686" id="name-outlet-91686"/>
                                             <outlet property="CompletedImage" destination="91687" id="name-outlet-91687"/>
@@ -608,14 +617,14 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="91313">
-                                <rect key="frame" x="97" y="118" width="194" height="28"/>
+                                <rect key="frame" x="50" y="20" width="279" height="33"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91359">
-                                <rect key="frame" x="47" y="684" width="64" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91359">
+                                <rect key="frame" x="18" y="593" width="101" height="28"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <state key="normal" title="Disable">
                                     <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -624,14 +633,8 @@
                                     <action selector="ToggleButton_UpInside:" destination="87283" eventType="touchUpInside" id="129506"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(0/0)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91690">
-                                <rect key="frame" x="128" y="686" width="125" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92002">
-                                <rect key="frame" x="269" y="684" width="70" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92002">
+                                <rect key="frame" x="260" y="593" width="101" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <state key="normal" title="Clear All">
                                     <color key="titleColor" red="0.070588235289999995" green="0.55294117649999996" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -640,10 +643,17 @@
                                     <action selector="Clear_TouchUpInside:" destination="87283" eventType="touchUpInside" id="92539"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(0/0)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91690">
+                                <rect key="frame" x="127" y="594" width="125" height="27"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Media Transfer" id="87342"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Transfer Media" id="87342"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="AddressLabel" destination="91313" id="name-outlet-91313"/>
@@ -656,7 +666,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="87285" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1514" y="1155"/>
+            <point key="canvasLocation" x="1689" y="774"/>
         </scene>
         <!--My Media-->
         <scene sceneID="120338">
@@ -665,9 +675,8 @@
                     <tabBarItem key="tabBarItem" title="My Media" image="Media" id="120685"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="120341">
-                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.33333333333333298" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -678,7 +687,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="120342" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826" y="303"/>
+            <point key="canvasLocation" x="673" y="96"/>
         </scene>
         <!--Transfer-->
         <scene sceneID="120360">
@@ -687,9 +696,8 @@
                     <tabBarItem key="tabBarItem" title="Transfer" image="Transfer" id="120541"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="120363">
-                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.33333333333333298" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -700,7 +708,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="120364" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="837" y="1173"/>
+            <point key="canvasLocation" x="673" y="774"/>
         </scene>
         <!--Contact-->
         <scene sceneID="120703">
@@ -709,9 +717,8 @@
                     <tabBarItem key="tabBarItem" title="Contact" image="Contact" id="120749"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="120706">
-                        <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.33333333333333298" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.070588235294117646" green="0.55294117647058827" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
@@ -722,20 +729,38 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="120707" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="818" y="-1375"/>
+            <point key="canvasLocation" x="673" y="-1357"/>
         </scene>
     </scenes>
     <resources>
         <image name="Button_More" width="100" height="100"/>
         <image name="Contact" width="30" height="23"/>
-        <image name="DanceProLogoIcon" width="1181" height="1181"/>
+        <image name="DanceProLogo" width="5158" height="1170"/>
         <image name="Facebook" width="1024" height="1024"/>
         <image name="Home" width="30" height="30"/>
         <image name="Icon_Complete" width="100" height="100"/>
         <image name="Instagram" width="1024" height="1024"/>
         <image name="Mail" width="1024" height="1024"/>
-        <image name="Media" width="30" height="26.33333"/>
-        <image name="Transfer" width="30" height="29.66667"/>
+        <image name="Media" width="30" height="26.333333969116211"/>
+        <image name="Transfer" width="30" height="29.666666030883789"/>
         <image name="Website" width="1024" height="1024"/>
+        <namedColor name="CellBgColor">
+            <color red="0.86274510622024536" green="0.86274510622024536" blue="0.86274510622024536" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -6,6 +6,7 @@ using DancePro.Services;
 using DancePro.ViewModels;
 using Microsoft.AppCenter.Analytics;
 using UIKit;
+using System.Linq;
 
 
 namespace DancePro.iOS.ViewControllers
@@ -13,7 +14,7 @@ namespace DancePro.iOS.ViewControllers
     public partial class TransferMediaViewController : UIViewController
     {
         TransferViewModel Model;
-        bool cancelUIUpdate = false;
+        bool isDownloading = false;
 
         public TransferMediaViewController(IntPtr intPtr) : base(intPtr)
         {
@@ -26,14 +27,36 @@ namespace DancePro.iOS.ViewControllers
             base.ViewDidLoad();
             Analytics.TrackEvent("[Transfer] Loaded Page");
             // Perform any additional setup after loading the view, typically from a nib.
-            //TODO: Remove temp fix for darkmode issues and add dark mode support
-            //if (AppDelegate.CheckVersion(13))
-            //{
-            //    OverrideUserInterfaceStyle = UIUserInterfaceStyle.Light;
-            //}
             Model.DownloadsUpdated += Model_DownloadsUpdated;
             InitTransfer();
             UIApplication.SharedApplication.IdleTimerDisabled = true;
+
+            Model.OnWifiConnectFail += Model_OnWifiConnectFail;
+            Model.OnWifiConnectSuccess += Model_OnWifiConnectSuccess;
+            Model.OnWifiDisconnected += Model_OnWifiDisconnected;
+            Model.OnServerConnected += Model_OnServerConnected;
+        }
+
+        private void Model_OnServerConnected(object sender, EventArgs e)
+        {
+            SetDeviceText();
+            ToggleButtonText();
+        }
+
+        private void Model_OnWifiDisconnected(object sender, EventArgs e)
+        {
+            SetDeviceText("Wifi Disconnected!");
+        }
+
+        private void Model_OnWifiConnectSuccess(object sender, EventArgs e)
+        {
+            SetDeviceText("Wifi Connected...");
+            DelayedConnectAsync();
+        }
+
+        private void Model_OnWifiConnectFail(object sender, EventArgs e)
+        {
+            SetDeviceText("Wifi connect failed!");
         }
 
         void NetworkService_OnStoppedListening(object sender, EventArgs e)
@@ -58,6 +81,8 @@ namespace DancePro.iOS.ViewControllers
             //}
             //Console.WriteLine("// End List");
             InvokeOnMainThread(() => {
+
+                mediaList = mediaList.OrderBy(o => (int)o.Status).ToList();
                 TransferUICollectionSource source = new TransferUICollectionSource();
                 source.DownloadList = mediaList;
                 DownloadsCollectionView.Source = source;
@@ -66,16 +91,19 @@ namespace DancePro.iOS.ViewControllers
                 var completed = Model.GetCompletedCount();
                 var downloading = Model.GetDownloadCount();
                 TotalLabel.Text = $"({completed} / {downloading})";
-
+                if (!isDownloading)
+                {
+                    isDownloading = true;
+                    OverlaySetup();
+                }
                 if (completed == downloading)
                 {
                     TotalLabel.TextColor = AppDelegate.DanceProBlue;
                     Analytics.TrackEvent("[Transfer] Transfer Complete");
+                    isDownloading = false;
+                    RemoveOverlay();
                 }
-                else
-                {
-                    TotalLabel.TextColor = UIColor.Black;
-                }
+
             });
 
         }
@@ -93,10 +121,9 @@ namespace DancePro.iOS.ViewControllers
             else
             {
                 Analytics.TrackEvent("[Transfer] Enabling Server Listening");
-                DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
-                {
-                    BackgroundConnectAsync();
-                });
+                AddressLabel.Text = "Downloads";
+                Connect();
+                
             }
             
         }
@@ -115,31 +142,6 @@ namespace DancePro.iOS.ViewControllers
             //AddressLabel.Text = $"{NetworkService.Address}:{NetworkService.Port}";
         }
 
-        private async void BackgroundConnectAsync()
-        {
-            Model.ConnectToWifi(SetDeviceText);
-            //Check if failed to connect to wifi
-            Console.WriteLine("Connecting...");
-            InvokeOnMainThread(() =>
-            {
-                SetDeviceText("Connecting");
-            }); 
-            while (!cancelUIUpdate && !Model.isNetworkListening())
-            {
-                //Console.WriteLine(Model.isNetworkListening());
-                Model.Connect();
-                await Task.Delay(1000);
-                InvokeOnMainThread(() =>
-                {
-                    Console.WriteLine("Updating UI...");
-                    SetDeviceText();
-                    ToggleButtonText();
-                    return;
-                });
-            }
-            cancelUIUpdate = false;
-        }
-
 
         public override void DidReceiveMemoryWarning()
         {
@@ -153,10 +155,7 @@ namespace DancePro.iOS.ViewControllers
             base.ViewDidAppear(animated);
             UIApplication.SharedApplication.IdleTimerDisabled = true;
             SetDeviceText("Not Connected");
-            DispatchQueue.GetGlobalQueue(DispatchQueuePriority.Default).DispatchAsync(() =>
-            {
-                BackgroundConnectAsync();
-            });
+            Connect();
         }
 
         public override void ViewWillDisappear(bool animated)
@@ -174,16 +173,69 @@ namespace DancePro.iOS.ViewControllers
 
         private void SetDeviceText(string text)
         {
-            if(text == "Wifi Declined")
-            {
-                cancelUIUpdate = true;
-            }
             AddressLabel.Text = text;
         }
 
         private void ToggleButtonText()
         { 
             ToggleButton.SetTitle(Model.GetButtonText(), UIControlState.Normal);
+        }
+
+        private void Connect()
+        {
+            if (Model.isOnWifi())
+            {
+                Model.Connect();
+            }
+            else
+            {
+                Model.ConnectToWifi();
+            }
+        }
+
+        private async void DelayedConnectAsync()
+        {
+            SetDeviceText("Connecting...");
+            await Task.Delay(1500);
+            Model.Connect();
+        }
+
+        private void OverlaySetup()
+        {
+            AddressLabel.Text = "Downloading...";
+            DownloadsLabel.Text = "Stay on this screen";
+            UIView mainView = UIApplication.SharedApplication.KeyWindow.RootViewController.View;
+            UIView Overlay = new UIView(mainView.Frame);
+            Overlay.Layer.BorderColor = CoreGraphics.CGColor.CreateSrgb(255, 0, 0, 50);
+            Overlay.BackgroundColor = UIColor.FromRGBA(0, 0, 0, 100);
+            Overlay.Layer.BorderWidth = 5;
+            Overlay.Layer.ZPosition = 5;
+            Overlay.Tag = 43;
+            Overlay.Alpha = new nfloat(0.9);
+            UIActivityIndicatorView activity = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
+            var activityWidth = activity.Frame.Width * 2;
+            var activityHeight = activity.Frame.Height * 2;
+            var activityX = mainView.Frame.Width / 2 - activity.Frame.Width;
+            var activityY = mainView.Frame.Height / 2 - activity.Frame.Height;
+            CoreGraphics.CGRect rect = new CoreGraphics.CGRect(activityX, activityY, activityWidth, activityHeight);
+            activity.Frame = rect;
+            activity.StartAnimating();
+            Overlay.AddSubview(activity);
+            mainView.AddSubview(Overlay);
+        }
+
+        private void RemoveOverlay()
+        {
+            foreach (var view in UIApplication.SharedApplication.KeyWindow.RootViewController.View.Subviews)
+            {
+                if(view.Tag == 43)
+                {
+                    view.RemoveFromSuperview();
+                    view.Dispose();
+                }
+            }
+            AddressLabel.Text = "Transfer Complete!";
+            DownloadsLabel.Text = "Please check your media";
         }
 
     }

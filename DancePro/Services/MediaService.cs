@@ -5,6 +5,7 @@ using DancePro.Models;
 using System.IO.Compression;
 using System.Threading.Tasks;
 
+
 #if __IOS__
 using Foundation;
 using UIKit;
@@ -147,16 +148,18 @@ namespace DancePro.Services
             byte[] FileData = new byte[FileContents.Length];
             FileContents.CopyTo(FileData, 0);
             NewDownloadModel model = new NewDownloadModel(id, Filename,status: NewDownloadModel.DownloadStatus.Copying);
+            model.FilePath = GetMediaPath() + FilePath;
             OnDownloadUpdate(this, model);
             Console.WriteLine("[Media] Copying " + "(" + id + ") " + model.FileName + "...");
             if (IsValidFileType(Filename))
             {
                 try
                 {
+
                     string fullPath = GetMediaPath() + FilePath;
                     if (!Directory.Exists(fullPath))
                     {
-                        Directory.CreateDirectory(fullPath);
+                        Directory.CreateDirectory(fullPath); 
                     }
 
                     string fileName = fullPath + Filename;
@@ -195,6 +198,10 @@ namespace DancePro.Services
 
         public async Task<List<MediaObject>> SearchAsync(string folderName, string searchParam)
         {
+            if(folderName == "")
+            {
+                folderName = GetMediaPath();
+            }
             if (string.IsNullOrWhiteSpace(searchParam) || !Directory.Exists(folderName)) return null;
 
             List<MediaObject> results = new List<MediaObject>();
@@ -570,7 +577,7 @@ namespace DancePro.Services
             Console.WriteLine(File.Exists(path));
             Console.WriteLine(path);
             Console.WriteLine(Path.GetExtension(path));
-            if (!File.Exists(path) || Path.GetExtension(path) != ".zip") return null;
+            if (Path.GetExtension(path) != ".zip") return null;
 
             var dir = "Download-" + Path.GetFileNameWithoutExtension(path);
             Console.WriteLine("Directory: " + dir);
@@ -599,7 +606,7 @@ namespace DancePro.Services
             return false;
         }
 
-        
+
 
     }
 }

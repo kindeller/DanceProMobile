@@ -18,6 +18,7 @@ namespace DancePro.iOS.ViewControllers
     {
         List<MediaObject> MediaObjects = new List<MediaObject>();
         DirectoryInfo CurrentDirectory;
+        int DragItemSourceIndex = 0;
         //UIAlertController CurrentNetworkAlert;
         
 
@@ -151,8 +152,60 @@ namespace DancePro.iOS.ViewControllers
                 TintColor = UIColor.DarkTextColor
             };
             NavigationController.NavigationBar.TopItem.LeftBarButtonItem = newFolderButton;
-            
-            
+
+            //TODO: Search button version - Not ideal update UI to have a search bar
+            //var searchButton = new UIBarButtonItem(UIImage.FromBundle("DanceProLogoIcon"), UIBarButtonItemStyle.Plain, (sender, e) =>
+            //  {
+
+            //      Analytics.TrackEvent("[MyMedia] Pressed Search Button");
+            //      var alert = UIAlertController.Create("Search", "Enter Search Criteria", UIAlertControllerStyle.Alert);
+            //      var actionCancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
+            //      var actionOk = UIAlertAction.Create("Go", UIAlertActionStyle.Default, (obj) =>
+            //      {
+            //          var search = alert.TextFields[0].Text;
+            //          SearchMedia(search);
+
+            //      });
+            //      alert.AddTextField((obj) => obj.Placeholder = "");
+            //      alert.AddAction(actionCancel);
+            //      alert.AddAction(actionOk);
+            //      PresentViewController(alert, true, null);
+
+            //  });
+            //NavigationController.NavigationBar.TopItem.RightBarButtonItem = searchButton;
+            UISearchBar searchBar = new UISearchBar();
+            var height = MediaCollectionView.Frame.Size.Height / 12;
+            CoreGraphics.CGRect frame = new CoreGraphics.CGRect(
+                MediaCollectionView.Frame.Location.X,
+                MediaCollectionView.Frame.Location.Y,
+                MediaCollectionView.Frame.Size.Width,
+                height);
+            searchBar.Frame = frame;
+            frame = new CoreGraphics.CGRect(
+                MediaCollectionView.Frame.Location.X,
+                MediaCollectionView.Frame.Location.Y - height,
+                MediaCollectionView.Frame.Size.Width,
+                MediaCollectionView.Frame.Size.Height - height
+                );
+            MediaCollectionView.Frame = frame;
+            MediaCollectionView.AddSubview(searchBar);
+            searchBar.Hidden = true;
+
+        }
+
+        private async void SearchMedia(string searchText)
+        {
+
+            //TODO: Add String validation
+            if (string.IsNullOrWhiteSpace(searchText))
+            { 
+                return;
+            }
+
+            List<MediaObject> objects = await App.MediaService.SearchAsync("",searchText);
+            MediaObjects = objects;
+            ReloadMediaList();
+
         }
 
         public override void ViewDidAppear(bool animated)
@@ -341,7 +394,9 @@ namespace DancePro.iOS.ViewControllers
             MyMediaViewCell cell = collectionView.CellForItem(indexPath) as MyMediaViewCell;
             if(cell != null && cell.MediaObject.MediaType != MediaTypes.Other)
             {
-                Analytics.TrackEvent("[MyMedia] Attempting Drag of Media Item");
+                Console.WriteLine($"[MyMedia] Attempting Drag of Media Item {cell.MediaObject.FileName}");
+                Analytics.TrackEvent($"[MyMedia] Attempting Drag of Media Item {cell.MediaObject.FileName}");
+                DragItemSourceIndex = int.Parse(indexPath.Item.ToString());
                 NSItemProvider provider = new NSItemProvider(cell, "object");
                 UIDragItem item = new UIDragItem(provider);
                 item.LocalObject = cell;
@@ -371,34 +426,60 @@ namespace DancePro.iOS.ViewControllers
 
                     if(cell != null && (cell.MediaObject.MediaType == MediaTypes.Folder || cell.MediaObject.MediaType == MediaTypes.Other))
                     {
-                        Analytics.TrackEvent("[MyMedia] Dropping Media Item");
-                        foreach (var item in coordinator.Items)
+                        Analytics.TrackEvent($"[MyMedia] Dropping Media Item into {cell.MediaObject.FileName}");
+                        //foreach (var item in coordinator.Items)
+                        //{
+                        //    MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
+                        //    if(mediaViewCell != null)
+                        //    {
+                        //        Console.WriteLine($"[MyMedia] Dropping Media Item {mediaViewCell.MediaObject.FileName} into {cell.MediaObject.FileName}");
+
+
+                        //        if (mediaViewCell.MediaObject.MediaType == MediaTypes.Folder) //Item is a folder
+                        //        {
+                        //            //Attempt move Folder
+                        //            if(App.MediaService.MoveFolder(mediaViewCell.MediaObject, cell.MediaObject))
+                        //            {
+                        //                //If successful change directory to new directory.
+                        //                ChangeDirectory(CurrentDirectory.FullName);
+                        //            }
+                        //        }
+                        //        else
+                        //        {
+                        //            //Attempt move Media Object
+                        //            if (App.MediaService.MoveMediaObject(mediaViewCell.MediaObject, cell.MediaObject.FilePath))
+                        //            {
+                        //                //If successful change directory to new directory.
+                        //                ChangeDirectory(CurrentDirectory.FullName);
+                        //            }
+                        //        }
+
+
+                        //    }
+                        //}
+                        MyMediaUICollectionSource source = (MyMediaUICollectionSource)collectionView.WeakDelegate;
+                        MediaObject dragItemMediaObject = source.MediaObjects[DragItemSourceIndex];
+
+                        if (dragItemMediaObject.MediaType == MediaTypes.Folder) //Item is a folder
                         {
-                            MyMediaViewCell mediaViewCell = (MyMediaViewCell)item.DragItem.LocalObject;
-                            if(mediaViewCell != null)
+                            //Attempt move Folder
+                            if (App.MediaService.MoveFolder(dragItemMediaObject, cell.MediaObject))
                             {
-                                if(mediaViewCell.MediaObject.MediaType == MediaTypes.Folder) //Item is a folder
-                                {
-                                    //Attempt move Folder
-                                    if(App.MediaService.MoveFolder(mediaViewCell.MediaObject, cell.MediaObject))
-                                    {
-                                        //If successful change directory to new directory.
-                                        ChangeDirectory(cell.MediaObject.FilePath);
-                                    }
-                                }
-                                else
-                                {
-                                    //Attempt move Media Object
-                                    if (App.MediaService.MoveMediaObject(mediaViewCell.MediaObject, cell.MediaObject.FilePath))
-                                    {
-                                        //If successful change directory to new directory.
-                                        ChangeDirectory(cell.MediaObject.FilePath);
-                                    }
-                                }
-
-
+                                //If successful change directory to new directory.
+                                ChangeDirectory(CurrentDirectory.FullName);
                             }
                         }
+                        else
+                        {
+                            //Attempt move Media Object
+                            if (App.MediaService.MoveMediaObject(dragItemMediaObject, cell.MediaObject.FilePath))
+                            {
+                                //If successful change directory to new directory.
+                                ChangeDirectory(CurrentDirectory.FullName);
+                            }
+                        }
+
+
                     }
                     else
                     {

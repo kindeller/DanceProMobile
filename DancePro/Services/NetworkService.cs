@@ -94,13 +94,13 @@ namespace DancePro.Services
             
             if (isListening) return;
             Initialise();
-            if (ValidateNetwork())
+            if (isOnWifi())
             {
                 try
                 {
                     SetIsListening(true);
                     handler.ListenAsynchronously(prefixes);
-                    OnServerConnected.Invoke(this,null);
+                    OnServerConnected?.Invoke(this,null);
                 }
                 catch(Exception e)
                 {
@@ -121,15 +121,6 @@ namespace DancePro.Services
             handler.StopListening();
             SetIsListening(false);
             DisconnectFromWifi();
-        }
-
-        public bool ValidateNetwork()
-        {
-            if (isOnWifi())
-            {
-                return true;
-            }
-            return false;
         }
 
         public bool isOnWifi()
@@ -153,6 +144,7 @@ namespace DancePro.Services
 
         public abstract IPAddress GetIP();
 
+        
         public abstract void ConnectToWifi();
 
         public string GetDeviceID()
