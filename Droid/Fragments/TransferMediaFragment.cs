@@ -145,6 +145,10 @@ namespace DancePro.Droid
                     textStatus.Text = "Status: Connecting...";
                     Connect();
                 }
+                else
+                {
+                    ViewModel?.Disconnect();
+                }
             }
         }
 

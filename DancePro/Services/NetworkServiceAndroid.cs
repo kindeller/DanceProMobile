@@ -111,7 +111,7 @@ namespace DancePro.Services
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Q)
             {
                 Manager = Application.Context.GetSystemService(Context.ConnectivityService) as ConnectivityManager;
-                _networkCallback = new LegacyNetworkCallback(Manager)
+                _networkCallback = new NetworkCallback(Manager)
                 {
                     NetworkAvailable = network =>
                     {
@@ -170,6 +170,7 @@ namespace DancePro.Services
 
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Q)
             {
+                Manager?.UnregisterNetworkCallback(_networkCallback);
                 LegacyDisconnectFromWifi();
                 return;
             }
