@@ -30,21 +30,29 @@ namespace DancePro.iOS
             //TransferMediaSubtitle.Font = MyMediaSubtitle.Font;
             //WebsiteSubtitle.Font = MyMediaSubtitle.Font;
             AddButtonText(MediaButton, "View and manage your personal DancePro media gallery.");
-            AddButtonText(TransferButton, "Transfer media at an event captured by DancePro.");
-            AddButtonText(WebsiteButton, "Visit our Website for other competitions and events.");
+            AddButtonText(TransferButton, "Transfer photos and videos onto your device from our kiosk during a competition.");
+            AddButtonText(WebsiteButton, "Visit our website to view and purchase concert photos and videos.");
+            UIImageView image = new UIImageView(UIImage.FromBundle("MenuBackground"));
+            
+            image.ContentMode = UIViewContentMode.ScaleAspectFill;
+            image.Frame = View.Frame;
+            image.Layer.ZPosition = -1;
+            image.Alpha = new nfloat(0.25);
+            View.AddSubview(image);
         }
 
         private void AddButtonText(UIButton button, string text)
         {
 
             var x = 0;
-            var y = button.Frame.Height / 8;
-            var width = button.Frame.Width;
-            var height = button.Frame.Height / 2;
+            var y = button.Frame.Height - 5;
+            var width = View.Frame.Width;
+            var height = button.Frame.Height * 1.5;
             UILabel label = new UILabel(new CoreGraphics.CGRect(x, y, width, height));
             label.Lines = 2;
             label.TextAlignment = UITextAlignment.Center;
             label.Text = text;
+            
             button.AddSubview(label);
         }
 

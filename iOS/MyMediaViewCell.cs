@@ -27,10 +27,10 @@ namespace DancePro.iOS
             Controller = controller;
             MediaObject = mediaObject;
             Layer.BorderColor = UIColor.DarkGray.CGColor;
-            Title.Text = mediaObject.FileName;
+            Title.Text = System.IO.Path.GetFileNameWithoutExtension(mediaObject.FileName);
             DateLabel.Text = mediaObject.DateCreated.ToShortDateString();
             ThumbImage.Image = MediaObject.GetThumb();
-            ThumbImage.ContentMode = UIViewContentMode.ScaleAspectFit;
+            ThumbImage.ContentMode = UIViewContentMode.ScaleToFill;
 
             if(mediaObject.MediaType == MediaTypes.Other)
             {
@@ -41,7 +41,7 @@ namespace DancePro.iOS
                 DateLabel.Enabled = false;
                 DateLabel.Hidden = true;
                 Title.TextAlignment = UITextAlignment.Center;
-                
+                BackgroundColor = UIColor.SystemBackgroundColor;
             }
             else
             {
@@ -50,6 +50,17 @@ namespace DancePro.iOS
                 DateLabel.Enabled = true;
                 DateLabel.Hidden = false;
                 Title.TextAlignment = UITextAlignment.Left;
+                BackgroundColor = UIColor.FromName("CellBgColor");
+            }
+
+            if(mediaObject.MediaType == MediaTypes.Folder)
+            {
+                optionalLabel.Text = $"({System.IO.Directory.GetFiles(mediaObject.FilePath).Length})";
+                ThumbImage.ContentMode = UIViewContentMode.ScaleAspectFit;
+            }
+            else
+            {
+                optionalLabel.Text = "";
             }
         }
 

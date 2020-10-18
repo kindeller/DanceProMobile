@@ -49,26 +49,26 @@ namespace DancePro.Services
             return null;
         }
 
-
-        public override void ConnectToWifi(Action<string> callback)
+        public override void ConnectToWifi()
         {
             // -- Not implimented yet but added for future.
             config.JoinOnce = true;
             config.LifeTimeInDays = 1;
+
             // -- End
 
-            WifiManager.ApplyConfiguration(config, (NSError e) => {
-                if(e != null)
+            NEHotspotConfigurationManager.SharedManager.RemoveConfiguration(config.Ssid);
+
+            NEHotspotConfigurationManager.SharedManager.ApplyConfiguration(config, (NSError e) => {
+                if (e != null)
                 {
                     Console.WriteLine("Failed to Connect to WIFI");
-                    callback("Wifi Declined");
+                    WifiConnectFail();
                 }
                 else
                 {
-                    callback("Enabling Network");
+                    WifiConnectSuccess();
                 }
-                
-
             });
         }
 

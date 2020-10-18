@@ -105,11 +105,6 @@ namespace DancePro.iOS
                     }
                 }
 
-                
-
-
-
-
             return false;
         }
 
@@ -121,5 +116,6 @@ namespace DancePro.iOS
 
             return false;
         }
+
     }
 }

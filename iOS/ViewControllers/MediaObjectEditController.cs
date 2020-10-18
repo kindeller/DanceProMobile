@@ -137,22 +137,19 @@ namespace DancePro.iOS.ViewControllers
                     }
                     break;
                 case MediaTypes.Folder:
-                    UIAlertController controller = UIAlertController.Create("Save Folder?", "Would you like to save the folder contents to camera roll? (Video and Image Only)", UIAlertControllerStyle.Alert);
-                    controller.AddAction(UIAlertAction.Create("Save", UIAlertActionStyle.Default, (obj) => {
-                        var list = App.MediaService.GetMediaFromFolder(MediaObject.FilePath);
-                        foreach(var mo in list)
-                        {
-                            SaveMediaItemToCamera(mo);   
-                        }
-                    }));
-                    controller.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
-                    PresentAlert(controller);
-                    return;
+                    List<MediaObject> files = App.MediaService.GetMediaFromFolder(MediaObject.FilePath);
+                    List<NSUrl> fileURLS = new List<NSUrl>();
+                    foreach (var file in files)
+                    {
+                        fileURLS.Add(NSUrl.CreateFileUrl(new[] { file.FilePath }));
+                    }
+                    items = fileURLS.ToArray();
+                    break;
             }
             activity = new UIActivityViewController(items,null);
             activity.ExcludedActivityTypes = new[]
             {
-                UIActivityType.AirDrop,
+                //UIActivityType.AirDrop,
                 //UIActivityType.SaveToCameraRoll, Remove to disable Save to Camera Roll
                 UIActivityType.CopyToPasteboard,
                 UIActivityType.OpenInIBooks,
@@ -160,6 +157,11 @@ namespace DancePro.iOS.ViewControllers
                 //new NSString("com.apple.mobilenotes.SharingExtension"),
                 //new NSString("com.apple.reminders.RemindersEditorExtension")
             };
+            ////Fix for iOS 14 iPad Share crash
+            if(UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Pad && activity.PopoverPresentationController != null)
+            {
+                activity.PopoverPresentationController.SourceView = ShareButton;
+            }
             PresentViewController(activity, true, null);
         }
 

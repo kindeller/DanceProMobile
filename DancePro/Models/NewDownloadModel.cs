@@ -7,10 +7,10 @@ namespace DancePro.Models
 
         public enum DownloadStatus
         {
+            Failed,
             Downloading,
             Copying,
-            Completed,
-            Failed
+            Completed
         }
 
         public int ID { get; set; }
@@ -18,6 +18,7 @@ namespace DancePro.Models
         public MediaTypes FileType { get; set; }
         public string Message { get; set; }
         public DownloadStatus Status {get;set;}
+        public string FilePath { get; set;}
 
         public NewDownloadModel(int id, string filename = "Unknown", MediaTypes type = MediaTypes.Other,DownloadStatus status = DownloadStatus.Downloading, string message = "Downloading...")
         {
@@ -35,6 +36,7 @@ namespace DancePro.Models
             FileType = model.FileType;
             Status = model.Status;
             Message = model.Message;
+            FilePath = model.FilePath;
         }
     }
 }

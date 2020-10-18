@@ -31,6 +31,23 @@ namespace DancePro.iOS.ViewControllers
         public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
         {
             //TODO: If required implimentation
+            TransferCollectionViewCell cell = (TransferCollectionViewCell)collectionView.CellForItem(indexPath);
+            string path = cell.GetMediaObjectPath();
+            path = System.IO.Directory.GetParent(path).FullName;
+            var controller = (TabBarController)UIApplication.SharedApplication.KeyWindow.RootViewController;
+            if (controller != null)
+            {
+                controller.SelectedIndex = 2;
+                var nav = (UINavigationController)controller.SelectedViewController;
+                var media = (MyMediaViewController)nav.VisibleViewController;
+                if (media != null)
+                {
+                    if (path != null)
+                    {
+                        media.ChangeDirectory(path);
+                    }
+                }
+            }
         }
 
     }

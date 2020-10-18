@@ -62,9 +62,12 @@ namespace DancePro.Services
                     // Set properties
                     this.ContentType = contentTypeMatch.Value.Trim();
                     this.Filename = filenameMatch.Value.Trim();
+                    
 
                     // Get the start & end indexes of the file contents
                     int startIndex = contentTypeMatch.Index + contentTypeMatch.Length + "\r\n\r\n".Length;
+                    //Adjust length for multi-code non english characters
+                    startIndex = Encoding.UTF8.GetByteCount(content.Substring(0, startIndex));
 
                     byte[] delimiterBytes = encoding.GetBytes("\r\n" + delimiter);
                     int endIndex = IndexOf(data, delimiterBytes, startIndex);

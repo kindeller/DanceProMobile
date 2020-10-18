@@ -19,7 +19,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer: Aaron Clifford (B6R53726FU)</CodesignKey>
+    <CodesignKey>Apple Development: Aaron Clifford (B6R53726FU)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchFastDev>true</MtouchFastDev>
@@ -28,8 +28,8 @@
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>Aarons iPhone Test Profile</CodesignProvision>
 <MtouchSdkVersion>12.2</MtouchSdkVersion>
+<CodesignProvision>iOSDevelopment12</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -53,13 +53,13 @@
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Distribution: Aaron Clifford (S6U58HK3W3)</CodesignKey>
+    <CodesignKey>Apple Distribution: Aaron Clifford (S6U58HK3W3)</CodesignKey>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>DancePro Dist Profile</CodesignProvision>
+<SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,7 +69,7 @@
     <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer: Aaron Clifford (B6R53726FU)</CodesignKey>
+    <CodesignKey>Apple Development: Aaron Clifford (B6R53726FU)</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
@@ -81,7 +81,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>iPhoneXSDevelopment</CodesignProvision>
+    <CodesignProvision>iOSDevelopment12</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -186,14 +186,8 @@
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 60.png" />
     <ImageAsset Include="Assets.xcassets\Icon_Save.imageset\Save Icon Blue 90.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-1.png" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-2.png" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-3.png" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-4.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-5.png" />
-    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-6.png" />
     <ImageAsset Include="Assets.xcassets\Back.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue.png" />
     <ImageAsset Include="Assets.xcassets\DanceProLogoIcon.imageset\Icon DP Blue-1.png" />
@@ -268,6 +262,10 @@
     <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 60d-1.png" />
     <ImageAsset Include="Assets.xcassets\Audio.imageset\Audio Blue Icon 90d-1.png" />
     <ImageAsset Include="Assets.xcassets\CellBgColor.colorset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE REVERSE-7.png" />
+    <ImageAsset Include="Assets.xcassets\DanceProLogo.imageset\DP P&amp;V COL LANDSCAPE.png" />
+    <ImageAsset Include="Assets.xcassets\MenuBackground.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\MenuBackground.imageset\background-1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewControllers\DetailViewControllers\BrowseItemDetailViewController.cs" />
@@ -432,6 +430,7 @@
     <Folder Include="Assets.xcassets\MediaCellBackground.colorset\" />
     <Folder Include="Assets.xcassets\DanceProBlue.colorset\" />
     <Folder Include="Assets.xcassets\CellBgColor.colorset\" />
+    <Folder Include="Assets.xcassets\MenuBackground.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Root\index.html">

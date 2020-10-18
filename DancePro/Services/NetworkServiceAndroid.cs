@@ -164,6 +164,9 @@ namespace DancePro.Services
 
         }
 
+        public override void ConnectToWifi(Action<string> callback(){
+            throw new NotImplementedException();
+        }
         
         public override void DisconnectFromWifi()
         {
